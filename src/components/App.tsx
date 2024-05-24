@@ -5,7 +5,7 @@
 //   getUsers,
 // } from "./firebase/firebaseService.js";
 
-function App() {
+export const App = () => {
   // getCashboxes().then((res) => {
   //   console.log("cashboxes=>", res);
   // });
@@ -18,11 +18,10 @@ function App() {
   // getUsers().then((res) => {
   //   console.log("Users=>", res);
   // });
+
   return (
     <>
       <h1>Online Cash App</h1>
     </>
   );
-}
-
-export default App;
+};
