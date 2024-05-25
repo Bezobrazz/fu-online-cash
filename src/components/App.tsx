@@ -1,11 +1,13 @@
+
 // import {
 //   getCashboxes,
 //   getEnterprises,
 //   getSalePoints,
 //   getUsers,
-// } from "./firebase/firebaseService.js";
+// } from "../firebase/firebaseService";
 
 function App() {
+
   // getCashboxes().then((res) => {
   //   console.log("cashboxes=>", res);
   // });
@@ -18,6 +20,8 @@ function App() {
   // getUsers().then((res) => {
   //   console.log("Users=>", res);
   // });
+
+ 
   return (
     <>
       <h1>Online Cash App</h1>
