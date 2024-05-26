@@ -3,7 +3,7 @@
 //   getEnterprises,
 //   getSalePoints,
 //   getUsers,
-// } from "./firebase/firebaseService.js";
+// } from "../firebase/firebaseService";
 
 export const App = () => {
   // getCashboxes().then((res) => {
