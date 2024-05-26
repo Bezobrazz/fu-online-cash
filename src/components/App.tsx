@@ -1,4 +1,3 @@
-
 // import {
 //   getCashboxes,
 //   getEnterprises,
@@ -6,8 +5,7 @@
 //   getUsers,
 // } from "../firebase/firebaseService";
 
-function App() {
-
+export const App = () => {
   // getCashboxes().then((res) => {
   //   console.log("cashboxes=>", res);
   // });
@@ -21,12 +19,9 @@ function App() {
   //   console.log("Users=>", res);
   // });
 
- 
   return (
     <>
       <h1>Online Cash App</h1>
     </>
   );
-}
-
-export default App;
+};
