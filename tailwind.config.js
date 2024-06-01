@@ -9,6 +9,7 @@ export default {
     extend: {},
   },
   plugins: [
+    require("daisyui"),
     ({ addComponents }) => {
       const paddingX = "16px";
       const paddingXLg = "15px";

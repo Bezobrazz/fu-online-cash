@@ -5,7 +5,7 @@ import {
   getUsers,
 } from "../firebase/firebaseService";
 
-import { ShiftStartConfirm, Modal, StartScreen } from "../components";
+import { ShiftStartConfirm, Modal, StartScreen, Sidebar } from "../components";
 
 import { useModal } from "../hooks";
 
@@ -28,6 +28,7 @@ export const App = () => {
   return (
     <>
       <h1>Online Cash App</h1>
+      <Sidebar />
       <StartScreen />
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>
