@@ -1,3 +1,9 @@
+import { AiFillUnlock } from "react-icons/ai";
+import { AiOutlineDoubleRight } from "react-icons/ai";
+import { ImLocation } from "react-icons/im";
+import { BsGearWideConnected } from "react-icons/bs";
+import { BsFillBoxSeamFill } from "react-icons/bs";
+import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 export const Sidebar = () => {
   return (
@@ -15,20 +21,44 @@ export const Sidebar = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content gap-3">
           {/* Sidebar content here */}
-          <li className="flex">
-            <FaFileInvoiceDollar className="fill-white" />{" "}
-            <a>Створити продаж</a>
+          <li>
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col items-start">
+                <p className="font-bold text-lg flex items-center gap-2">
+                  <ImLocation /> Форест Малехів
+                </p>
+                <p className="text-sm">Каса 1</p>
+              </div>
+              <AiOutlineDoubleRight />{" "}
+            </div>
+          </li>
+          <li className="flex align-middle">
+            {" "}
+            <a>
+              <FaFileInvoiceDollar /> Створити продаж
+            </a>
           </li>
           <li>
-            <a>Історія Продажів</a>
+            <a>
+              <BsFillStopwatchFill /> Історія Продажів
+            </a>
           </li>
           <li>
-            <a>Товари / Послуги</a>
+            <a>
+              <BsFillBoxSeamFill /> Товари / Послуги
+            </a>
           </li>
           <li>
-            <a>Налаштування</a>
+            <a>
+              <AiFillUnlock /> Відкрити зміну
+            </a>
+          </li>
+          <li>
+            <a>
+              <BsGearWideConnected /> Налаштування
+            </a>
           </li>
         </ul>
       </div>
