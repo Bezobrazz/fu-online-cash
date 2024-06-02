@@ -5,7 +5,13 @@ import {
   getUsers,
 } from "../firebase/firebaseService";
 
-import { ShiftStartConfirm, Modal, StartScreen, Sidebar } from "../components";
+import {
+  ShiftStartConfirm,
+  Modal,
+  StartScreen,
+  Sidebar,
+  SharedLayout,
+} from "../components";
 
 import { useModal } from "../hooks";
 
@@ -27,15 +33,16 @@ export const App = () => {
 
   return (
     <>
+      <SharedLayout />
       <h1>Online Cash App</h1>
-      <Sidebar />
+      {/* <Sidebar />
       <StartScreen />
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>
           {" "}
           <ShiftStartConfirm toggleModal={toggleModal} />
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
