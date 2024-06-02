@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import daisyui from "daisyui";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -9,7 +10,6 @@ export default {
     extend: {},
   },
   plugins: [
-    require("daisyui"),
     ({ addComponents }) => {
       const paddingX = "16px";
       const paddingXLg = "15px";
@@ -34,5 +34,9 @@ export default {
         },
       });
     },
+    daisyui,
   ],
+  daisyui: {
+    themes: ["light"],
+  },
 };
