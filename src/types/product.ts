@@ -1,9 +1,8 @@
-import { SalePoint } from ".";
-
 export interface Product {
   id: string;
   name: string;
   article: string;
+  category: string;
   price: number;
-  salePoint: SalePoint;
+  salePoint: string;
 }
