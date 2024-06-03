@@ -1,9 +1,15 @@
-import { SalePoint } from "./salePoint.ts";
-import { User } from "./user.ts";
+interface Money {
+  card: number;
+  cash: number;
+}
 
 export interface Cashbox {
   id: string;
   title: string;
-  employee: User;
-  salePoint: SalePoint;
+  employee: string;
+  salePoint: string;
+  money: Money;
+  isOpen: boolean;
+  openTime: Date;
+  closeTime: Date;
 }
