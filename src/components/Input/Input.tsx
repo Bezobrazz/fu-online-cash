@@ -8,6 +8,7 @@ interface InputProps {
   defaultValue?: string | number;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
+  autocomplete?: string;
 }
 
 export const Input = ({
@@ -18,6 +19,7 @@ export const Input = ({
   defaultValue,
   register,
   errors,
+  autocomplete = "on",
 }: InputProps) => {
   const inputProps = {
     className: "field",
@@ -25,6 +27,7 @@ export const Input = ({
     placeholder,
     defaultValue,
     ...register(name),
+    autocomplete,
   };
 
   const errorMessage = errors[name]?.message as string | undefined;

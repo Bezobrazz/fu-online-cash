@@ -15,6 +15,7 @@ interface FormData {
 interface DepositFormProps {
   toggleModal: () => void;
 }
+
 export const DepositForm = ({ toggleModal }: DepositFormProps) => {
   const {
     register,
@@ -43,6 +44,7 @@ export const DepositForm = ({ toggleModal }: DepositFormProps) => {
         placeholder="Введіть суму"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
+        autocomplete="off"
       />
       <div className="flex justify-between gap-5">
         <Button
