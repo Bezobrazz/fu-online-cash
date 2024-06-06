@@ -16,6 +16,10 @@ import {
 } from "../components";
 
 import { useModal } from "../hooks";
+import { Routes, Route } from "react-router-dom";
+import CreateSale from "../pages/CreateSale";
+import SalesHistory from "../pages/SalesHistory";
+import ProductsServices from "../pages/ProductsServices";
 
 export const App = () => {
   const [isOpenModal, toggleModal] = useModal();
@@ -34,20 +38,23 @@ export const App = () => {
   });
 
   return (
-    <>
-      {/* <SharedLayout />
-      <h1>Online Cash App</h1> */}
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<StartScreen />} />
+        <Route path="create-sale" element={<CreateSale />} />
+        <Route path="sales-history" element={<SalesHistory />} />
+        <Route path="products-services" element={<ProductsServices />} />
+      </Route>
+
+      {/* <Sidebar />
+      <StartScreen />
       {isOpenModal && (
-        <Modal toggleModal={toggleModal} title="Внести готівку">
+        <Modal toggleModal={toggleModal}>
           {" "}
-          {/* <ShiftStartConfirm toggleModal={toggleModal} /> */}
-          <DepositForm toggleModal={toggleModal} />
+          <ShiftStartConfirm toggleModal={toggleModal} />
         </Modal>
-      )}
-      <Button type="button" className="ordinary-btn" onClick={toggleModal}>
-        Open Modal
-      </Button>
-    </>
+      )} */}
+    </Routes>
   );
 };
 

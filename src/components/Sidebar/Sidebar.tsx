@@ -5,6 +5,7 @@ import { BsGearWideConnected } from "react-icons/bs";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 export const Sidebar = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -39,19 +40,19 @@ export const Sidebar = () => {
           </li>
           <li className="flex align-middle">
             {" "}
-            <a>
+            <Link to="create-sale">
               <FaFileInvoiceDollar /> Створити продаж
-            </a>
+            </Link>
           </li>
           <li>
-            <a>
+            <Link to="sales-history">
               <BsFillStopwatchFill /> Історія Продажів
-            </a>
+            </Link>
           </li>
           <li>
-            <a>
+            <Link to="products-services">
               <BsFillBoxSeamFill /> Товари / Послуги
-            </a>
+            </Link>
           </li>
           <li>
             <a>
