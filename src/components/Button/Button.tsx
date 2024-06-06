@@ -13,7 +13,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button className={className} type={type} {...props}>
+    <button className={`btn-style ${className}`} type={type} {...props}>
       {children}
     </button>
   );

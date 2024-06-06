@@ -5,13 +5,14 @@ import {
   getUsers,
 } from "../firebase/firebaseService";
 
-
 import {
   ShiftStartConfirm,
   Modal,
   StartScreen,
   Sidebar,
   SharedLayout,
+  Button,
+  DepositForm,
 } from "../components";
 
 import { useModal } from "../hooks";
@@ -39,13 +40,12 @@ export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route index element={<StartScreen/>}/>
-        <Route path="create-sale" element={<CreateSale/>}/>
-        <Route path="sales-history" element={<SalesHistory/>}/>
-        <Route path="products-services" element={<ProductsServices/>}/>
+        <Route index element={<StartScreen />} />
+        <Route path="create-sale" element={<CreateSale />} />
+        <Route path="sales-history" element={<SalesHistory />} />
+        <Route path="products-services" element={<ProductsServices />} />
       </Route>
-      
-      
+
       {/* <Sidebar />
       <StartScreen />
       {isOpenModal && (
