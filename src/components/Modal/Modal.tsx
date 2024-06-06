@@ -1,16 +1,17 @@
 import ReactDOM from "react-dom";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
 
 import { useEscapeKeyClose } from "../../hooks/useEscapeKeyClose";
 
 interface ModalProps {
+  title?: string;
   children: React.ReactNode;
   toggleModal: () => void;
 }
 
 const modalRoot = document.querySelector("#modalRoot")!;
 
-export const Modal = ({ children, toggleModal }: ModalProps) => {
+export const Modal = ({ children, title, toggleModal }: ModalProps) => {
   useEscapeKeyClose(toggleModal);
 
   const handleClickOnBackdrop = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -24,13 +25,18 @@ export const Modal = ({ children, toggleModal }: ModalProps) => {
       className="flex items-center justify-center fixed bg-black backdrop-blur-md bg-opacity-40 w-screen h-screen left-0 top-0 z-50"
       onClick={handleClickOnBackdrop}
     >
-      <div className="relative rounded-xl bg-teal-400 p-10">
+      <div className="relative bg-white">
+        {title && (
+          <h2 className="font-bold text-[20px] bg-teal-500 text-white py-3 px-5 shadow-sm">
+            {title}
+          </h2>
+        )}
         <button
           type="button"
           onClick={toggleModal}
-          className="absolute top-2.5 right-2.5"
+          className="absolute top-1.5 right-1.5"
         >
-          <IoMdCloseCircleOutline className="fill-red-500 size-6 hover:fill-red-600" />
+          <IoClose className={title ? "fill-gray-500" : "fill-black"} />
         </button>
         {children}
       </div>

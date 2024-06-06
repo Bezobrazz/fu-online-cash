@@ -11,25 +11,25 @@
   }
 }
 
-button {
-  width: 120px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
+.btn-style {
+  min-width: 120px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
 .primary-btn {
-  @apply text-white bg-teal-500 shadow-md hover:bg-teal-600;
+  @apply text-white bg-teal-500 shadow-sm hover:bg-teal-600;
 }
 
 .ordinary-btn {
-  @apply text-gray-500 bg-gray-200 shadow-md hover:bg-gray-300;
+  @apply text-gray-500 bg-gray-200 shadow-sm hover:bg-gray-300;
 }
 
 .label {
@@ -37,7 +37,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .field {
-  @apply text-[20px] border border-solid border-gray-500 rounded-md p-2.5 w-full focus:outline-none focus:border-teal-500;
+  @apply text-[18px] border border-solid border-gray-500 rounded-md py-2 px-2.5 w-full focus:outline-none focus:border-teal-500;
 }
 
 .field-error {

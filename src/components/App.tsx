@@ -38,7 +38,7 @@ export const App = () => {
       {/* <SharedLayout />
       <h1>Online Cash App</h1> */}
       {isOpenModal && (
-        <Modal toggleModal={toggleModal}>
+        <Modal toggleModal={toggleModal} title="Внести готівку">
           {" "}
           {/* <ShiftStartConfirm toggleModal={toggleModal} /> */}
           <DepositForm />
