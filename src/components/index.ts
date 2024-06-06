@@ -5,3 +5,4 @@ export * from "./StartScreen/StartScreen.tsx";
 export * from "./Modal/Modal.tsx";
 export * from "./Sidebar/Sidebar.tsx";
 export * from "./Button/Button.tsx";
+export * from "./Input/Input.tsx";
