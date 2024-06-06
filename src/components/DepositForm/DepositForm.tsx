@@ -12,7 +12,10 @@ interface FormData {
   deposit: number;
 }
 
-export const DepositForm = () => {
+interface DepositFormProps {
+  toggleModal: () => void;
+}
+export const DepositForm = ({ toggleModal }: DepositFormProps) => {
   const {
     register,
     handleSubmit,
@@ -42,7 +45,11 @@ export const DepositForm = () => {
         errors={errors}
       />
       <div className="flex justify-between gap-5">
-        <Button type="button" className="ordinary-btn w-1/2">
+        <Button
+          type="button"
+          className="ordinary-btn w-1/2"
+          onClick={toggleModal}
+        >
           Закрити
         </Button>
         <Button type="submit" className="primary-btn w-1/2">

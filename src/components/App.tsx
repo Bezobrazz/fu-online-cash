@@ -41,7 +41,7 @@ export const App = () => {
         <Modal toggleModal={toggleModal} title="Внести готівку">
           {" "}
           {/* <ShiftStartConfirm toggleModal={toggleModal} /> */}
-          <DepositForm />
+          <DepositForm toggleModal={toggleModal} />
         </Modal>
       )}
       <Button type="button" className="ordinary-btn" onClick={toggleModal}>
