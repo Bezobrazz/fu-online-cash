@@ -1,7 +1,7 @@
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface InputProps {
-  label: string;
+  label?: string;
   name: string;
   type?: "text" | "number";
   placeholder: string;
@@ -30,7 +30,7 @@ export const Input = ({
   const errorMessage = errors[name]?.message as string | undefined;
 
   return (
-    <div>
+    <div className="relative">
       <label className="label">
         {label}
         <input {...inputProps} />

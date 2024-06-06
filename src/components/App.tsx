@@ -11,6 +11,8 @@ import {
   StartScreen,
   Sidebar,
   SharedLayout,
+  Button,
+  DepositForm,
 } from "../components";
 
 import { useModal } from "../hooks";
@@ -33,16 +35,18 @@ export const App = () => {
 
   return (
     <>
-      <SharedLayout />
-      <h1>Online Cash App</h1>
-      {/* <Sidebar />
-      <StartScreen />
+      {/* <SharedLayout />
+      <h1>Online Cash App</h1> */}
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>
           {" "}
-          <ShiftStartConfirm toggleModal={toggleModal} />
+          {/* <ShiftStartConfirm toggleModal={toggleModal} /> */}
+          <DepositForm />
         </Modal>
-      )} */}
+      )}
+      <Button type="button" className="ordinary-btn" onClick={toggleModal}>
+        Open Modal
+      </Button>
     </>
   );
 };
