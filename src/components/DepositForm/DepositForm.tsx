@@ -1,5 +1,16 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitHandler,
+  UseFormRegister,
+  useForm,
+} from "react-hook-form";
 import { Button, Input } from "..";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { depositFormSchema } from "../../schemas";
+
+interface FormData {
+  deposit: number;
+}
 
 export const DepositForm = () => {
   const {
@@ -7,11 +18,12 @@ export const DepositForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<FormData>({
     mode: "onSubmit",
+    resolver: yupResolver(depositFormSchema),
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (date) => {
+  const onSubmit: SubmitHandler<FormData> = (date) => {
     console.log(date);
     reset();
   };
@@ -19,14 +31,14 @@ export const DepositForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-5 py-6 px-7 w-[360px]"
+      className="flex flex-col gap-6 py-6 px-7 w-[360px]"
     >
       <p>Поточний залишок в кассі: 777.00 &#8372;</p>
       <Input
         name="deposit"
-        type="number"
+        type="text"
         placeholder="Введіть суму"
-        register={register}
+        register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
       />
       <div className="flex justify-between gap-5">
