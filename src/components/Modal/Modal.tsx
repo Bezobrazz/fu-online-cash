@@ -25,7 +25,7 @@ export const Modal = ({ children, title, toggleModal }: ModalProps) => {
       className="flex items-center justify-center fixed bg-black backdrop-blur-md bg-opacity-40 w-screen h-screen left-0 top-0 z-50"
       onClick={handleClickOnBackdrop}
     >
-      <div className="relative bg-white">
+      <div className="relative bg-white max-w-[350px] md:max-w-[704px] lg:max-w-[1240px]">
         {title && (
           <h2 className="font-bold text-[20px] bg-teal-500 text-white py-3 px-5 shadow-sm">
             {title}
