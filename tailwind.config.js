@@ -5,14 +5,17 @@ export default {
   theme: {
     screens: {
       md: "768px",
-      lg: "1158px",
+      lg: "1440px",
     },
     extend: {},
+  },
+  corePlugins: {
+    container: false,
   },
   plugins: [
     ({ addComponents }) => {
       const paddingX = "16px";
-      const paddingXLg = "15px";
+      const paddingXLg = "100px";
       addComponents({
         ".container": {
           minWidth: "320px",
@@ -29,7 +32,7 @@ export default {
           "@screen lg": {
             paddingLeft: paddingXLg,
             paddingRight: paddingXLg,
-            maxWidth: "1158px",
+            maxWidth: "1440px",
           },
         },
       });

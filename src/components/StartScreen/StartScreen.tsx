@@ -12,7 +12,7 @@ export const StartScreen = () => {
           Щоб почати роботу з касою, відкрийте будь ласка, зміну
         </h2>
         <p
-          className="text-[20px] cursor-pointer hover:text-teal-400 transition duration-300"
+          className="text-[20px] cursor-pointer hover:text-teal-500 transition duration-300"
           onClick={toggleModal}
         >
           Відкрити зміну
