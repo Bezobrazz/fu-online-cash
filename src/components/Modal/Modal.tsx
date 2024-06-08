@@ -36,7 +36,7 @@ export const Modal = ({ children, title, toggleModal }: ModalProps) => {
           onClick={toggleModal}
           className="absolute top-1.5 right-1.5"
         >
-          <IoClose className={title ? "fill-gray-500" : "fill-black"} />
+          <IoClose className="fill-gray-800" />
         </button>
         {children}
       </div>
