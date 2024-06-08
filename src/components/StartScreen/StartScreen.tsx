@@ -1,4 +1,4 @@
-import { Modal, ShiftStartConfirm } from "../../components";
+import { Button, Modal, ShiftStartConfirm } from "../../components";
 
 import { useModal } from "../../hooks";
 
@@ -11,12 +11,9 @@ export const StartScreen = () => {
         <h2 className="text-[28px] text-center font-semibold">
           Щоб почати роботу з касою, відкрийте будь ласка, зміну
         </h2>
-        <p
-          className="text-[20px] cursor-pointer hover:text-teal-500 transition duration-300"
-          onClick={toggleModal}
-        >
+        <Button type="button" className="primary-btn" onClick={toggleModal}>
           Відкрити зміну
-        </p>
+        </Button>
       </div>
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>

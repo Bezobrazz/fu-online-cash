@@ -17,17 +17,10 @@ export const ShiftStartConfirm = ({ toggleModal }: ShiftStartConfirmProps) => {
         <p className="font-bold">710.00₴</p>
       </div>
       <div className="mx-auto md:w-1/2 flex justify-between">
-        <Button
-          type="button"
-          className="bg-teal-600 text-gray-200 font-semibold hover:text-gray-800 hover:bg-teal-300"
-        >
+        <Button type="button" className="primary-btn">
           Так
         </Button>
-        <Button
-          type="button"
-          className="font-semibold bg-slate-200 hover:text-gray-200 hover:bg-slate-600"
-          onClick={toggleModal}
-        >
+        <Button type="button" className="ordinary-btn" onClick={toggleModal}>
           Ні
         </Button>
       </div>

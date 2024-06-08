@@ -25,11 +25,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .primary-btn {
-  @apply text-white bg-teal-500 shadow-sm hover:bg-teal-600;
+  @apply font-semibold text-white bg-teal-500 shadow-sm active:bg-teal-600 focus:bg-teal-600 lg:hover:bg-teal-600;
 }
 
 .ordinary-btn {
-  @apply text-gray-500 bg-gray-200 shadow-sm hover:bg-gray-300;
+  @apply font-semibold bg-slate-300 shadow-sm active:text-gray-200 active:bg-slate-500 focus:text-gray-200 focus:bg-slate-500  lg:hover:text-gray-200 lg:hover:bg-slate-500;
 }
 
 .label {
