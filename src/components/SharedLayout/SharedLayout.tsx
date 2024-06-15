@@ -7,6 +7,8 @@ import { useMediaQuery } from "react-responsive";
 export const SharedLayout = () => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [backDropIsOpen, setBackDropIsOpen] = useState(false);
+  const [headerTitle, setHeaderTitle] = useState("Продаж товарів");
+
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1439px)" });
 
   useEffect(() => {
@@ -27,15 +29,23 @@ export const SharedLayout = () => {
     setSidebarIsOpen(false);
     setBackDropIsOpen(false);
   };
+
+  const updateHeaderTitle = (title: string) => {
+    setHeaderTitle(title);
+    if (isTabletOrMobile && sidebarIsOpen) {
+      closeSidebar();
+    }
+  };
   return (
     <div>
-      <Header openSidebar={openSidebar} />
+      <Header openSidebar={openSidebar} headerTitle={headerTitle}/>
       <div className="flex">
         <aside>
         {sidebarIsOpen && (
           <Sidebar
             closeSidebar={closeSidebar}
             isTabletOrMobile={isTabletOrMobile}
+            updateHeaderTitle={updateHeaderTitle}
           />
         )}
       </aside>

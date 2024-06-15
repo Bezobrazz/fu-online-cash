@@ -12,11 +12,13 @@ import { Link } from "react-router-dom";
 interface SidebarProps {
   closeSidebar: () => void;
   isTabletOrMobile: boolean;
+  updateHeaderTitle: (title: string) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   closeSidebar,
   isTabletOrMobile,
+  updateHeaderTitle
 }) => {
   const navItems = [
     {
@@ -46,7 +48,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
   ];
 
-  const handleNavLinkClick = () => {
+  const handleNavLinkClick = (text: string) => {
+    updateHeaderTitle(text);
     if (isTabletOrMobile) {
       closeSidebar();
     }
@@ -76,7 +79,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <Link
               to={item.to}
               className="flex items-center p-2 text-base text-neutral font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
-              onClick={handleNavLinkClick}
+              onClick={() => handleNavLinkClick(item.text)}
             >
               <div className="flex gap-2 items-center">
                 {item.icon}
