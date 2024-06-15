@@ -1,7 +1,7 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 export const Header = ({ openSidebar }: { openSidebar: () => void }) => {
   return (
-    <header className="relative container p-[20px] flex justify-center items-center bg-teal-500">
+    <header className="relative p-[20px] flex justify-center items-center bg-teal-500">
       <GiHamburgerMenu
         size={30}
         fill="white"

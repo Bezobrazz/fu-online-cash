@@ -18,6 +18,8 @@ export default {
       const paddingXLg = "100px";
       addComponents({
         ".container": {
+          width: "100%",
+          height: "90vh",
           minWidth: "320px",
           maxWidth: "390px",
           marginLeft: "auto",

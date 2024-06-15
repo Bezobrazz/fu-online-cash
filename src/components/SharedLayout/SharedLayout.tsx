@@ -28,9 +28,10 @@ export const SharedLayout = () => {
     setBackDropIsOpen(false);
   };
   return (
-    <div className="container relative">
+    <div>
       <Header openSidebar={openSidebar} />
-      <aside>
+      <div className="flex">
+        <aside>
         {sidebarIsOpen && (
           <Sidebar
             closeSidebar={closeSidebar}
@@ -38,11 +39,16 @@ export const SharedLayout = () => {
           />
         )}
       </aside>
-      <main>
+    <div className="container relative">
+      <main className="w-full">
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>
       </main>
+      </div>
+    </div>
+    
+      
       {backDropIsOpen && (
         <div
           className="absolute top-0 right-0 w-full h-screen bg-black opacity-40 z-9"
