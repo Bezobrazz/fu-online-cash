@@ -1,71 +1,94 @@
-import { AiFillUnlock } from "react-icons/ai";
-import { AiOutlineDoubleRight } from "react-icons/ai";
+import React from "react";
+import { AiFillUnlock, AiOutlineDoubleRight } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
-import { BsGearWideConnected } from "react-icons/bs";
-import { BsFillBoxSeamFill } from "react-icons/bs";
-import { BsFillStopwatchFill } from "react-icons/bs";
+import {
+  BsGearWideConnected,
+  BsFillBoxSeamFill,
+  BsFillStopwatchFill,
+} from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-export const Sidebar = () => {
+
+interface SidebarProps {
+  closeSidebar: () => void;
+  isTabletOrMobile: boolean;
+  updateHeaderTitle: (title: string) => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({
+  closeSidebar,
+  isTabletOrMobile,
+  updateHeaderTitle
+}) => {
+  const navItems = [
+    {
+      to: "/create-sale",
+      icon: <FaFileInvoiceDollar />,
+      text: "Створити продаж",
+    },
+    {
+      to: "/sales-history",
+      icon: <BsFillStopwatchFill />,
+      text: "Історія продажів",
+    },
+    {
+      to: "/products-services",
+      icon: <BsFillBoxSeamFill />,
+      text: "Товари та послуги",
+    },
+    {
+      to: "/products-services",
+      icon: <AiFillUnlock />,
+      text: "Відкрити зміну",
+    },
+    {
+      to: "/products-services",
+      icon: <BsGearWideConnected />,
+      text: "Налаштування",
+    },
+  ];
+
+  const handleNavLinkClick = (text: string) => {
+    updateHeaderTitle(text);
+    if (isTabletOrMobile) {
+      closeSidebar();
+    }
+  };
+
   return (
-    <div className="drawer lg:drawer-open">
-      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
-        {/* Page content here */}
-        <label
-          htmlFor="my-drawer"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
-          Open drawer
-        </label>
-      </div>
-      <div className="drawer-side">
-        <label
-          htmlFor="my-drawer"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content gap-3">
-          {/* Sidebar content here */}
-          <li>
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col items-start">
-                <p className="font-bold text-lg flex items-center gap-2">
-                  <ImLocation /> Форест Малехів
-                </p>
-                <p className="text-sm">Каса 1</p>
+    <div
+      className={`w-80 min-h-screen top-0 left-0 bg-base-200 z-10 ${
+        isTabletOrMobile ? "absolute" : ""
+      }`}
+    >
+      <ul className="menu p-4 text-base-content gap-2">
+        <li className="bg-gray-300 rounded-lg hover:bg-teal-400 transition">
+          <div className="flex w-full items-center justify-between">
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2 items-center">
+                <ImLocation />
+                <p className="font-bold text-lg">Форест Україна</p>
               </div>
-              <AiOutlineDoubleRight />{" "}
+              <p>Каса 1</p>
             </div>
-          </li>
-          <li className="flex align-middle">
-            {" "}
-            <Link to="create-sale">
-              <FaFileInvoiceDollar /> Створити продаж
+            <AiOutlineDoubleRight />
+          </div>
+        </li>
+        {navItems.map((item, index) => (
+          <li key={index}>
+            <Link
+              to={item.to}
+              className="flex items-center p-2 text-base text-neutral font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
+              onClick={() => handleNavLinkClick(item.text)}
+            >
+              <div className="flex gap-2 items-center">
+                {item.icon}
+                <p>{item.text}</p>
+              </div>
             </Link>
           </li>
-          <li>
-            <Link to="sales-history">
-              <BsFillStopwatchFill /> Історія Продажів
-            </Link>
-          </li>
-          <li>
-            <Link to="products-services">
-              <BsFillBoxSeamFill /> Товари / Послуги
-            </Link>
-          </li>
-          <li>
-            <a>
-              <AiFillUnlock /> Відкрити зміну
-            </a>
-          </li>
-          <li>
-            <a>
-              <BsGearWideConnected /> Налаштування
-            </a>
-          </li>
-        </ul>
-      </div>
+        ))}
+      </ul>
     </div>
   );
 };

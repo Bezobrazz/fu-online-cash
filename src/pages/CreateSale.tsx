@@ -1,22 +1,13 @@
-import { Button, DepositForm, Modal } from "../components";
-import { useModal } from "../hooks";
+import { CategoriesBar } from "../components/CategoriesBar/CategoriesBar"
+import { ProductCard } from "../components/ProductCard/ProductCard"
 
 const CreateSale = () => {
-  const [isOpenModal, toggleModal] = useModal();
-  return (
-    <>
-      <h2>Create Sale</h2>
-      {isOpenModal && (
-        <Modal toggleModal={toggleModal} title="Внести готівку">
-          {/* <ShiftStartConfirm toggleModal={toggleModal} /> */}
-          <DepositForm toggleModal={toggleModal} />
-        </Modal>
-      )}
-      <Button type="button" className="ordinary-btn" onClick={toggleModal}>
-        Open Modal
-      </Button>
-    </>
-  );
-};
+    return (
+<div className="flex gap-2">
+    <CategoriesBar/>
+    <ProductCard/>
+</div>
+    )
+}
 
 export default CreateSale;
