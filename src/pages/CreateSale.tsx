@@ -10,4 +10,4 @@ const CreateSale = () => {
     )
 }
 
-export default CreateSale
+export default CreateSale;
