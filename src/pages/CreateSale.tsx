@@ -1,6 +1,12 @@
+import { CategoriesBar } from "../components/CategoriesBar/CategoriesBar"
+import { ProductCard } from "../components/ProductCard/ProductCard"
+
 const CreateSale = () => {
     return (
-<h2>Create Sale</h2>
+<div className="flex gap-2">
+    <CategoriesBar/>
+    <ProductCard/>
+</div>
     )
 }
 
