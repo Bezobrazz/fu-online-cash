@@ -3,7 +3,7 @@ enum Role {
   Amdin = "Admin",
 }
 
-export interface User {
+export interface UserInfo {
   id: string;
   name: string;
   phone: number;
