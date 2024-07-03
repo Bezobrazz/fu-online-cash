@@ -50,7 +50,7 @@ export const SharedLayout = () => {
         )}
       </aside>
     <div className="container relative">
-      <main className="w-full">
+      <main className="w-full h-screen">
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CategoriesBar } from "../components/CategoriesBar/CategoriesBar";
 import { ProductCard } from "../components/ProductCard/ProductCard";
 import { AiOutlineDoubleRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 interface Product {
     productName: string;
@@ -68,9 +69,8 @@ const CreateSale: React.FC = () => {
     const totalCartValue = productsInCart.reduce((total, item) => total + (item.productPrice * item.quantity), 0);
 
     return (
-        <div className="flex gap-2">
+        <div className="flex lg:flex-col gap-2">
             <CategoriesBar />
-            
             <div className="flex flex-col gap-4 relative">
                 <div className="flex gap-4 flex-wrap overflow-y-auto">
                     {products.map((item, index) => (
@@ -84,10 +84,10 @@ const CreateSale: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <div className="w-full h-20 bg-teal-500 p-2 rounded flex items-center justify-between absolute bottom-0 left-0">
+                <Link to="/cart" className="w-full h-20 bg-teal-500 p-2 rounded flex items-center justify-between bottom-0 left-0">
                     <p className="text-white text-lg">Товарів у кошику: {totalItemsInCart} / {totalCartValue} грн</p>
                     <AiOutlineDoubleRight className="text-white"/>
-                </div>
+                </Link>
             </div>
         </div>
     );

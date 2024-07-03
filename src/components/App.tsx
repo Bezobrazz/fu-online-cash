@@ -20,6 +20,7 @@ import { Routes, Route } from "react-router-dom";
 import CreateSale from "../pages/CreateSale";
 import SalesHistory from "../pages/SalesHistory";
 import ProductsServices from "../pages/ProductsServices";
+import { Cart } from "../pages/Cart";
 
 export const App = () => {
   const [isOpenModal, toggleModal] = useModal();
@@ -44,6 +45,7 @@ export const App = () => {
         <Route path="create-sale" element={<CreateSale />} />
         <Route path="sales-history" element={<SalesHistory />} />
         <Route path="products-services" element={<ProductsServices />} />
+        <Route path="cart" element={<Cart/>}/>
       </Route>
 
       {/* <Sidebar />
