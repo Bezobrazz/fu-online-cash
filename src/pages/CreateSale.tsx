@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CategoriesBar } from "../components/CategoriesBar/CategoriesBar";
 import { ProductCard } from "../components/ProductCard/ProductCard";
 import { AiOutlineDoubleRight } from "react-icons/ai";
@@ -17,6 +17,16 @@ interface CartItem extends Product {
 const CreateSale: React.FC = () => {
 
     const [productsInCart, setProductsInCart] = useState<CartItem[]>([]);
+    const [isCartLinkActive, setIsCartLinkActive] = useState(false)
+
+    useEffect(() => {
+        if (productsInCart.length > 0) {
+            setIsCartLinkActive(true);
+        } else {
+            setIsCartLinkActive(false);
+        }
+    }, [productsInCart]);
+    
 
     const handleProductToCart = (product: Product) => {
         setProductsInCart(prevCart => {
@@ -69,10 +79,10 @@ const CreateSale: React.FC = () => {
     const totalCartValue = productsInCart.reduce((total, item) => total + (item.productPrice * item.quantity), 0);
 
     return (
-        <div className="flex lg:flex-col gap-2">
+        <div className="flex h-full lg:flex-col gap-2">
             <CategoriesBar />
             <div className="flex flex-col gap-4 relative">
-                <div className="flex gap-4 flex-wrap overflow-y-auto">
+                <div className="flex h-[80%] gap-4 flex-wrap overflow-y-auto">
                     {products.map((item, index) => (
                         <div key={index} onClick={() => handleProductToCart(item)}>
                             <ProductCard
@@ -84,10 +94,10 @@ const CreateSale: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <Link to="/cart" className="w-full h-20 bg-teal-500 p-2 rounded flex items-center justify-between bottom-0 left-0">
+               {isCartLinkActive && <Link to="/cart" className="w-full h-20 bg-teal-500 p-2 rounded flex items-center justify-between absolute bottom-0 left-0">
                     <p className="text-white text-lg">Товарів у кошику: {totalItemsInCart} / {totalCartValue} грн</p>
                     <AiOutlineDoubleRight className="text-white"/>
-                </Link>
+                </Link>}
             </div>
         </div>
     );
