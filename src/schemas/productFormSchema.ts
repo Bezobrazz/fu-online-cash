@@ -1,7 +1,10 @@
 import * as yup from "yup";
 
-export const depositFormSchema = yup.object().shape({
-  deposit: yup
+export const productFormSchema = yup.object().shape({
+  name: yup.string().required("Це поле обов'язкове для заповнення"),
+  article: yup.string().required("Це поле обов'язкове для заповнення"),
+  category: yup.string().required("Це поле обов'язкове для заповнення"),
+  price: yup
     .number()
     .typeError("Поле повинно бути числом без використання коми")
     .required("Це поле обов'язкове для заповнення")
@@ -13,4 +16,5 @@ export const depositFormSchema = yup.object().shape({
         return value !== 0 && !/^0/.test(stringValue);
       }
     ),
+  salePoint: yup.string().required("Це поле обов'язкове для заповнення"),
 });

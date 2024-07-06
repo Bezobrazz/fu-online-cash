@@ -19,7 +19,7 @@ export const Input = ({
   defaultValue,
   register,
   errors,
-  autocomplete = "on",
+  autocomplete = "off",
 }: InputProps) => {
   const inputProps = {
     className: "field",

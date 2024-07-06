@@ -54,7 +54,6 @@ export const TransactionForm = ({
         placeholder="Введіть суму"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
-        autocomplete="off"
       />
       <div className="flex justify-between gap-5">
         <Button

@@ -13,3 +13,4 @@ export * from "./CheckList/CheckList.tsx";
 export * from "./CategoriesBar/CategoriesBar.tsx";
 export * from "./ProductCard/ProductCard.tsx";
 export * from "./TransactionForm/TransactionForm.tsx";
+export * from "./ProductFrom/ProductForm.tsx";

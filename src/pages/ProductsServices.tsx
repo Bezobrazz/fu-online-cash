@@ -1,11 +1,10 @@
+import { ProductForm } from "../components";
 
-
-
- const ProductsServices = () => {
-
- 
+const ProductsServices = () => {
   return (
-    <>ProductsServices</>
-  )
-}
-export default ProductsServices
+    <>
+      <ProductForm salePoint="Форест 1" />
+    </>
+  );
+};
+export default ProductsServices;
