@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "./auth/authSlice";
 import {
   FLUSH,
   PAUSE,
@@ -12,16 +11,19 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import { authReducer } from "./auth/authSlice";
+import { cartReducer, CartState } from "./cart/cartSlice";
+
 const persistConfig = {
-  key: "auth",
+  key: "cart",
   version: 1,
   storage,
-  whitelist: ["refreshToken"],
 };
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(persistConfig, authReducer),
+    auth: authReducer,
+    cart: persistReducer<CartState>(persistConfig, cartReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
