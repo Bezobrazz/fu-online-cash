@@ -10,3 +10,4 @@ export * from "./DepositForm/DepositForm.tsx";
 export * from "./CartList/CartList.tsx";
 export * from "./CartList/CartListItem.tsx";
 export * from "./AddButton/AddButton.tsx";
+export * from "./CheckList/CheckList.tsx";
