@@ -3,21 +3,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 
-import { CategoriesBar } from "../components/CategoriesBar/CategoriesBar";
-import { ProductCard } from "../components/ProductCard/ProductCard";
+import { CategoriesBar, ProductCard } from "../components";
 
 import { useAppDispatch } from "../hooks";
+import { CartItem, CartProduct } from "../types";
 import { addCartItem, selectCartList } from "../redux";
-
-interface Product {
-  productName: string;
-  productQuantity: number;
-  productPrice: number;
-}
-
-interface CartItem extends Product {
-  quantity: number;
-}
 
 const CreateSale: React.FC = () => {
   const cartList = useSelector(selectCartList);
@@ -50,11 +40,11 @@ const CreateSale: React.FC = () => {
     }
   }, [cartList, currentCheckId, productsInCart.length]);
 
-  const handleProductToCart = (product: Product) => {
+  const handleProductToCart = (product: CartProduct) => {
     dispatch(addCartItem({ checkId: currentCheckId, product }));
   };
 
-  const products: Product[] = [
+  const products: CartProduct[] = [
     {
       productName: "Кора Крупна",
       productQuantity: 345,

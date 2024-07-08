@@ -5,9 +5,9 @@ import { BiTrashAlt } from "react-icons/bi";
 
 import { useAppDispatch } from "../../hooks";
 import {
-  decrementQuantity,
+  decrementCartItemQuantity,
   deleteCartItem,
-  incrementQuantity,
+  incrementCartItemQuantity,
 } from "../../redux";
 import { CartItem } from "../../types";
 
@@ -23,11 +23,11 @@ export const CartListItem: React.FC<CartListItemProps> = ({
   const dispatch = useAppDispatch();
 
   const handleIncrementQuantity = () => {
-    checkId && dispatch(incrementQuantity({ checkId, productName }));
+    checkId && dispatch(incrementCartItemQuantity({ checkId, productName }));
   };
 
   const handleDecrementQuantity = () => {
-    checkId && dispatch(decrementQuantity({ checkId, productName }));
+    checkId && dispatch(decrementCartItemQuantity({ checkId, productName }));
   };
 
   const handleDeleteProduct = () => {

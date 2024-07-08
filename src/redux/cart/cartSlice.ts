@@ -60,12 +60,13 @@ const cartSlice = createSlice({
       });
 
       if (checkIndex > -1) {
-        state.cartList[checkIndex].productList = state.cartList[
+        const filteredProductList = state.cartList[
           checkIndex
         ].productList.filter((elem) => elem.productName !== productName);
+        state.cartList[checkIndex].productList = filteredProductList;
       }
     },
-    incrementQuantity: (
+    incrementCartItemQuantity: (
       state,
       {
         payload: { checkId, productName },
@@ -85,7 +86,7 @@ const cartSlice = createSlice({
         }
       }
     },
-    decrementQuantity: (
+    decrementCartItemQuantity: (
       state,
       {
         payload: { checkId, productName },
@@ -129,8 +130,8 @@ export const { selectCartList } = cartSlice.selectors;
 export const {
   addCartItem,
   deleteCartItem,
-  incrementQuantity,
-  decrementQuantity,
+  incrementCartItemQuantity,
+  decrementCartItemQuantity,
   createCheck,
   deleteCheck,
 } = cartSlice.actions;
