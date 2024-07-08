@@ -5,9 +5,9 @@ import { BsCash } from "react-icons/bs";
 import { FiCreditCard } from "react-icons/fi";
 import { BiTrashAlt } from "react-icons/bi";
 
-import { AddButton, Button, CartList, CheckList } from "../components";
+import { Button, CartList, CheckList } from "../components";
 
-import { createCheck, deleteCheck, selectCartList } from "../redux";
+import { deleteCheck, selectCartList } from "../redux";
 import { calculateTotalPrice } from "../helpers";
 import { useAppDispatch } from "../hooks";
 import { CartItem } from "../types";
@@ -27,11 +27,11 @@ export const Cart = () => {
   useEffect(() => {
     if (!cartList) return;
 
-    if (!cartList.length) {
+    const check = cartList.find((item) => item.checkId === checkId);
+
+    if (!cartList.length || !check?.productList.length) {
       navigate("/create-sale");
     }
-
-    const check = cartList.find((item) => item.checkId === checkId);
 
     if (!check) return;
     setProductsInCart(check.productList);
@@ -61,14 +61,8 @@ export const Cart = () => {
     <section className="py-5">
       <div className="pb-3 mb-5 border-b-2 border-dashed border-b-slate-400">
         <p className="text-[20px] font-bold mb-2">Оберіть чек</p>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-end">
           <CheckList {...{ cartList }} />
-          <AddButton
-            onClick={() => {
-              dispatch(createCheck());
-              navigate("/create-sale");
-            }}
-          />
         </div>
       </div>
       <div className="flex flex-col justify-between">

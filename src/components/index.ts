@@ -11,3 +11,5 @@ export * from "./CartList/CartList.tsx";
 export * from "./CartList/CartListItem.tsx";
 export * from "./AddButton/AddButton.tsx";
 export * from "./CheckList/CheckList.tsx";
+export * from "./CategoriesBar/CategoriesBar.tsx";
+export * from "./ProductCard/ProductCard.tsx";

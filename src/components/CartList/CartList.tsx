@@ -1,5 +1,6 @@
-import { CartItem } from "../../types";
 import { CartListItem } from "./CartListItem";
+
+import { CartItem } from "../../types";
 
 interface CartListProps {
   productsInCart: CartItem[];
