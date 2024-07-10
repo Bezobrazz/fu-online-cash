@@ -24,6 +24,13 @@ export const CheckListItem: React.FC<CheckListItemProps> = ({
   const navigate = useNavigate();
 
   const cartList = useSelector(selectCartList);
+
+  const handleAddBtnClick = () => {
+    const id = Math.random().toString(36).slice(2);
+    dispatch(createCheck({ checkId: id }));
+    navigate(`/create-sale/${id}`);
+  };
+
   const totalPrice = calculateTotalPrice(productList);
   return (
     <li className="flex gap-2 items-center">
@@ -33,15 +40,10 @@ export const CheckListItem: React.FC<CheckListItemProps> = ({
           checkId === currentCheckId && "outline outline-4 outline-slate-400"
         }`}
       >
-        <BsDatabaseCheck className="size-6" /> {totalPrice}₴
+        <BsDatabaseCheck className="size-5" /> {totalPrice}₴
       </Link>
       {index === cartList.length - 1 && (
-        <AddButton
-          onClick={() => {
-            dispatch(createCheck());
-            navigate("/create-sale");
-          }}
-        />
+        <AddButton onClick={handleAddBtnClick} />
       )}
     </li>
   );
