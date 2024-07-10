@@ -11,10 +11,11 @@ import { addCartItem, deleteCheck, selectCartList } from "../redux";
 
 const CreateSale: React.FC = () => {
   const cartList = useSelector(selectCartList);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { checkId } = useParams();
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [productsInCart, setProductsInCart] = useState<CartItem[]>([]);
   const [isCartLinkActive, setIsCartLinkActive] = useState(false);
@@ -37,6 +38,7 @@ const CreateSale: React.FC = () => {
       setIsCartLinkActive(false);
 
       if (
+        cartList.length &&
         !cartList[cartList.length - 1]?.productList.length &&
         currentCheckId
       ) {

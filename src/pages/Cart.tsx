@@ -13,23 +13,23 @@ import { useAppDispatch } from "../hooks";
 import { CartItem } from "../types";
 
 export const Cart = () => {
+  const cartList = useSelector(selectCartList);
+
   const { checkId } = useParams();
 
-  const cartList = useSelector(selectCartList);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [productsInCart, setProductsInCart] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [checkToDelete, setCheckToDelete] = useState<string | null>(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!cartList) return;
 
     const check = cartList.find((item) => item.checkId === checkId);
 
-    if (!cartList.length || !check?.productList.length) {
+    if (!cartList.length && !check?.productList.length) {
       navigate("/create-sale");
     }
 
