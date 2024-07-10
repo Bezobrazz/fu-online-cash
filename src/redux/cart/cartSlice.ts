@@ -106,8 +106,10 @@ const cartSlice = createSlice({
         }
       }
     },
-    createCheck: (state) => {
-      const checkId = Math.random().toString(36).slice(2);
+    createCheck: (
+      state,
+      { payload: { checkId } }: PayloadAction<{ checkId: string }>
+    ) => {
       state.cartList.push({ checkId, productList: [] });
     },
     deleteCheck: (

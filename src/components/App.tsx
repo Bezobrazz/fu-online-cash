@@ -32,6 +32,7 @@ export const App = () => {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<StartScreen />} />
         <Route path="create-sale" element={<CreateSale />} />
+        <Route path="create-sale/:checkId" element={<CreateSale />} />
         <Route path="sales-history" element={<SalesHistory />} />
         <Route path="products-services" element={<ProductsServices />} />
         <Route path="cart/:checkId" element={<Cart />} />

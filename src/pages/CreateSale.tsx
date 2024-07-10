@@ -1,22 +1,26 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 
 import { CategoriesBar, ProductCard } from "../components";
 
 import { useAppDispatch } from "../hooks";
 import { CartItem, CartProduct } from "../types";
-import { addCartItem, selectCartList } from "../redux";
+import { addCartItem, deleteCheck, selectCartList } from "../redux";
 
 const CreateSale: React.FC = () => {
   const cartList = useSelector(selectCartList);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { checkId } = useParams();
 
   const [productsInCart, setProductsInCart] = useState<CartItem[]>([]);
   const [isCartLinkActive, setIsCartLinkActive] = useState(false);
-  const [currentCheckId, setCurrentCheckId] = useState(
-    Math.random().toString(36).slice(2)
+
+  const [currentCheckId, setCurrentCheckId] = useState<string | null>(
+    checkId ? checkId : null
   );
 
   useEffect(() => {
@@ -28,9 +32,21 @@ const CreateSale: React.FC = () => {
   useEffect(() => {
     if (!cartList) return;
 
-    const check = cartList.find((item) => item.checkId === currentCheckId);
+    if (!checkId) {
+      setProductsInCart([]);
+      setIsCartLinkActive(false);
+
+      if (
+        !cartList[cartList.length - 1]?.productList.length &&
+        currentCheckId
+      ) {
+        dispatch(deleteCheck({ checkId: currentCheckId }));
+      }
+    }
+    const check = cartList.find((item) => item.checkId === checkId);
 
     if (!check) return;
+
     setProductsInCart(check.productList);
 
     if (productsInCart.length > 0) {
@@ -38,10 +54,17 @@ const CreateSale: React.FC = () => {
     } else {
       setIsCartLinkActive(false);
     }
-  }, [cartList, currentCheckId, productsInCart.length]);
+  }, [dispatch, cartList, checkId, currentCheckId, productsInCart.length]);
 
   const handleProductToCart = (product: CartProduct) => {
-    dispatch(addCartItem({ checkId: currentCheckId, product }));
+    if (checkId && currentCheckId) {
+      dispatch(addCartItem({ checkId: currentCheckId, product }));
+    } else {
+      const id = Math.random().toString(36).slice(2);
+      setCurrentCheckId(id);
+      dispatch(addCartItem({ checkId: id, product }));
+      navigate(`/create-sale/${id}`);
+    }
   };
 
   const products: CartProduct[] = [
