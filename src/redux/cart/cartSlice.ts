@@ -63,7 +63,11 @@ const cartSlice = createSlice({
         const filteredProductList = state.cartList[
           checkIndex
         ].productList.filter((elem) => elem.productName !== productName);
-        state.cartList[checkIndex].productList = filteredProductList;
+        if (filteredProductList.length) {
+          state.cartList[checkIndex].productList = filteredProductList;
+        } else {
+          state.cartList.splice(checkIndex, 1);
+        }
       }
     },
     incrementCartItemQuantity: (

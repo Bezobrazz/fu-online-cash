@@ -1,5 +1,4 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { BsDatabaseCheck } from "react-icons/bs";
 
@@ -7,6 +6,7 @@ import { AddButton } from "../../components";
 
 import { createCheck, selectCartList } from "../../redux";
 import { calculateTotalPrice } from "../../helpers";
+import { useAppDispatch } from "../../hooks";
 import { CartList } from "../../types";
 
 interface CheckListItemProps {
@@ -18,12 +18,12 @@ export const CheckListItem: React.FC<CheckListItemProps> = ({
   item: { checkId, productList },
   index,
 }) => {
+  const cartList = useSelector(selectCartList);
+
   const { checkId: currentCheckId } = useParams();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const cartList = useSelector(selectCartList);
 
   const handleAddBtnClick = () => {
     const id = Math.random().toString(36).slice(2);

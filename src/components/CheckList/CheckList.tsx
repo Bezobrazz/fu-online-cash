@@ -1,5 +1,6 @@
-import { CartList } from "../../types";
 import { CheckListItem } from "./CheckListItem";
+
+import { CartList } from "../../types";
 
 interface CheckListProps {
   cartList: CartList[];

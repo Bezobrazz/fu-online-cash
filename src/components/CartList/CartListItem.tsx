@@ -1,14 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
 import { BiTrashAlt } from "react-icons/bi";
 
-import { useAppDispatch } from "../../hooks";
 import {
   decrementCartItemQuantity,
   deleteCartItem,
   incrementCartItemQuantity,
+  selectCartList,
 } from "../../redux";
+import { useAppDispatch } from "../../hooks";
 import { CartItem } from "../../types";
 
 interface CartListItemProps {
@@ -18,9 +22,18 @@ interface CartListItemProps {
 export const CartListItem: React.FC<CartListItemProps> = ({
   item: { productName, productPrice, productQuantity, quantity },
 }) => {
+  const cartList = useSelector(selectCartList);
+
   const { checkId } = useParams();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!cartList.find((item) => item.checkId === checkId)) {
+      navigate(`/cart/${cartList[cartList.length - 1]?.checkId}`);
+    }
+  }, [cartList, checkId, navigate]);
 
   const handleIncrementQuantity = () => {
     checkId && dispatch(incrementCartItemQuantity({ checkId, productName }));
