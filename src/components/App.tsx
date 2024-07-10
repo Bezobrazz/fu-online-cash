@@ -1,5 +1,7 @@
 import {
   getCashboxes,
+  getDocById,
+  getDocsByFieldValue,
   getEnterprises,
   getSalePoints,
   getUsers,
@@ -12,6 +14,8 @@ import CreateSale from "../pages/CreateSale";
 import SalesHistory from "../pages/SalesHistory";
 import ProductsServices from "../pages/ProductsServices";
 import { Cart } from "../pages/Cart";
+import { doc } from "firebase/firestore";
+import db from "../firebase/firebaseConfig";
 
 export const App = () => {
   getCashboxes().then((res) => {
@@ -25,6 +29,15 @@ export const App = () => {
   });
   getUsers().then((res) => {
     console.log("Users=>", res);
+  });
+  getDocById("cashboxes", "LL5rbj6PbXrFivbeqTSX").then((res) => {
+    console.log("Doc=>", res);
+  });
+
+  const salePointRef = doc(db, "salePoints", "NWWaP1hY1f737EfsJWtZ");
+
+  getDocsByFieldValue("cashboxes", "salePoint", salePointRef).then((res) => {
+    console.log("CashboxesBySalePointRef=>", res);
   });
 
   return (
