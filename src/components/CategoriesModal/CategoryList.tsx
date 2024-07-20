@@ -4,13 +4,17 @@ import type { Category } from "../../types";
 
 interface CategoryListProps {
   categories: Category[];
+  edit: (state: boolean, category: Category | null) => void;
 }
 
-export const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
+export const CategoryList: React.FC<CategoryListProps> = ({
+  categories,
+  edit,
+}) => {
   return (
     <ul className="flex flex-col">
       {categories.map((category) => (
-        <CategoryListItem key={category.id} category={category} />
+        <CategoryListItem key={category.id} category={category} edit={edit} />
       ))}
     </ul>
   );

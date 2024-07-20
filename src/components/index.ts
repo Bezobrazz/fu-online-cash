@@ -15,3 +15,5 @@ export * from "./ProductCard/ProductCard.tsx";
 export * from "./TransactionForm/TransactionForm.tsx";
 export * from "./ProductFrom/ProductForm.tsx";
 export * from "./CategoriesModal/CategoriesModal.tsx";
+export * from "./AddCaterogyForm/AddCaterogyForm.tsx";
+export * from "./EditCaterogyForm/EditCaterogyForm.tsx";

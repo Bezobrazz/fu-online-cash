@@ -1,14 +1,24 @@
-import React from "react";
-import { AddCaterogyForm } from "../AddCaterogyForm/AddCaterogyForm";
+import React, { useState } from "react";
+
 import { CategoryList } from "./CategoryList";
 import type { Category } from "../../types";
+import { AddCaterogyForm, EditCaterogyForm } from "..";
 
 interface CategoriesModalProps {
   categories: Category[];
 }
+
 export const CategoriesModal: React.FC<CategoriesModalProps> = ({
   categories,
 }) => {
+  const [isEditCategory, setIsEditCategory] = useState<boolean>(false);
+  const [categoryForEdit, setCategoryForEdit] = useState<Category | null>(null);
+
+  const editCategory = (state: boolean, category: Category | null) => {
+    setIsEditCategory(state);
+    setCategoryForEdit(category);
+  };
+
   return (
     <div className="flex flex-col w-[400px]">
       <div className="h-[300px] rounded-md border border-solid border-gray-500 overflow-y-auto">
@@ -17,11 +27,18 @@ export const CategoriesModal: React.FC<CategoriesModalProps> = ({
             <p>Немає категорій</p>
           </div>
         ) : (
-          <CategoryList categories={categories} />
+          <CategoryList categories={categories} edit={editCategory} />
         )}
       </div>
       <div className="divider"></div>
-      <AddCaterogyForm />
+      {isEditCategory ? (
+        <EditCaterogyForm
+          edit={editCategory}
+          activeCategory={categoryForEdit}
+        />
+      ) : (
+        <AddCaterogyForm />
+      )}
     </div>
   );
 };

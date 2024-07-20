@@ -7,15 +7,22 @@ import type { Category } from "../../types";
 
 interface CategoryListItemProps {
   category: Category;
+  edit: (state: boolean, category: Category | null) => void;
 }
 
 export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   category,
+  edit,
 }) => {
   const dispatch = useAppDispatch();
 
   const deleteCategory = (id: string) => {
     dispatch(deleteCategoryById(id));
+    edit(false, null);
+  };
+
+  const editCategoryTitle = (category: Category) => {
+    edit(true, category);
   };
 
   return (
@@ -25,7 +32,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
     >
       <p>{category.title}</p>
       <div className="space-x-1.5">
-        <button type="button">
+        <button type="button" onClick={() => editCategoryTitle(category)}>
           <FaRegEdit className="invisible group-hover:visible size-5" />
         </button>
         <button type="button" onClick={() => deleteCategory(category.id)}>
