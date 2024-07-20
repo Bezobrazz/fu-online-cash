@@ -13,7 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import { authReducer } from "./auth/authSlice";
 import { cartReducer, CartState } from "./cart/cartSlice";
-import { categoriesReducer } from "./ categories/categoriesSlice";
+import { categoriesReducer } from "./categories/categoriesSlice";
 
 const persistConfig = {
   key: "cart",

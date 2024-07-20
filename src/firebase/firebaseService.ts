@@ -17,11 +17,15 @@ type FirestoreFieldValue =
   | Timestamp
   | DocumentReference;
 
-const getCollectionData = async (collectionName: string) => {
+export const getCollectionData = async <T>(
+  collectionName: string
+): Promise<T[]> => {
   try {
     const colRef = collection(db, collectionName);
     const snapshot = await getDocs(colRef);
-    const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const docs = snapshot.docs.map(
+      (doc) => ({ id: doc.id, ...doc.data() } as T)
+    );
     return docs;
   } catch (error) {
     console.error(

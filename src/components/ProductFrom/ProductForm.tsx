@@ -10,7 +10,9 @@ import type { BaseProduct } from "../../types";
 import { useEffect } from "react";
 import { productFormSchema } from "../../schemas/productFormSchema";
 import { FiPlus } from "react-icons/fi";
-import { useModal } from "../../hooks";
+import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
+import { getCategories } from "../../redux/categories/categoriesOperations";
+import { selectCategories } from "../../redux/categories/categoriesSlice";
 
 interface ProductFormProps {
   salePoint: string;
@@ -29,15 +31,13 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
   });
 
   const [isModal, toggle] = useModal();
+  const dispatch = useAppDispatch();
 
-  const categories = [
-    { id: "1", title: "Technology" },
-    { id: "2", title: "Health" },
-    { id: "3", title: "Finance" },
-  ];
+  const categories = useAppSelector(selectCategories);
 
   useEffect(() => {
     setValue("salePoint", salePoint);
+    dispatch(getCategories());
   }, []);
 
   const onSubmit: SubmitHandler<BaseProduct> = (date) => {
