@@ -1,10 +1,7 @@
 import React from "react";
-import type { Category } from "../../types";
 import { AddCaterogyForm } from "../AddCaterogyForm/AddCaterogyForm";
-import { BiTrashAlt } from "react-icons/bi";
-import { FaRegEdit } from "react-icons/fa";
-import { useAppDispatch } from "../../hooks";
-import { deleteCategoryById } from "../../redux/categories/categoriesOperations";
+import { CategoryList } from "./CategoryList";
+import type { Category } from "../../types";
 
 interface CategoriesModalProps {
   categories: Category[];
@@ -12,13 +9,6 @@ interface CategoriesModalProps {
 export const CategoriesModal: React.FC<CategoriesModalProps> = ({
   categories,
 }) => {
-  const dispatch = useAppDispatch();
-
-  const deleteCategory = (id: string) => {
-    console.log("УДАЛЕНИЕ");
-    dispatch(deleteCategoryById(id));
-  };
-
   return (
     <div className="flex flex-col w-[400px]">
       <div className="h-[300px] rounded-md border border-solid border-gray-500 overflow-y-auto">
@@ -27,27 +17,7 @@ export const CategoriesModal: React.FC<CategoriesModalProps> = ({
             <p>Немає категорій</p>
           </div>
         ) : (
-          <ul className="flex flex-col">
-            {categories.map((category) => (
-              <li
-                key={category.id}
-                className="flex justify-between hover:bg-gray-300 px-2.5 py-1.5 cursor-pointer group"
-              >
-                <p>{category.title}</p>
-                <div className="space-x-1.5">
-                  <button type="button">
-                    <FaRegEdit className="invisible group-hover:visible size-5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => deleteCategory(category.id)}
-                  >
-                    <BiTrashAlt className="invisible group-hover:visible size-5" />
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <CategoryList categories={categories} />
         )}
       </div>
       <div className="divider"></div>
