@@ -66,7 +66,23 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
           errors={errors}
         />
         <div className="flex flex-row gap-3">
-          <div className="w-full field">Виберіть категорію</div>
+          <select
+            className="select w-full field"
+            disabled={categories.length === 0}
+          >
+            {categories.length !== 0 ? (
+              <>
+                <option disabled selected>
+                  Виберіть категорію
+                </option>
+                {categories.map((category) => (
+                  <option key={category.id}>{category.title}</option>
+                ))}
+              </>
+            ) : (
+              <option>Додайте категорію, натиснувши плюс</option>
+            )}
+          </select>
           <button
             type="button"
             className="bg-inherit w-[45px] flex items-center justify-center border border-gray-500 rounded-[6px]"

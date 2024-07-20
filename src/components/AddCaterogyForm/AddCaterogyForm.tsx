@@ -8,6 +8,7 @@ import { addCategory } from "../../redux/categories/categoriesOperations";
 import type { Category, NewCategory } from "../../types";
 import { isTitleUnique } from "../../helpers/isTitleUnique";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 interface FormData {
   category: string;
@@ -30,26 +31,31 @@ export const AddCaterogyForm: React.FC<AddCaterogyFormProps> = ({
     resolver: yupResolver(addCaterogyFormSchema),
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    if (isSubmitting) return;
+
     const categoryToAdd: NewCategory = { title: data.category };
 
     if (!isTitleUnique(categories, categoryToAdd.title)) {
       return toast.error("Категорія з такою назвою вже існує");
     }
 
-    dispatch(addCategory(categoryToAdd))
-      .unwrap()
-      .then(() => {
-        toast.success(
-          `Категорія «${categoryToAdd.title}» була успішно додана до списку.`
-        );
-        reset();
-      })
-      .catch((error) => {
-        toast.error(`Не вдалося створити категорію: ${error.message}`);
-      });
+    setIsSubmitting(true);
+    try {
+      await dispatch(addCategory(categoryToAdd)).unwrap();
+      toast.success(
+        `Категорія «${categoryToAdd.title}» була успішно додана до списку.`
+      );
+      reset();
+    } catch (error) {
+      const errorMessage = (error as Error).message || "Unknown error";
+      toast.error(`Не вдалося створити категорію: ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
