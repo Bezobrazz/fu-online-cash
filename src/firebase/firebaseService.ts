@@ -109,10 +109,6 @@ export const getEnterprises = async () => {
   return await getCollectionData("enterprises");
 };
 
-export const getSalePoints = async () => {
-  return await getCollectionData("salePoints");
-};
-
 export const getUsers = async () => {
   return await getCollectionData("users");
 };

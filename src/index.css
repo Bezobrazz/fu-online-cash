@@ -20,9 +20,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn-style {
   min-width: 120px;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: all 0.3s ease;
-  height: 45px;
+  height: 48px;
 }
 
 .primary-btn {
@@ -34,11 +34,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .label {
-  @apply flex flex-col items-start gap-1.5 p-0;
+  @apply flex flex-col items-start gap-1.5 p-0 text-[20px];
 }
 
 .field {
-  @apply text-[18px] border border-solid border-gray-500 rounded-md py-2 px-2.5 w-full focus:outline-none focus:border-teal-500;
+  @apply text-[18px] font-normal h-[48px] border border-solid border-gray-500 rounded-md py-2 px-2.5 w-full focus:outline-none focus:border-teal-500;
 }
 
 .field-error {
