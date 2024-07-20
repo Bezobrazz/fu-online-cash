@@ -64,7 +64,7 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
           Скасувати
         </Button>
         <Button type="submit" className="primary-btn flex-1">
-          Змінити назву
+          Зберегти зміни
         </Button>
       </div>
     </form>

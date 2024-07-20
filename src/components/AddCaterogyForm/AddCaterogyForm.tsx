@@ -61,7 +61,7 @@ export const AddCaterogyForm: React.FC<AddCaterogyFormProps> = ({
         errors={errors}
       />
       <Button type="submit" className="primary-btn">
-        Додати категорію
+        Створити
       </Button>
     </form>
   );

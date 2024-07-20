@@ -30,7 +30,9 @@ export const CategoriesModal: React.FC<CategoriesModalProps> = ({
           <CategoryList categories={categories} edit={editCategory} />
         )}
       </div>
-      <div className="divider"></div>
+      <div className="divider">
+        {isEditCategory ? "Редагувати категорію" : "Додати категорію"}
+      </div>
       {isEditCategory ? (
         <EditCaterogyForm
           categories={categories}
