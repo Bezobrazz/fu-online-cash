@@ -33,11 +33,12 @@ export const CategoriesModal: React.FC<CategoriesModalProps> = ({
       <div className="divider"></div>
       {isEditCategory ? (
         <EditCaterogyForm
+          categories={categories}
           edit={editCategory}
           activeCategory={categoryForEdit}
         />
       ) : (
-        <AddCaterogyForm />
+        <AddCaterogyForm categories={categories} />
       )}
     </div>
   );

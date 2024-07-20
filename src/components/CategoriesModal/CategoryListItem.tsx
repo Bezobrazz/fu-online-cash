@@ -4,6 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { deleteCategoryById } from "../../redux/categories/categoriesOperations";
 import { useAppDispatch } from "../../hooks";
 import type { Category } from "../../types";
+import { toast } from "react-toastify";
 
 interface CategoryListItemProps {
   category: Category;
@@ -16,9 +17,18 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const deleteCategory = (id: string) => {
-    dispatch(deleteCategoryById(id));
-    edit(false, null);
+  const deleteCategory = (category: Category) => {
+    dispatch(deleteCategoryById(category.id))
+      .unwrap()
+      .then(() => {
+        toast.success(
+          `Категорія «${category.title}» була успішно видалена зі списку.`
+        );
+        edit(false, null);
+      })
+      .catch((error) => {
+        toast.error(`Не вдалося видалити категорію: ${error.message}`);
+      });
   };
 
   const editCategoryTitle = (category: Category) => {
@@ -35,7 +45,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
         <button type="button" onClick={() => editCategoryTitle(category)}>
           <FaRegEdit className="invisible group-hover:visible size-5" />
         </button>
-        <button type="button" onClick={() => deleteCategory(category.id)}>
+        <button type="button" onClick={() => deleteCategory(category)}>
           <BiTrashAlt className="invisible group-hover:visible size-5" />
         </button>
       </div>

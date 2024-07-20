@@ -5,17 +5,21 @@ import { addCaterogyFormSchema } from "../../schemas";
 import { Button } from "..";
 import React from "react";
 import { Category } from "../../types";
+import { isTitleUnique } from "../../helpers/isTitleUnique";
+import { toast } from "react-toastify";
 
 interface FormData {
   category: string;
 }
 
 interface EditCaterogyFormProps {
+  categories: Category[];
   activeCategory: Category | null;
   edit: (state: boolean, category: Category | null) => void;
 }
 
 export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
+  categories,
   activeCategory,
   edit,
 }) => {
@@ -32,8 +36,12 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
   // const dispatch = useAppDispatch();
 
   const onSubmit = (data: FormData) => {
-    // const categoryToUpdate: Category;
-    console.log(data);
+    const title = data.category;
+
+    if (!isTitleUnique(categories, title)) {
+      return toast.error("Категорія з такою назвою вже існує");
+    }
+
     edit(false, null);
     reset();
   };
