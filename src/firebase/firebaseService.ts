@@ -1,14 +1,17 @@
 import db from "./firebaseConfig";
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
+  DocumentData,
   DocumentReference,
   getDoc,
   getDocs,
   query,
   Timestamp,
   where,
+  WithFieldValue,
 } from "firebase/firestore";
 
 type FirestoreFieldValue =
@@ -31,6 +34,24 @@ export const getCollectionData = async <T>(
   } catch (error) {
     console.error(
       `Error getting data from ${collectionName} collection:`,
+      error
+    );
+    throw error;
+  }
+};
+
+export const addDocumentToCollection = async <
+  T extends WithFieldValue<DocumentData>
+>(
+  collectionName: string,
+  data: T
+): Promise<void> => {
+  try {
+    const colRef = collection(db, collectionName);
+    await addDoc(colRef, data);
+  } catch (error) {
+    console.error(
+      `Error adding document to ${collectionName} collection:`,
       error
     );
     throw error;
