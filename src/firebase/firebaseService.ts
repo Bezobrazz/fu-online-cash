@@ -1,6 +1,7 @@
 import db from "./firebaseConfig";
 import {
   collection,
+  deleteDoc,
   doc,
   DocumentReference,
   getDoc,
@@ -30,6 +31,22 @@ export const getCollectionData = async <T>(
   } catch (error) {
     console.error(
       `Error getting data from ${collectionName} collection:`,
+      error
+    );
+    throw error;
+  }
+};
+
+export const deleteDocumentById = async (
+  collectionName: string,
+  id: string
+): Promise<void> => {
+  try {
+    const docRef = doc(db, collectionName, id);
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error(
+      `Error deleting document with id ${id} from ${collectionName} collection:`,
       error
     );
     throw error;
