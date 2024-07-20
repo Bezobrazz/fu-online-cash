@@ -3,6 +3,9 @@ import { Input } from "../Input/Input";
 import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
 import { addCaterogyFormSchema } from "../../schemas";
 import { Button } from "..";
+import { useAppDispatch } from "../../hooks";
+import { addCategory } from "../../redux/categories/categoriesOperations";
+import type { NewCategory } from "../../types";
 
 interface FormData {
   category: string;
@@ -19,8 +22,11 @@ export const AddCaterogyForm = () => {
     resolver: yupResolver(addCaterogyFormSchema),
   });
 
-  const onSubmit = (category: FormData) => {
-    console.log(category);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (data: FormData) => {
+    const categoryToAdd: NewCategory = { title: data.category };
+    dispatch(addCategory(categoryToAdd));
     reset();
   };
 

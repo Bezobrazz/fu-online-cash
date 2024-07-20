@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Category } from "../../types";
-import { deleteCategoryById, getCategories } from "./categoriesOperations";
+import type { Category } from "../../types";
+import {
+  addCategory,
+  deleteCategoryById,
+  getCategories,
+} from "./categoriesOperations";
 
 interface CategoriesSlice {
   categories: Category[];
@@ -18,6 +22,9 @@ const categoriesSlice = createSlice({
     builder
       .addCase(getCategories.fulfilled, (state, { payload }) => {
         state.categories = payload;
+      })
+      .addCase(addCategory.fulfilled, (state, { payload }) => {
+        state.categories.push(payload);
       })
       .addCase(deleteCategoryById.fulfilled, (state, { payload }) => {
         state.categories.filter((category) => category.id !== payload);

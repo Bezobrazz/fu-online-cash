@@ -45,10 +45,11 @@ export const addDocumentToCollection = async <
 >(
   collectionName: string,
   data: T
-): Promise<void> => {
+): Promise<T & { id: string }> => {
   try {
     const colRef = collection(db, collectionName);
-    await addDoc(colRef, data);
+    const docRef: DocumentReference = await addDoc(colRef, data);
+    return { id: docRef.id, ...data } as T & { id: string };
   } catch (error) {
     console.error(
       `Error adding document to ${collectionName} collection:`,

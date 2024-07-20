@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  addDocumentToCollection,
   deleteDocumentById,
   getCollectionData,
 } from "../../firebase/firebaseService";
-import { Category } from "../../types";
+import type { Category, NewCategory } from "../../types";
 
 export const getCategories = createAsyncThunk<
   Category[],
@@ -13,6 +14,23 @@ export const getCategories = createAsyncThunk<
   try {
     const data = await getCollectionData<Category>("categories");
     return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
+export const addCategory = createAsyncThunk<
+  Category,
+  NewCategory,
+  { rejectValue: string }
+>("categories/addCategory", async (category, { rejectWithValue }) => {
+  try {
+    const newCategory = await addDocumentToCollection("categories", category);
+    return newCategory;
   } catch (error) {
     if (error instanceof Error) {
       return rejectWithValue(error.message);
