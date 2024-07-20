@@ -54,7 +54,7 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
       dispatch(editCategory({ id: activeCategory.id, title }))
         .unwrap()
         .then(() => {
-          toast.success(`Категорія "${title}" успішно оновлена`);
+          toast.success(`Категорія успішно оновлена`);
           reset();
           edit(false, null);
         })
