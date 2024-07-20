@@ -27,7 +27,10 @@ const categoriesSlice = createSlice({
         state.categories.push(payload);
       })
       .addCase(deleteCategoryById.fulfilled, (state, { payload }) => {
-        state.categories.filter((category) => category.id !== payload);
+        const index = state.categories.findIndex((elem) => elem.id === payload);
+        if (index !== -1) {
+          state.categories.splice(index, 1);
+        }
       });
   },
   selectors: {
