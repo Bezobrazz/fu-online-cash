@@ -3,6 +3,7 @@ import {
   addDocumentToCollection,
   deleteDocumentById,
   getCollectionData,
+  editDocumentById,
 } from "../../firebase/firebaseService";
 import type { Category, NewCategory } from "../../types";
 
@@ -40,11 +41,30 @@ export const addCategory = createAsyncThunk<
   }
 });
 
-export const deleteCategoryById = createAsyncThunk<
+export const editCategory = createAsyncThunk<
+  Category,
+  { id: string; title: string },
+  { rejectValue: string }
+>("categories/editCategory", async ({ id, title }, { rejectWithValue }) => {
+  try {
+    const updatedCategory = await editDocumentById<Category>("categories", id, {
+      title,
+    });
+    return updatedCategory;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
+export const deleteCategory = createAsyncThunk<
   string,
   string,
   { rejectValue: string }
->("categopries/deleteCategories", async (id, { rejectWithValue }) => {
+>("categopries/deleteCategory", async (id, { rejectWithValue }) => {
   try {
     await deleteDocumentById("categories", id);
     return id;

@@ -3,10 +3,12 @@ import { Input } from "../Input/Input";
 import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
 import { addCaterogyFormSchema } from "../../schemas";
 import { Button } from "..";
-import React from "react";
+import React, { useEffect } from "react";
 import { Category } from "../../types";
 import { isTitleUnique } from "../../helpers/isTitleUnique";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../hooks";
+import { editCategory } from "../../redux/categories/categoriesOperations";
 
 interface FormData {
   category: string;
@@ -26,14 +28,20 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm<FormData>({
     mode: "onSubmit",
     resolver: yupResolver(addCaterogyFormSchema),
   });
+  const dispatch = useAppDispatch();
 
-  // const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (activeCategory) {
+      setValue("category", activeCategory.title);
+    }
+  }, [activeCategory, setValue]);
 
   const onSubmit = (data: FormData) => {
     const title = data.category;
@@ -42,8 +50,18 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
       return toast.error("Категорія з такою назвою вже існує");
     }
 
-    edit(false, null);
-    reset();
+    if (activeCategory) {
+      dispatch(editCategory({ id: activeCategory.id, title }))
+        .unwrap()
+        .then(() => {
+          toast.success(`Категорія "${title}" успішно оновлена`);
+          reset();
+          edit(false, null);
+        })
+        .catch((error) => {
+          toast.error(`Не вдалося оновити категорію: ${error.message}`);
+        });
+    }
   };
 
   return (
@@ -53,7 +71,6 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
         placeholder="Введіть назву категорії"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
-        value={activeCategory ? activeCategory.title : ""}
       />
       <div className="flex gap-4">
         <Button

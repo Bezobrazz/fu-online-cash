@@ -10,6 +10,7 @@ import {
   getDocs,
   query,
   Timestamp,
+  updateDoc,
   where,
   WithFieldValue,
 } from "firebase/firestore";
@@ -53,6 +54,31 @@ export const addDocumentToCollection = async <
   } catch (error) {
     console.error(
       `Error adding document to ${collectionName} collection:`,
+      error
+    );
+    throw error;
+  }
+};
+
+export const editDocumentById = async <T>(
+  collectionName: string,
+  id: string,
+  data: Partial<T>
+): Promise<T & { id: string }> => {
+  try {
+    const docRef: DocumentReference = doc(db, collectionName, id);
+    await updateDoc(docRef, data);
+
+    const updatedDoc = await getDoc(docRef);
+
+    if (!updatedDoc.exists()) {
+      throw new Error(`Document with id ${id} does not exist`);
+    }
+
+    return { id: updatedDoc.id, ...updatedDoc.data() } as T & { id: string };
+  } catch (error) {
+    console.error(
+      `Error editing document with id ${id} in ${collectionName} collection:`,
       error
     );
     throw error;

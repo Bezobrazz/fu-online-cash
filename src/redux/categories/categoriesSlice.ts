@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { Category } from "../../types";
 import {
   addCategory,
-  deleteCategoryById,
+  deleteCategory,
+  editCategory,
   getCategories,
 } from "./categoriesOperations";
 
@@ -26,7 +27,13 @@ const categoriesSlice = createSlice({
       .addCase(addCategory.fulfilled, (state, { payload }) => {
         state.categories.push(payload);
       })
-      .addCase(deleteCategoryById.fulfilled, (state, { payload }) => {
+      .addCase(editCategory.fulfilled, (state, { payload }) => {
+        const index = state.categories.findIndex(
+          (category) => category.id === payload.id
+        );
+        state.categories[index] = payload;
+      })
+      .addCase(deleteCategory.fulfilled, (state, { payload }) => {
         const index = state.categories.findIndex((elem) => elem.id === payload);
         if (index !== -1) {
           state.categories.splice(index, 1);
