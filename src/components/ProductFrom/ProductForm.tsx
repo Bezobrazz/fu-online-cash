@@ -31,9 +31,9 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
   const [isModal, toggle] = useModal();
 
   const categories = [
-    // { id: "1", title: "Technology" },
-    // { id: "2", title: "Health" },
-    // { id: "3", title: "Finance" },
+    { id: "1", title: "Technology" },
+    { id: "2", title: "Health" },
+    { id: "3", title: "Finance" },
   ];
 
   useEffect(() => {
@@ -87,7 +87,12 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
         </Button>
       </form>
       {isModal && (
-        <Modal toggleModal={toggle} title="Категорії товарів">
+        <Modal
+          toggleModal={toggle}
+          title={`Категорії товарів ${
+            categories.length !== 0 ? `(${categories.length})` : ""
+          }`}
+        >
           <CategoriesModal categories={categories} />
         </Modal>
       )}

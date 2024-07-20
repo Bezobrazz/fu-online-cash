@@ -38,7 +38,7 @@ export const Modal = ({ children, title, toggleModal }: ModalProps) => {
         >
           <IoClose className="fill-gray-800" />
         </button>
-        {children}
+        <div className="p-5">{children}</div>
       </div>
     </div>,
     modalRoot

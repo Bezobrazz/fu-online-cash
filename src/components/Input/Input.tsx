@@ -27,7 +27,7 @@ export const Input = ({
     placeholder,
     defaultValue,
     ...register(name),
-    autocomplete,
+    autoComplete: autocomplete,
   };
 
   const errorMessage = errors[name]?.message as string | undefined;
