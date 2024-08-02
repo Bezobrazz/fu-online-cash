@@ -36,8 +36,8 @@ export const EditSalePointForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6 py-6 px-7 w-[360px]"
     >
-      <p>Назва:</p>
       <Input
+        label="Назва:"
         name="title"
         type="text"
         placeholder="Введіть назву торгової точки"

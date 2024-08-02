@@ -15,12 +15,18 @@ import { editCashboxFormSchema } from "../../schemas";
 interface FormData {
   title: string;
   cash: number;
-  employee: string;
+  employeeId: string;
 }
-export const EditCashboxForm = () => {
+
+interface EditCashboxFormProps {
+  toggleModal: () => void;
+}
+
+export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
   const {
     register,
     reset,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -34,44 +40,75 @@ export const EditCashboxForm = () => {
     getUsers().then((res) => {
       const filteredUsers = res.filter((elem) => elem.role === "user");
       setEmployees(filteredUsers);
-      console.log("Працівники:", filteredUsers);
+      if (!filteredUsers.length) {
+        setValue("employeeId", "Без працівника");
+      }
     });
-  }, []);
+  }, [setValue]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const cashbox = { ...data, salePointId: "12idasidajok31" };
+    const cashbox = {
+      ...data,
+      card: 0,
+      isOpen: false,
+      openTime: null,
+      closeTime: null,
+      salePointId: "12idasidajok31",
+    };
     console.log(cashbox);
     reset();
+    toggleModal();
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6 py-6 px-7 w-[360px]"
     >
-      <p>Назва:</p>
       <Input
+        label="Назва:"
         name="title"
         type="text"
         placeholder="Введіть назву каси"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
       />
-      <p>Готівка:</p>
       <Input
+        label="Готівка:"
         name="cash"
         type="number"
         placeholder="Введіть суму готівки"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
       />
-      <p>Працівник:</p>
-      <Input
-        name="employee"
-        type="text"
-        placeholder="Виберіть працівника"
-        register={register as unknown as UseFormRegister<FieldValues>}
-        errors={errors}
-      />
+      <div className="flex flex-col gap-1.5 flex-1 relative">
+        <label className="label">
+          Працівник:
+          <select
+            className="select w-full field"
+            disabled={!employees.length}
+            {...register("employeeId")}
+          >
+            <option
+              value={employees.length ? "" : "Без працівника"}
+              disabled={Boolean(employees.length)}
+            >
+              {employees.length ? "Виберіть працівника" : "Без працівника"}
+            </option>
+            {employees.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {(errors.employeeId?.message as string | undefined) && (
+          <p className="field-error bottom-[-20px]">
+            {errors.employeeId?.message}
+          </p>
+        )}
+      </div>
       <Button type="submit" className="primary-btn">
         Додати касу
       </Button>

@@ -11,7 +11,7 @@ const ProductsServices = () => {
   const [isOpenModal, toggleModal] = useModal();
   const [isOpenCashBoxModal, toggleCashBoxModal] = useModal();
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 p-4">
       <Button type="button" className="primary-btn" onClick={toggleModal}>
         Створити торгову точку
       </Button>
@@ -30,7 +30,7 @@ const ProductsServices = () => {
       )}
       {isOpenCashBoxModal && (
         <Modal toggleModal={toggleCashBoxModal}>
-          <EditCashboxForm />
+          <EditCashboxForm toggleModal={toggleCashBoxModal} />
         </Modal>
       )}
     </div>
