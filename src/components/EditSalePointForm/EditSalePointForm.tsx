@@ -14,7 +14,11 @@ interface FormData {
   title: string;
 }
 
-export const EditSalePointForm = () => {
+interface EditSalePointFormProps {
+  toggleModal: () => void;
+}
+
+export const EditSalePointForm = ({ toggleModal }: EditSalePointFormProps) => {
   const {
     register,
     reset,
@@ -29,6 +33,7 @@ export const EditSalePointForm = () => {
     const salePoint = { ...data, enterpriseId: "12idasidajok31" };
     console.log(salePoint);
     reset();
+    toggleModal();
   };
 
   return (

@@ -15,3 +15,4 @@ export * from "./CategoriesBar/CategoriesBar.tsx";
 export * from "./ProductCard/ProductCard.tsx";
 export * from "./EditSalePointForm/EditSalePointForm.tsx";
 export * from "./EditCashboxForm/EditCashboxForm.tsx";
+export * from "./EditEmployeeForm/EditEmployeeForm.tsx";
