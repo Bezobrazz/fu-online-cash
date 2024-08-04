@@ -3,7 +3,8 @@ export interface BaseProduct {
   article: string;
   category: string;
   price: number;
-  salePoint: string;
+  quantity: number;
+  salePointId: string;
 }
 
 export interface Product extends BaseProduct {

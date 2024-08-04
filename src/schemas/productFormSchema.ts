@@ -16,5 +16,10 @@ export const productFormSchema = yup.object().shape({
         return value !== 0 && !/^0/.test(stringValue);
       }
     ),
-  salePoint: yup.string().required("Це поле обов'язкове для заповнення"),
+  salePointId: yup.string().required("Це поле обов'язкове для заповнення"),
+  quantity: yup
+    .number()
+    .integer("Кількість повинна бути цілим числом")
+    .min(0, "Кількість не може бути від'ємною")
+    .required("Це поле обов'язкове для заповнення"),
 });

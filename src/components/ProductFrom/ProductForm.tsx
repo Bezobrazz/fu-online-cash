@@ -15,18 +15,15 @@ import { getCategories } from "../../redux/categories/categoriesOperations";
 import { selectCategories } from "../../redux/categories/categoriesSlice";
 import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
 import { getSalePoints } from "../../redux/salePoints/salePointsOperations";
+import { toast } from "react-toastify";
 
-interface ProductFormProps {
-  salePoint: string;
-}
-
-export const ProductForm = ({ salePoint }: ProductFormProps) => {
+export const ProductForm = () => {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
     setValue,
+    formState: { errors },
   } = useForm<BaseProduct>({
     mode: "onSubmit",
     resolver: yupResolver(productFormSchema),
@@ -39,13 +36,21 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
   const salePoints = useAppSelector(selectSalePoints);
 
   useEffect(() => {
-    setValue("salePoint", salePoint);
     dispatch(getCategories());
     dispatch(getSalePoints());
   }, []);
 
+  const handleSetCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValue("category", e.target.value);
+  };
+
+  const handleSetSalePoint = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValue("salePointId", e.target.value);
+  };
+
   const onSubmit: SubmitHandler<BaseProduct> = (date) => {
     console.log(date);
+    toast.success(`Продукт «${date.name}» був успішно доданий.`);
     reset();
   };
 
@@ -71,12 +76,29 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
           register={register as unknown as UseFormRegister<FieldValues>}
           errors={errors}
         />
+        <Input
+          label="Ціна:"
+          name="price"
+          type="number"
+          placeholder="Введіть ціну"
+          register={register as unknown as UseFormRegister<FieldValues>}
+          errors={errors}
+        />
+        <Input
+          label="Кількість:"
+          name="quantity"
+          type="number"
+          placeholder="Введіть кількість товару"
+          register={register as unknown as UseFormRegister<FieldValues>}
+          errors={errors}
+        />
         <div className="flex flex-row gap-3 items-end">
           <div className="flex flex-col gap-1.5 flex-1">
             <label className="text-[20px]">Категорія:</label>
             <select
               className="select w-full field"
               disabled={categories.length === 0}
+              onChange={handleSetCategory}
             >
               {categories.length !== 0 ? (
                 <>
@@ -105,14 +127,17 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
           <select
             className="select w-full field"
             disabled={salePoints.length === 0}
+            onChange={handleSetSalePoint}
           >
             {salePoints.length !== 0 ? (
               <>
-                <option disabled selected>
+                <option value="" disabled selected>
                   Виберіть торгову точку
                 </option>
-                {salePoints.map((salePoints) => (
-                  <option key={salePoints.id}>{salePoints.title}</option>
+                {salePoints.map((salePoint) => (
+                  <option key={salePoint.id} value={salePoint.id}>
+                    {salePoint.title}
+                  </option>
                 ))}
               </>
             ) : (
@@ -120,14 +145,6 @@ export const ProductForm = ({ salePoint }: ProductFormProps) => {
             )}
           </select>
         </div>
-        <Input
-          label="Ціна:"
-          name="price"
-          type="number"
-          placeholder="Введіть ціну"
-          register={register as unknown as UseFormRegister<FieldValues>}
-          errors={errors}
-        />
         <Button type="submit" className="primary-btn">
           Додати товар
         </Button>

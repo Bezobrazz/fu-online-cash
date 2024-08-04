@@ -1,4 +1,5 @@
 export interface NewCategory {
+  enterpriseId: string;
   title: string;
 }
 

@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const addCaterogyFormSchema = yup.object().shape({
-  category: yup
+  title: yup
     .string()
     .required("Назва категорії обов'якова для заповнення")
     .min(3, "Назва категорії повинна містити мінімум 3 символа")

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 
 interface FormData {
-  category: string;
+  title: string;
 }
 
 interface AddCaterogyFormProps {
@@ -34,10 +34,12 @@ export const AddCaterogyForm: React.FC<AddCaterogyFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
+  const enterpriseId = "A0jYCcdJEC1LuairkZnO";
+
   const onSubmit = async (data: FormData) => {
     if (isSubmitting) return;
 
-    const categoryToAdd: NewCategory = { title: data.category };
+    const categoryToAdd: NewCategory = { title: data.title, enterpriseId };
 
     if (!isTitleUnique(categories, categoryToAdd.title)) {
       return toast.error("Категорія з такою назвою вже існує");
@@ -61,7 +63,7 @@ export const AddCaterogyForm: React.FC<AddCaterogyFormProps> = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <Input
-        name={"category"}
+        name={"title"}
         placeholder="Введіть назву категорії"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
