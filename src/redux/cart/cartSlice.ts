@@ -23,6 +23,7 @@ const cartSlice = createSlice({
       const checkIndex = state.cartList.findIndex((elem) => {
         return elem.checkId === checkId;
       });
+
       if (checkIndex === -1) {
         state.cartList.push({
           checkId,
@@ -39,6 +40,7 @@ const cartSlice = createSlice({
             return elem.productName === product.productName;
           }
         );
+
         if (itemIndex > -1) {
           state.cartList[checkIndex].productList[itemIndex].quantity += 1;
         } else {
@@ -63,10 +65,14 @@ const cartSlice = createSlice({
         const filteredProductList = state.cartList[
           checkIndex
         ].productList.filter((elem) => elem.productName !== productName);
+
         if (filteredProductList.length) {
           state.cartList[checkIndex].productList = filteredProductList;
         } else {
-          state.cartList.splice(checkIndex, 1);
+          const updatedList = state.cartList.filter(
+            (elem) => elem.checkId !== checkId
+          );
+          state.cartList = updatedList;
         }
       }
     },
@@ -99,10 +105,12 @@ const cartSlice = createSlice({
       const checkIndex = state.cartList.findIndex((elem) => {
         return elem.checkId === checkId;
       });
+
       if (checkIndex > -1) {
         const index = state.cartList[checkIndex].productList.findIndex(
           (elem) => elem.productName === productName
         );
+
         if (index > -1) {
           if (state.cartList[checkIndex].productList[index].quantity > 1) {
             state.cartList[checkIndex].productList[index].quantity -= 1;

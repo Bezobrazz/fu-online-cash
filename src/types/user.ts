@@ -8,4 +8,5 @@ export interface UserInfo {
   name: string;
   phone: number;
   role: Role;
+  enterpriseId: string;
 }
