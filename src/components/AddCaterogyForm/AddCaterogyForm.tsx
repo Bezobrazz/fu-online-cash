@@ -54,7 +54,7 @@ export const AddCaterogyForm: React.FC<AddCaterogyFormProps> = ({
       reset();
     } catch (error) {
       const errorMessage = (error as Error).message || "Unknown error";
-      toast.error(`Не вдалося створити категорію: ${errorMessage}`);
+      toast.error(`Не вдалося створити категорію: ${errorMessage}.`);
     } finally {
       setIsSubmitting(false);
     }

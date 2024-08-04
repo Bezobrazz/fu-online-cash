@@ -22,13 +22,13 @@ export const getProducts = createAsyncThunk<
   }
 });
 
-export const addProducts = createAsyncThunk<
+export const addProduct = createAsyncThunk<
   Product,
   BaseProduct,
   { rejectValue: string }
->("products/addProduct", async (category, { rejectWithValue }) => {
+>("products/addProduct", async (product, { rejectWithValue }) => {
   try {
-    const newProduct = await addDocumentToCollection("products", category);
+    const newProduct = await addDocumentToCollection("products", product);
     return newProduct;
   } catch (error) {
     if (error instanceof Error) {

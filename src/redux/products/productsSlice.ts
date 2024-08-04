@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Product } from "../../types";
-import { addProducts, getProducts } from "./productsOperations";
+import { addProduct, getProducts } from "./productsOperations";
 
 interface ProductsSlice {
   products: Product[];
@@ -19,7 +19,7 @@ const productsSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, { payload }) => {
         state.products = payload;
       })
-      .addCase(addProducts.fulfilled, (state, { payload }) => {
+      .addCase(addProduct.fulfilled, (state, { payload }) => {
         state.products.push(payload);
       });
   },

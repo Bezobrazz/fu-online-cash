@@ -16,6 +16,11 @@ import { selectCategories } from "../../redux/categories/categoriesSlice";
 import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
 import { getSalePoints } from "../../redux/salePoints/salePointsOperations";
 import { toast } from "react-toastify";
+import {
+  addProduct,
+  getProducts,
+} from "../../redux/products/productsOperations";
+import { selectProducts } from "../../redux/products/productsSlice";
 
 export const ProductForm = () => {
   const {
@@ -34,10 +39,13 @@ export const ProductForm = () => {
 
   const categories = useAppSelector(selectCategories);
   const salePoints = useAppSelector(selectSalePoints);
+  const products = useAppSelector(selectProducts);
+  console.log(products, "PROD");
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getSalePoints());
+    dispatch(getProducts());
   }, []);
 
   const handleSetCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -49,9 +57,13 @@ export const ProductForm = () => {
   };
 
   const onSubmit: SubmitHandler<BaseProduct> = (date) => {
-    console.log(date);
-    toast.success(`Продукт «${date.name}» був успішно доданий.`);
-    reset();
+    dispatch(addProduct(date))
+      .unwrap()
+      .then(() => {
+        toast.success(`Продукт «${date.name}» був успішно доданий.`);
+        reset();
+      })
+      .catch(() => toast.error(`Не вдалося додати товар.`));
   };
 
   return (
