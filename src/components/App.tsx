@@ -5,6 +5,8 @@ import CreateSale from "../pages/CreateSale";
 import SalesHistory from "../pages/SalesHistory";
 import ProductsServices from "../pages/ProductsServices";
 import { Cart } from "../pages/Cart";
+import SalePoints from "../pages/SalePoints";
+import SalePointDetails from "../pages/SalePointDetails";
 
 export const App = () => {
   // getCashboxes().then((res) => {
@@ -33,6 +35,8 @@ export const App = () => {
         <Route path="create-sale" element={<CreateSale />} />
         <Route path="create-sale/:checkId" element={<CreateSale />} />
         <Route path="sales-history" element={<SalesHistory />} />
+        <Route path="sale-points" element={<SalePoints />} />
+        <Route path="sale-points/:salePointId" element={<SalePointDetails />} />
         <Route path="products-services" element={<ProductsServices />} />
         <Route path="cart/:checkId" element={<Cart />} />
       </Route>
