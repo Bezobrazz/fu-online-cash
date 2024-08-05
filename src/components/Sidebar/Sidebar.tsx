@@ -8,6 +8,7 @@ import {
 } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { StatisticsView } from "../StatisticsView/StatisticsView";
 
 interface SidebarProps {
   closeSidebar: () => void;
@@ -18,7 +19,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({
   closeSidebar,
   isTabletOrMobile,
-  updateHeaderTitle
+  updateHeaderTitle,
 }) => {
   const navItems = [
     {
@@ -89,6 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </li>
         ))}
       </ul>
+      <StatisticsView />
     </div>
   );
 };
