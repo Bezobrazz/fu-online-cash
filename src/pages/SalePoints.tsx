@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { CardList } from "../components";
+import { Button, CardList, EditSalePointForm, Modal } from "../components";
 
 import { getSalePoints } from "../firebase";
+import { useModal } from "../hooks";
 
 const SalePoints = () => {
   const [salePoints, setSalePoints] = useState([]);
+
+  const [isOpenModal, toggleModal] = useModal();
 
   useEffect(() => {
     getSalePoints().then((res) => {
@@ -13,8 +16,20 @@ const SalePoints = () => {
     });
   }, []);
   return (
-    <section className="p-5">
+    <section className="p-5 space-y-4">
       <CardList title="Список торгових точок" items={salePoints} />
+      <Button
+        type="button"
+        className="primary-btn block mx-auto"
+        onClick={toggleModal}
+      >
+        Додати торгову точку
+      </Button>
+      {isOpenModal && (
+        <Modal title="Створення торгової точки" toggleModal={toggleModal}>
+          <EditSalePointForm toggleModal={toggleModal} />
+        </Modal>
+      )}
     </section>
   );
 };

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../firebase";
+
 import { Button, CardList, Modal, ProductForm } from "../components";
+
+import { getProducts } from "../firebase";
 import { useModal } from "../hooks";
 
 const Products = () => {
