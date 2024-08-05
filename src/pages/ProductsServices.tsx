@@ -1,53 +1,44 @@
-import {
-  Button,
-  EditCashboxForm,
-  EditEmployeeForm,
-  EditSalePointForm,
-  Modal,
-} from "../components";
+import { useEffect, useState } from "react";
+import { Button, CardList, EditCashboxForm, Modal } from "../components";
 
 import { useModal } from "../hooks";
+import { getCashboxes } from "../firebase";
+import { Link } from "react-router-dom";
 
 const ProductsServices = () => {
-  const [isOpenModal, toggleModal] = useModal();
-  const [isOpenCashBoxModal, toggleCashBoxModal] = useModal();
-  const [isOpenEmployeeModal, toggleEmployeeModal] = useModal();
-  return (
-    <div className="flex gap-4 p-4">
-      <Button type="button" className="primary-btn" onClick={toggleModal}>
-        Створити торгову точку
-      </Button>
+  const [cashboxes, setCashboxes] = useState([]);
 
-      <Button
-        type="button"
-        className="primary-btn"
-        onClick={toggleCashBoxModal}
-      >
-        Створити касу
-      </Button>
-      <Button
-        type="button"
-        className="primary-btn"
-        onClick={toggleEmployeeModal}
-      >
-        Створити працівника
-      </Button>
-      {isOpenModal && (
-        <Modal title="Створення торгової точки" toggleModal={toggleModal}>
-          <EditSalePointForm toggleModal={toggleModal} />
-        </Modal>
-      )}
+  const [isOpenCashBoxModal, toggleCashBoxModal] = useModal();
+
+  useEffect(() => {
+    getCashboxes().then((res) => {
+      setCashboxes(res);
+    });
+  }, []);
+
+  return (
+    <>
+      <div className="flex gap-4 p-4">
+        <Link to="/sale-points">SalePoints</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/products">Products</Link>
+      </div>
+      <div className="p-8 space-y-5">
+        <CardList title="Список кас" items={cashboxes} />
+        <Button
+          type="button"
+          className="primary-btn"
+          onClick={toggleCashBoxModal}
+        >
+          Додати касу
+        </Button>
+      </div>
       {isOpenCashBoxModal && (
-        <Modal title="Створення каси" toggleModal={toggleCashBoxModal}>
+        <Modal title="Додавання каси" toggleModal={toggleCashBoxModal}>
           <EditCashboxForm toggleModal={toggleCashBoxModal} />
         </Modal>
       )}
-      {isOpenEmployeeModal && (
-        <Modal title="Створення працівника" toggleModal={toggleEmployeeModal}>
-          <EditEmployeeForm toggleModal={toggleEmployeeModal} />
-        </Modal>
-      )}
-    </div>
+    </>
   );
 };
 export default ProductsServices;

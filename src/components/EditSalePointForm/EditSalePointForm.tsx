@@ -16,11 +16,13 @@ interface FormData {
 }
 
 interface EditSalePointFormProps {
+  isEdit?: boolean;
   toggleModal: () => void;
 }
 
 export const EditSalePointForm: FC<EditSalePointFormProps> = ({
   toggleModal,
+  isEdit,
 }) => {
   const {
     register,
@@ -53,7 +55,7 @@ export const EditSalePointForm: FC<EditSalePointFormProps> = ({
         errors={errors}
       />
       <Button type="submit" className="primary-btn">
-        Додати торгову точку
+        {isEdit ? "Зберегти" : "Додати торгову точку"}
       </Button>
     </form>
   );

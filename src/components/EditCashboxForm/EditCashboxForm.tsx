@@ -20,10 +20,14 @@ interface FormData {
 }
 
 interface EditCashboxFormProps {
+  isEdit?: boolean;
   toggleModal: () => void;
 }
 
-export const EditCashboxForm: FC<EditCashboxFormProps> = ({ toggleModal }) => {
+export const EditCashboxForm: FC<EditCashboxFormProps> = ({
+  isEdit,
+  toggleModal,
+}) => {
   const {
     register,
     reset,
@@ -35,7 +39,7 @@ export const EditCashboxForm: FC<EditCashboxFormProps> = ({ toggleModal }) => {
     resolver: yupResolver(editCashboxFormSchema),
   });
 
-  const [employees, setEmployees] = useState<UserInfo>();
+  const [employees, setEmployees] = useState<UserInfo[]>([]);
 
   useEffect(() => {
     getUsers().then((res) => {
@@ -111,7 +115,7 @@ export const EditCashboxForm: FC<EditCashboxFormProps> = ({ toggleModal }) => {
         )}
       </div>
       <Button type="submit" className="primary-btn">
-        Додати касу
+        {isEdit ? "Зберегти" : "Додати касу"}
       </Button>
     </form>
   );

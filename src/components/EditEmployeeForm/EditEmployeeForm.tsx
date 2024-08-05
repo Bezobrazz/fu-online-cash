@@ -17,10 +17,12 @@ interface FormData {
 }
 
 interface EditEmployeeFormProps {
+  isEdit?: boolean;
   toggleModal: () => void;
 }
 
 export const EditEmployeeForm: FC<EditEmployeeFormProps> = ({
+  isEdit,
   toggleModal,
 }) => {
   const {
@@ -67,7 +69,7 @@ export const EditEmployeeForm: FC<EditEmployeeFormProps> = ({
         errors={errors}
       />
       <Button type="submit" className="primary-btn">
-        Додати працівника
+        {isEdit ? "Зберегти" : "Додати працівника"}
       </Button>
     </form>
   );

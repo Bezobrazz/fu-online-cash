@@ -6,3 +6,4 @@ export * from "./product.ts";
 export * from "./category.ts";
 export * from "./cart.ts";
 export * from "./checks.ts";
+export * from "./card.ts";
