@@ -33,7 +33,7 @@ export const EditEmployeeForm = ({ toggleModal }: EditEmployeeFormProps) => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const employee = {
       ...data,
-      phone: Number(data.phone),
+      phone: `+380${data.phone}`,
       role: "employee",
       enterpriseId: "12idasidajok31",
     };
@@ -58,7 +58,7 @@ export const EditEmployeeForm = ({ toggleModal }: EditEmployeeFormProps) => {
       <Input
         label="Номер:"
         name="phone"
-        type="number"
+        type="tel"
         placeholder="Введіть номер телефону"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}

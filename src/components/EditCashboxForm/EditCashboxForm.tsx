@@ -11,6 +11,7 @@ import { Button, Input } from "../../components";
 
 import { getUsers } from "../../firebase";
 import { editCashboxFormSchema } from "../../schemas";
+import { UserInfo } from "../../types";
 
 interface FormData {
   title: string;
@@ -38,7 +39,7 @@ export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
 
   useEffect(() => {
     getUsers().then((res) => {
-      const filteredUsers = res.filter((elem) => elem.role === "user");
+      const filteredUsers = res.filter((elem) => elem.role === "employee");
       setEmployees(filteredUsers);
       if (!filteredUsers.length) {
         setValue("employeeId", "Без працівника");
