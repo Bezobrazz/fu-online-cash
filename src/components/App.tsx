@@ -8,6 +8,7 @@ import { Cart } from "../pages/Cart";
 import SalePoints from "../pages/SalePoints";
 import SalePointDetails from "../pages/SalePointDetails";
 import Users from "../pages/Users";
+import Products from "../pages/Products";
 
 export const App = () => {
   // getCashboxes().then((res) => {
@@ -40,6 +41,7 @@ export const App = () => {
         <Route path="sale-points/:salePointId" element={<SalePointDetails />} />
 
         <Route path="users" element={<Users />} />
+        <Route path="products" element={<Products />} />
         <Route path="products-services" element={<ProductsServices />} />
         <Route path="cart/:checkId" element={<Cart />} />
       </Route>
