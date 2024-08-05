@@ -6,10 +6,14 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import { CategoriesBar, ProductCard } from "../components";
 
 import { useAppDispatch } from "../hooks";
-import { CartItem, CartProduct } from "../types";
-import { addCartItem, deleteCheck, selectCartList } from "../redux";
+import {
+  addCartItem,
+  deleteCheck,
+  selectCartList,
+} from "../redux/cart/cartSlice";
+import type { CartItem, CartProduct } from "../types";
 
-const CreateSale: React.FC = () => {
+const CreateSale = () => {
   const cartList = useSelector(selectCartList);
 
   const { checkId } = useParams();

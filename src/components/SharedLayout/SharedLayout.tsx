@@ -38,27 +38,25 @@ export const SharedLayout = () => {
   };
   return (
     <div>
-      <Header openSidebar={openSidebar} headerTitle={headerTitle}/>
+      <Header openSidebar={openSidebar} headerTitle={headerTitle} />
       <div className="flex">
         <aside>
-        {sidebarIsOpen && (
-          <Sidebar
-            closeSidebar={closeSidebar}
-            isTabletOrMobile={isTabletOrMobile}
-            updateHeaderTitle={updateHeaderTitle}
-          />
-        )}
-      </aside>
-    <div className="container relative">
-      <main className="w-full h-[calc(100vh-70px)]">
-        <Suspense fallback={null}>
-          <Outlet />
-        </Suspense>
-      </main>
+          {sidebarIsOpen && (
+            <Sidebar
+              closeSidebar={closeSidebar}
+              isTabletOrMobile={isTabletOrMobile}
+              updateHeaderTitle={updateHeaderTitle}
+            />
+          )}
+        </aside>
+        <div className="container relative">
+          <main className="w-full h-[calc(100vh-70px)]">
+            <Suspense fallback={null}>
+              <Outlet />
+            </Suspense>
+          </main>
+        </div>
       </div>
-    </div>
-    
-      
       {backDropIsOpen && (
         <div
           className="absolute top-0 right-0 w-full h-screen bg-black opacity-40 z-9"

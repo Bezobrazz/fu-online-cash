@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Category } from "../../types";
+
 import {
   addCategory,
   deleteCategory,
   editCategory,
   getCategories,
 } from "./categoriesOperations";
+import type { Category } from "../../types";
 
 interface CategoriesSlice {
   categories: Category[];

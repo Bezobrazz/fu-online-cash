@@ -1,17 +1,18 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Input } from "../Input/Input";
+import { FC, useEffect } from "react";
 import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
-import { addCaterogyFormSchema } from "../../schemas";
-import { Button } from "..";
-import React, { useEffect } from "react";
-import { Category } from "../../types";
-import { isTitleUnique } from "../../helpers/isTitleUnique";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+
+import { Button, Input } from "../../components";
+
 import { useAppDispatch } from "../../hooks";
+import { addCaterogyFormSchema } from "../../schemas";
+import { isTitleUnique } from "../../helpers/isTitleUnique";
 import { editCategory } from "../../redux/categories/categoriesOperations";
+import type { Category } from "../../types";
 
 interface FormData {
-  category: string;
+  title: string;
 }
 
 interface EditCaterogyFormProps {
@@ -20,7 +21,7 @@ interface EditCaterogyFormProps {
   edit: (state: boolean, category: Category | null) => void;
 }
 
-export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
+export const EditCaterogyForm: FC<EditCaterogyFormProps> = ({
   categories,
   activeCategory,
   edit,
@@ -39,12 +40,12 @@ export const EditCaterogyForm: React.FC<EditCaterogyFormProps> = ({
 
   useEffect(() => {
     if (activeCategory) {
-      setValue("category", activeCategory.title);
+      setValue("title", activeCategory.title);
     }
   }, [activeCategory, setValue]);
 
   const onSubmit = (data: FormData) => {
-    const title = data.category;
+    const title = data.title;
 
     if (!isTitleUnique(categories, title)) {
       return toast.error("Категорія з такою назвою вже існує");

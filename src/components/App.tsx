@@ -1,40 +1,30 @@
-import {
-  getCashboxes,
-  getDocById,
-  getDocsByFieldValue,
-  getEnterprises,
-  getUsers,
-} from "../firebase/firebaseService";
+import { Routes, Route } from "react-router-dom";
 
 import { StartScreen, SharedLayout } from "../components";
-
-import { Routes, Route } from "react-router-dom";
 import CreateSale from "../pages/CreateSale";
 import SalesHistory from "../pages/SalesHistory";
 import ProductsServices from "../pages/ProductsServices";
 import { Cart } from "../pages/Cart";
-import { doc } from "firebase/firestore";
-import db from "../firebase/firebaseConfig";
 
 export const App = () => {
-  getCashboxes().then((res) => {
-    console.log("cashboxes=>", res);
-  });
-  getEnterprises().then((res) => {
-    console.log("Enterprises=>", res);
-  });
-  getUsers().then((res) => {
-    console.log("Users=>", res);
-  });
-  getDocById("cashboxes", "LL5rbj6PbXrFivbeqTSX").then((res) => {
-    console.log("Doc=>", res);
-  });
+  // getCashboxes().then((res) => {
+  //   console.log("cashboxes=>", res);
+  // });
+  // getEnterprises().then((res) => {
+  //   console.log("Enterprises=>", res);
+  // });
+  // getUsers().then((res) => {
+  //   console.log("Users=>", res);
+  // });
+  // getDocById("cashboxes", "LL5rbj6PbXrFivbeqTSX").then((res) => {
+  //   console.log("Doc=>", res);
+  // });
 
-  const salePointRef = doc(db, "salePoints", "NWWaP1hY1f737EfsJWtZ");
+  // const salePointRef = doc(db, "salePoints", "NWWaP1hY1f737EfsJWtZ");
 
-  getDocsByFieldValue("cashboxes", "salePoint", salePointRef).then((res) => {
-    console.log("CashboxesBySalePointRef=>", res);
-  });
+  // getDocsByFieldValue("cashboxes", "salePoint", salePointRef).then((res) => {
+  //   console.log("CashboxesBySalePointRef=>", res);
+  // });
 
   return (
     <Routes>

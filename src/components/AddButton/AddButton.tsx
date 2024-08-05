@@ -1,10 +1,11 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 interface AddButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: string;
 }
-export const AddButton = ({ size = "40", ...props }: AddButtonProps) => {
+
+export const AddButton: FC<AddButtonProps> = ({ size = "40", ...props }) => {
   const buttonSize = `${size}px`;
   return (
     <button

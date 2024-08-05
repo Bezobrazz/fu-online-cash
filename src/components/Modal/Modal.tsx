@@ -1,3 +1,4 @@
+import { FC } from "react";
 import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
 
@@ -11,7 +12,7 @@ interface ModalProps {
 
 const modalRoot = document.querySelector("#modalRoot")!;
 
-export const Modal = ({ children, title, toggleModal }: ModalProps) => {
+export const Modal: FC<ModalProps> = ({ children, title, toggleModal }) => {
   useEscapeKeyClose(toggleModal);
 
   const handleClickOnBackdrop = (e: React.MouseEvent<HTMLDivElement>): void => {

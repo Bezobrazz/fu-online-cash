@@ -1,12 +1,14 @@
+import { FC } from "react";
+
 import { CartListItem } from "./CartListItem";
 
-import { CartItem } from "../../types";
+import type { CartItem } from "../../types";
 
 interface CartListProps {
   productsInCart: CartItem[];
 }
 
-export const CartList: React.FC<CartListProps> = ({ productsInCart }) => {
+export const CartList: FC<CartListProps> = ({ productsInCart }) => {
   if (!productsInCart) return;
 
   return (

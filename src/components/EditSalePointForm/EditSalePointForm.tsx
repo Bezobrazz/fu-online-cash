@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -6,7 +7,7 @@ import {
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Input, Button } from "..";
+import { Input, Button } from "../../components";
 
 import { editSalePointFormSchema } from "../../schemas";
 
@@ -18,7 +19,9 @@ interface EditSalePointFormProps {
   toggleModal: () => void;
 }
 
-export const EditSalePointForm = ({ toggleModal }: EditSalePointFormProps) => {
+export const EditSalePointForm: FC<EditSalePointFormProps> = ({
+  toggleModal,
+}) => {
   const {
     register,
     reset,

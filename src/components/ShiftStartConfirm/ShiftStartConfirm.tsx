@@ -1,10 +1,14 @@
+import { FC } from "react";
+
 import { Button } from "../../components";
 
 interface ShiftStartConfirmProps {
   toggleModal: () => void;
 }
 
-export const ShiftStartConfirm = ({ toggleModal }: ShiftStartConfirmProps) => {
+export const ShiftStartConfirm: FC<ShiftStartConfirmProps> = ({
+  toggleModal,
+}) => {
   return (
     <div className="p-8">
       <div className="mb-[20px]">

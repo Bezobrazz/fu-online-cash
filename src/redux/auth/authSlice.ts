@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import type { UserInfo } from "./../../types/user";
 
 interface authSlice {

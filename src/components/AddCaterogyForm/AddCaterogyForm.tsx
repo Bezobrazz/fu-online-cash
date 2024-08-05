@@ -1,14 +1,16 @@
+import { FC, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Input } from "../Input/Input";
 import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
-import { addCaterogyFormSchema } from "../../schemas";
-import { Button } from "..";
+import { toast } from "react-toastify";
+
+import { Input } from "../Input/Input";
+import { Button } from "../Button/Button";
+
 import { useAppDispatch } from "../../hooks";
+import { addCaterogyFormSchema } from "../../schemas";
+import { isTitleUnique } from "../../helpers";
 import { addCategory } from "../../redux/categories/categoriesOperations";
 import type { Category, NewCategory } from "../../types";
-import { isTitleUnique } from "../../helpers/isTitleUnique";
-import { toast } from "react-toastify";
-import { useState } from "react";
 
 interface FormData {
   title: string;
@@ -18,9 +20,7 @@ interface AddCaterogyFormProps {
   categories: Category[];
 }
 
-export const AddCaterogyForm: React.FC<AddCaterogyFormProps> = ({
-  categories,
-}) => {
+export const AddCaterogyForm: FC<AddCaterogyFormProps> = ({ categories }) => {
   const {
     register,
     handleSubmit,

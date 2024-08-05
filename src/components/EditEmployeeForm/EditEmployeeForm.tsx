@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -6,7 +7,7 @@ import {
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Button, Input } from "..";
+import { Button, Input } from "../../components";
 
 import { editEmployeeFormSchema } from "../../schemas";
 
@@ -19,7 +20,9 @@ interface EditEmployeeFormProps {
   toggleModal: () => void;
 }
 
-export const EditEmployeeForm = ({ toggleModal }: EditEmployeeFormProps) => {
+export const EditEmployeeForm: FC<EditEmployeeFormProps> = ({
+  toggleModal,
+}) => {
   const {
     register,
     reset,

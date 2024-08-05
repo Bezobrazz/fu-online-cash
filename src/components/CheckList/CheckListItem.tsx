@@ -1,20 +1,21 @@
+import { FC } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsDatabaseCheck } from "react-icons/bs";
 
 import { AddButton } from "../../components";
 
-import { createCheck, selectCartList } from "../../redux";
+import { createCheck, selectCartList } from "../../redux/cart/cartSlice";
 import { calculateTotalPrice } from "../../helpers";
 import { useAppDispatch } from "../../hooks";
-import { CartList } from "../../types";
+import type { CartList } from "../../types";
 
 interface CheckListItemProps {
   item: CartList;
   index: number;
 }
 
-export const CheckListItem: React.FC<CheckListItemProps> = ({
+export const CheckListItem: FC<CheckListItemProps> = ({
   item: { checkId, productList },
   index,
 }) => {
