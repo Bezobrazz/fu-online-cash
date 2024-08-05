@@ -1,5 +1,7 @@
-import React from "react";
+import { FC } from "react";
+
 import { CategoryListItem } from "./CategoryListItem";
+
 import type { Category } from "../../types";
 
 interface CategoryListProps {
@@ -7,10 +9,7 @@ interface CategoryListProps {
   edit: (state: boolean, category: Category | null) => void;
 }
 
-export const CategoryList: React.FC<CategoryListProps> = ({
-  categories,
-  edit,
-}) => {
+export const CategoryList: FC<CategoryListProps> = ({ categories, edit }) => {
   return (
     <ul className="flex flex-col">
       {categories.map((category) => (

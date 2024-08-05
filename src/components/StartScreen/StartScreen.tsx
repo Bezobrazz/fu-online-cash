@@ -17,7 +17,6 @@ export const StartScreen = () => {
       </div>
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>
-          {" "}
           <ShiftStartConfirm toggleModal={toggleModal} />
         </Modal>
       )}

@@ -1,21 +1,24 @@
+import { useEffect } from "react";
 import {
   FieldValues,
   SubmitHandler,
   UseFormRegister,
   useForm,
 } from "react-hook-form";
-import { Button, CategoriesModal, Input, Modal } from "..";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { BaseProduct } from "../../types";
-import { useEffect } from "react";
-import { productFormSchema } from "../../schemas/productFormSchema";
+import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
+
+import { Button, CategoriesModal, Input, Modal } from "../../components";
+
+import { productFormSchema } from "../../schemas/productFormSchema";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 import { getCategories } from "../../redux/categories/categoriesOperations";
 import { selectCategories } from "../../redux/categories/categoriesSlice";
 import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
 import { getSalePoints } from "../../redux/salePoints/salePointsOperations";
-import { toast } from "react-toastify";
+import type { BaseProduct } from "../../types";
+
 import {
   addProduct,
   getProducts,

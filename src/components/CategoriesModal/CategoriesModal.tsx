@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 
 import { CategoryList } from "./CategoryList";
+import { AddCaterogyForm, EditCaterogyForm } from "../../components";
+
 import type { Category } from "../../types";
-import { AddCaterogyForm, EditCaterogyForm } from "..";
 
 interface CategoriesModalProps {
   categories: Category[];
 }
 
-export const CategoriesModal: React.FC<CategoriesModalProps> = ({
-  categories,
-}) => {
+export const CategoriesModal: FC<CategoriesModalProps> = ({ categories }) => {
   const [isEditCategory, setIsEditCategory] = useState<boolean>(false);
   const [categoryForEdit, setCategoryForEdit] = useState<Category | null>(null);
 

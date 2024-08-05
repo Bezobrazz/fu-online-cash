@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { AiFillUnlock, AiOutlineDoubleRight } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
 import {
@@ -15,10 +15,10 @@ interface SidebarProps {
   updateHeaderTitle: (title: string) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export const Sidebar: FC<SidebarProps> = ({
   closeSidebar,
   isTabletOrMobile,
-  updateHeaderTitle
+  updateHeaderTitle,
 }) => {
   const navItems = [
     {
@@ -78,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <li key={index}>
             <Link
               to={item.to}
-              className="flex items-center p-2 text-base text-neutral font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
+              className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
               onClick={() => handleNavLinkClick(item.text)}
             >
               <div className="flex gap-2 items-center">

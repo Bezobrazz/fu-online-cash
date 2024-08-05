@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -11,7 +11,7 @@ import { Button, Input } from "../../components";
 
 import { getUsers } from "../../firebase";
 import { editCashboxFormSchema } from "../../schemas";
-import { UserInfo } from "../../types";
+import { Role, UserInfo } from "../../types";
 
 interface FormData {
   title: string;
@@ -23,7 +23,7 @@ interface EditCashboxFormProps {
   toggleModal: () => void;
 }
 
-export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
+export const EditCashboxForm: FC<EditCashboxFormProps> = ({ toggleModal }) => {
   const {
     register,
     reset,
@@ -35,11 +35,11 @@ export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
     resolver: yupResolver(editCashboxFormSchema),
   });
 
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState<UserInfo>();
 
   useEffect(() => {
     getUsers().then((res) => {
-      const filteredUsers = res.filter((elem) => elem.role === "employee");
+      const filteredUsers = res.filter((elem) => elem.role === Role.Employee);
       setEmployees(filteredUsers);
       if (!filteredUsers.length) {
         setValue("employeeId", "Без працівника");

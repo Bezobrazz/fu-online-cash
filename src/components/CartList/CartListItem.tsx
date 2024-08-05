@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
 import { BiTrashAlt } from "react-icons/bi";
@@ -11,15 +10,15 @@ import {
   deleteCartItem,
   incrementCartItemQuantity,
   selectCartList,
-} from "../../redux";
+} from "../../redux/cart/cartSlice";
 import { useAppDispatch } from "../../hooks";
-import { CartItem } from "../../types";
+import type { CartItem } from "../../types";
 
 interface CartListItemProps {
   item: CartItem;
 }
 
-export const CartListItem: React.FC<CartListItemProps> = ({
+export const CartListItem: FC<CartListItemProps> = ({
   item: { productName, productPrice, productQuantity, quantity },
 }) => {
   const cartList = useSelector(selectCartList);
