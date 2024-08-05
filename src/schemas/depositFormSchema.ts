@@ -4,7 +4,7 @@ export const depositFormSchema = yup.object().shape({
   deposit: yup
     .number()
     .typeError("Поле повинно бути числом без використання коми")
-    .required(`Це поле обов'язкове для заповнення`)
+    .required("Це поле обов'язкове для заповнення")
     .test(
       "nonZeroOrNotStartingWithZero",
       "Значення не може бути нулем або починатися з нуля",

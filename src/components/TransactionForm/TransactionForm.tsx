@@ -8,15 +8,24 @@ import { Button, Input } from "..";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { depositFormSchema } from "../../schemas";
 
+enum TransactionType {
+  deposit = "deposit",
+  withdrawal = "withdrawal",
+}
+
 interface FormData {
   deposit: number;
 }
 
-interface DepositFormProps {
+interface TransactionFormProps {
+  type: TransactionType;
   toggleModal: () => void;
 }
 
-export const DepositForm = ({ toggleModal }: DepositFormProps) => {
+export const TransactionForm = ({
+  type,
+  toggleModal,
+}: TransactionFormProps) => {
   const {
     register,
     handleSubmit,
@@ -29,6 +38,7 @@ export const DepositForm = ({ toggleModal }: DepositFormProps) => {
 
   const onSubmit: SubmitHandler<FormData> = (date) => {
     console.log(date);
+    console.log(type);
     reset();
   };
 
@@ -44,7 +54,6 @@ export const DepositForm = ({ toggleModal }: DepositFormProps) => {
         placeholder="Введіть суму"
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
-        autocomplete="off"
       />
       <div className="flex justify-between gap-5">
         <Button

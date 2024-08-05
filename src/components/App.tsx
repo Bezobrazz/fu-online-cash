@@ -3,7 +3,6 @@ import {
   getDocById,
   getDocsByFieldValue,
   getEnterprises,
-  getSalePoints,
   getUsers,
 } from "../firebase/firebaseService";
 
@@ -23,9 +22,6 @@ export const App = () => {
   });
   getEnterprises().then((res) => {
     console.log("Enterprises=>", res);
-  });
-  getSalePoints().then((res) => {
-    console.log("SalePoints=>", res);
   });
   getUsers().then((res) => {
     console.log("Users=>", res);
