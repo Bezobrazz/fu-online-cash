@@ -1,15 +1,11 @@
-interface Money {
-  card: number;
-  cash: number;
-}
-
 export interface Cashbox {
   id: string;
   title: string;
-  employee: string;
-  salePoint: string;
-  money: Money;
+  card: number;
+  cash: number;
   isOpen: boolean;
-  openTime: Date;
-  closeTime: Date;
+  openTime: string;
+  closeTime: string;
+  employeeId: string;
+  salePointId: string;
 }

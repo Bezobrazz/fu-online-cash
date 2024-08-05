@@ -10,3 +10,6 @@ export interface BaseProduct {
 export interface Product extends BaseProduct {
   id: string;
 }
+
+export interface ProductSummary
+  extends Pick<BaseProduct, "name" | "price" | "quantity"> {}
