@@ -30,11 +30,11 @@ const ProductsServices = () => {
           className="primary-btn"
           onClick={toggleCashBoxModal}
         >
-          Створити касу
+          Додати касу
         </Button>
       </div>
       {isOpenCashBoxModal && (
-        <Modal title="Створення каси" toggleModal={toggleCashBoxModal}>
+        <Modal title="Додавання каси" toggleModal={toggleCashBoxModal}>
           <EditCashboxForm toggleModal={toggleCashBoxModal} />
         </Modal>
       )}

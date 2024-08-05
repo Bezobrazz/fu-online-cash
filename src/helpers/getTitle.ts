@@ -1,4 +1,4 @@
-import { CardListItemType } from "../types";
+import type { CardListItemType } from "../types";
 import { isCashbox, isProduct, isSalePoint, isUserInfo } from "./typeGuards";
 
 export const getTitle = (item: CardListItemType) => {

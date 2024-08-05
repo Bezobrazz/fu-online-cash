@@ -1,6 +1,6 @@
 import {
-  Product,
-  SalePoint,
+  type Product,
+  type SalePoint,
   type CardListItemType,
   type Cashbox,
   type UserInfo,

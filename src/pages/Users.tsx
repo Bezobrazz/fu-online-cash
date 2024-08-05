@@ -27,7 +27,7 @@ const Users = () => {
         Додати працівника
       </Button>
       {isOpenModal && (
-        <Modal title="Створення працівника" toggleModal={toggleModal}>
+        <Modal title="Додавання працівника" toggleModal={toggleModal}>
           <EditEmployeeForm toggleModal={toggleModal} />
         </Modal>
       )}

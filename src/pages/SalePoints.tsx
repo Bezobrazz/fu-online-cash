@@ -26,7 +26,7 @@ const SalePoints = () => {
         Додати торгову точку
       </Button>
       {isOpenModal && (
-        <Modal title="Створення торгової точки" toggleModal={toggleModal}>
+        <Modal title="Додавання торгової точки" toggleModal={toggleModal}>
           <EditSalePointForm toggleModal={toggleModal} />
         </Modal>
       )}
