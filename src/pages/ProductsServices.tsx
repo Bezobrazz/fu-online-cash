@@ -33,17 +33,17 @@ const ProductsServices = () => {
         Створити працівника
       </Button>
       {isOpenModal && (
-        <Modal toggleModal={toggleModal}>
+        <Modal title="Створення торгової точки" toggleModal={toggleModal}>
           <EditSalePointForm toggleModal={toggleModal} />
         </Modal>
       )}
       {isOpenCashBoxModal && (
-        <Modal toggleModal={toggleCashBoxModal}>
+        <Modal title="Створення каси" toggleModal={toggleCashBoxModal}>
           <EditCashboxForm toggleModal={toggleCashBoxModal} />
         </Modal>
       )}
       {isOpenEmployeeModal && (
-        <Modal toggleModal={toggleEmployeeModal}>
+        <Modal title="Створення працівника" toggleModal={toggleEmployeeModal}>
           <EditEmployeeForm toggleModal={toggleEmployeeModal} />
         </Modal>
       )}

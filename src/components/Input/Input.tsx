@@ -3,7 +3,7 @@ import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 interface InputProps {
   label?: string;
   name: string;
-  type?: "text" | "number";
+  type?: "text" | "number" | "tel";
   placeholder: string;
   defaultValue?: string | number;
   register: UseFormRegister<FieldValues>;
@@ -33,10 +33,19 @@ export const Input = ({
   const errorMessage = errors[name]?.message as string | undefined;
 
   return (
-    <div className="relative">
+    <div
+      className={`relative ${
+        name === "phone"
+          ? `before:text-[18px] before:content-['+380'] before:absolute before:top-[52%] before:left-[10px]  `
+          : ""
+      }`}
+    >
       <label className="label">
         {label}
-        <input {...inputProps} />
+        <input
+          {...inputProps}
+          style={name === "phone" ? { paddingLeft: "50px" } : {}}
+        />
       </label>
       {errorMessage && <p className="field-error">{errorMessage}</p>}
     </div>
