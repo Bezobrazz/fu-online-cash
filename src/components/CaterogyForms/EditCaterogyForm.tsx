@@ -3,11 +3,11 @@ import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
-import { Button, Input } from "..";
+import { Button, Input } from "../../components";
 
 import { useAppDispatch } from "../../hooks";
 import { categoryFormSchema } from "../../schemas";
-import { isTitleUnique } from "../../helpers/isTitleUnique";
+import { isItemUnique } from "../../helpers/isItemUnique";
 import { editCategory } from "../../redux/categories/categoriesOperations";
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
@@ -46,7 +46,7 @@ export const EditCaterogyForm: FC<EditCaterogyFormProps> = ({
   const onSubmit = (data: FormData) => {
     const title = data.title.trim();
 
-    if (!isTitleUnique(categories, title)) {
+    if (!isItemUnique(categories, title)) {
       return toast.error("Категорія з такою назвою вже існує");
     }
 

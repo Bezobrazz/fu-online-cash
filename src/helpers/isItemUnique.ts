@@ -1,4 +1,4 @@
-export const isTitleUnique = <T extends Record<string, any>>(
+export const isItemUnique = <T extends Record<string, any>>(
   array: T[],
   value: string,
   key: string = "title"
