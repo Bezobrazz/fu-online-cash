@@ -1,12 +1,8 @@
 import { FC } from "react";
 import { BiTrashAlt } from "react-icons/bi";
 import { FaRegEdit } from "react-icons/fa";
-import { toast } from "react-toastify";
 
 import { CategoryState } from "../../types";
-import { isItemUnique } from "../../helpers";
-import { useAppSelector } from "../../hooks";
-import { selectProducts } from "../../redux/products/productsSlice";
 
 import type { Category } from "../../types";
 
@@ -23,16 +19,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
     edit(CategoryState.Edit, category);
   };
 
-  const products = useAppSelector(selectProducts);
-
   const handleDeleteCategory = (category: Category) => {
-    if (!isItemUnique(products, category.title, "category")) {
-      toast.error(
-        `Неможливо видалити категорію, оскільки існуть продукти з такою категорією.`
-      );
-      return;
-    }
-
     edit(CategoryState.Delete, category);
   };
 
