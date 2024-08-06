@@ -73,7 +73,7 @@ export const ProductForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 py-6 px-7 max-w-[600px] w-full"
+        className="flex flex-col gap-6 w-full"
       >
         <Input
           label="Назва:"
