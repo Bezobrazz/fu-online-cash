@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Product } from "../../types";
+
 import { addProduct, getProducts } from "./productsOperations";
+import type { Product } from "../../types";
 
 interface ProductsSlice {
   products: Product[];

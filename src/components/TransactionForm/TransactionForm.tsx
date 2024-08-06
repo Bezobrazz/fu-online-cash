@@ -7,6 +7,7 @@ import {
 import { Button, Input } from "..";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { depositFormSchema } from "../../schemas";
+import { FC } from "react";
 
 enum TransactionType {
   deposit = "deposit",
@@ -22,10 +23,10 @@ interface TransactionFormProps {
   toggleModal: () => void;
 }
 
-export const TransactionForm = ({
+export const TransactionForm: FC<TransactionFormProps> = ({
   type,
   toggleModal,
-}: TransactionFormProps) => {
+}) => {
   const {
     register,
     handleSubmit,

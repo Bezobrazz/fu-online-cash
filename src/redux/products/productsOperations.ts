@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { BaseProduct, Product } from "../../types";
+
 import {
   addDocumentToCollection,
   getCollectionData,
 } from "../../firebase/firebaseService";
+import { BaseProduct, Product } from "../../types";
 
 export const getProducts = createAsyncThunk<
   Product[],

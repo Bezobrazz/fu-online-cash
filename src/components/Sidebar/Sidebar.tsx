@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { AiFillUnlock, AiOutlineDoubleRight } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
 import {
@@ -20,7 +20,7 @@ interface SidebarProps {
   updateHeaderTitle: (title: string) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export const Sidebar: FC<SidebarProps> = ({
   closeSidebar,
   isTabletOrMobile,
   updateHeaderTitle,

@@ -101,6 +101,13 @@ export const deleteDocumentById = async (
   }
 };
 
+export const getProducts = async () => {
+  return await getCollectionData("products");
+};
+export const getSalePoints = async () => {
+  return await getCollectionData("salePoints");
+};
+
 export const getCashboxes = async () => {
   return await getCollectionData("cashboxes");
 };

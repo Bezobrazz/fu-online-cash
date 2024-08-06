@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const editCashboxFormSchema = yup.object().shape({
+export const cashboxFormSchema = yup.object().shape({
   title: yup
     .string()
     .required(`Це поле обов'язкове для заповнення`)

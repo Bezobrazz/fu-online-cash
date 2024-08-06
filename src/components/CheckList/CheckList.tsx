@@ -1,12 +1,14 @@
+import { FC } from "react";
+
 import { CheckListItem } from "./CheckListItem";
 
-import { CartList } from "../../types";
+import type { CartList } from "../../types";
 
 interface CheckListProps {
   cartList: CartList[];
 }
 
-export const CheckList: React.FC<CheckListProps> = ({ cartList }) => {
+export const CheckList: FC<CheckListProps> = ({ cartList }) => {
   return (
     <ul className="flex flex-wrap gap-4 md:gap-2 lg:gap-4">
       {cartList.map((item, index) => (

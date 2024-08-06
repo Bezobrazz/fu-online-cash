@@ -36,7 +36,7 @@ export const Input = ({
     <div
       className={`relative ${
         name === "phone"
-          ? `before:text-[18px] before:content-['+380'] before:absolute before:top-[52%] before:left-[10px]  `
+          ? `before:text-[18px] before:content-['+380'] before:absolute before:top-[56%] before:left-[10px]  `
           : ""
       }`}
     >

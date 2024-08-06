@@ -1,4 +1,6 @@
-export const calculateTotalPrice = (cartList) => {
+import type { CartItem } from "../types";
+
+export const calculateTotalPrice = (cartList: CartItem[]) => {
   const total = cartList.reduce((total, item) => {
     return total + item.productPrice * item.quantity;
   }, 0);

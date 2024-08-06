@@ -1,18 +1,18 @@
-import React from "react";
+import { FC } from "react";
+import { toast } from "react-toastify";
 import { BiTrashAlt } from "react-icons/bi";
 import { FaRegEdit } from "react-icons/fa";
 
 import { useAppDispatch } from "../../hooks";
-import type { Category } from "../../types";
-import { toast } from "react-toastify";
 import { deleteCategory } from "../../redux/categories/categoriesOperations";
+import type { Category } from "../../types";
 
 interface CategoryListItemProps {
   category: Category;
   edit: (state: boolean, category: Category | null) => void;
 }
 
-export const CategoryListItem: React.FC<CategoryListItemProps> = ({
+export const CategoryListItem: FC<CategoryListItemProps> = ({
   category,
   edit,
 }) => {

@@ -1,13 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { collection, getDocs, DocumentReference } from "firebase/firestore";
-import db from "../../firebase/firebaseConfig";
-import { SalePoint } from "../../types";
 
-interface FirestoreSalePoint {
-  title: string;
-  cashbox: DocumentReference | null;
-  enterprise: DocumentReference | null;
-}
+import type { SalePoint } from "../../types";
+import { getCollectionData } from "../../firebase";
 
 export const getSalePoints = createAsyncThunk<
   SalePoint[],
@@ -15,18 +9,7 @@ export const getSalePoints = createAsyncThunk<
   { rejectValue: string }
 >("salePoints/getSalePoints", async (_, { rejectWithValue }) => {
   try {
-    const snapshot = await getDocs(collection(db, "salePoints"));
-    const data = snapshot.docs.map((doc) => {
-      const salePointData = doc.data() as FirestoreSalePoint;
-      return {
-        id: doc.id,
-        title: salePointData.title,
-        cashbox: salePointData.cashbox ? salePointData.cashbox.path : null,
-        enterprise: salePointData.enterprise
-          ? salePointData.enterprise.path
-          : null,
-      } as SalePoint;
-    });
+    const data = await getCollectionData<SalePoint>("salePoints");
     return data;
   } catch (error) {
     if (error instanceof Error) {

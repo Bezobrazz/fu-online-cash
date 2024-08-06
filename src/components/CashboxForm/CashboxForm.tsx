@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -7,11 +7,11 @@ import {
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Button, Input } from "../../components";
+import { Button, Input } from "..";
 
 import { getUsers } from "../../firebase";
-import { editCashboxFormSchema } from "../../schemas";
-import { UserInfo } from "../../types";
+import { cashboxFormSchema } from "../../schemas";
+import { Role, type Cashbox, type UserInfo } from "../../types";
 
 interface FormData {
   title: string;
@@ -19,11 +19,17 @@ interface FormData {
   employeeId: string;
 }
 
-interface EditCashboxFormProps {
+interface CashboxFormProps {
+  item?: Cashbox;
+  isEdit?: boolean;
   toggleModal: () => void;
 }
 
-export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
+export const CashboxForm: FC<CashboxFormProps> = ({
+  item,
+  isEdit,
+  toggleModal,
+}) => {
   const {
     register,
     reset,
@@ -32,20 +38,28 @@ export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
     formState: { errors },
   } = useForm<FormData>({
     mode: "onSubmit",
-    resolver: yupResolver(editCashboxFormSchema),
+    resolver: yupResolver(cashboxFormSchema),
   });
 
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState<UserInfo[]>([]);
 
   useEffect(() => {
     getUsers().then((res) => {
-      const filteredUsers = res.filter((elem) => elem.role === "employee");
+      const filteredUsers = res.filter((elem) => elem.role === Role.Employee);
       setEmployees(filteredUsers);
       if (!filteredUsers.length) {
         setValue("employeeId", "Без працівника");
       }
+      if (isEdit) {
+        item && setValue("title", item.title);
+        item && setValue("cash", item.cash);
+        const employee = filteredUsers.find(
+          (elem) => elem.id === item.employeeId
+        );
+        item && setValue("employeeId", employee);
+      }
     });
-  }, [setValue]);
+  }, [isEdit, item, setValue]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const cashbox = {
@@ -64,7 +78,7 @@ export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-6 py-6 px-7 w-[360px]"
+      className="flex flex-col gap-6 w-full"
     >
       <Input
         label="Назва:"
@@ -111,7 +125,7 @@ export const EditCashboxForm = ({ toggleModal }: EditCashboxFormProps) => {
         )}
       </div>
       <Button type="submit" className="primary-btn">
-        Додати касу
+        {isEdit ? "Зберегти" : "Додати касу"}
       </Button>
     </form>
   );

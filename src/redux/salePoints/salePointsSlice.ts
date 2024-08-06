@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getSalePoints } from "./salePointsOperations";
-import { SalePoint } from "../../types";
+
+import type { SalePoint } from "../../types";
 
 interface SalePointsSlice {
   salePoints: SalePoint[];
