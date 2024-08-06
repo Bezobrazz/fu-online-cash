@@ -17,13 +17,13 @@ const Products = () => {
 
   return (
     <section className="p-5 space-y-4">
-      <CardList title="Список продуктів" items={products} />
+      <CardList title="Список товарів" items={products} />
       <Button
         type="button"
         className="primary-btn block mx-auto"
         onClick={toggleModal}
       >
-        Додати продукт
+        Додати товар
       </Button>
       {isOpenModal && (
         <Modal title="Додавання продукту" toggleModal={toggleModal}>

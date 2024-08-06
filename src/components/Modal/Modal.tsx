@@ -26,7 +26,7 @@ export const Modal: FC<ModalProps> = ({ children, title, toggleModal }) => {
       className="flex items-center justify-center fixed bg-black backdrop-blur-md bg-opacity-40 w-screen h-screen left-0 top-0 z-50"
       onClick={handleClickOnBackdrop}
     >
-      <div className="relative bg-white max-w-[350px] md:max-w-[704px] lg:max-w-[1240px] rounded-md">
+      <div className="relative bg-white w-[80vw] md:max-w-[500px] rounded-md">
         {title && (
           <h2 className="font-bold text-[20px] bg-teal-500 text-white py-3 px-5 shadow-sm rounded-t-md">
             {title}
@@ -35,11 +35,11 @@ export const Modal: FC<ModalProps> = ({ children, title, toggleModal }) => {
         <button
           type="button"
           onClick={toggleModal}
-          className="absolute top-1.5 right-1.5"
+          className="absolute top-3 right-3"
         >
-          <IoClose className="fill-gray-800" />
+          <IoClose className="fill-gray-800 size-7" />
         </button>
-        <div className="p-5">{children}</div>
+        <div className="p-7">{children}</div>
       </div>
     </div>,
     modalRoot
