@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Button, CardList, EditSalePointForm, Modal } from "../components";
+import { Button, CardList, SalePointForm, Modal } from "../components";
 
 import { getSalePoints } from "../firebase";
 import { useModal } from "../hooks";
@@ -27,7 +27,7 @@ const SalePoints = () => {
       </Button>
       {isOpenModal && (
         <Modal title="Додавання торгової точки" toggleModal={toggleModal}>
-          <EditSalePointForm toggleModal={toggleModal} />
+          <SalePointForm toggleModal={toggleModal} />
         </Modal>
       )}
     </section>

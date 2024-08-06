@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const editEmployeeFormSchema = yup.object().shape({
+export const employeeFormSchema = yup.object().shape({
   name: yup
     .string()
     .required(`Це поле обов'язкове для заповнення`)

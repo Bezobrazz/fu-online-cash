@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Button, CardList, EditEmployeeForm, Modal } from "../components";
+import { Button, CardList, EmployeeForm, Modal } from "../components";
 
 import { getUsers } from "../firebase";
 import { useModal } from "../hooks";
@@ -28,7 +28,7 @@ const Users = () => {
       </Button>
       {isOpenModal && (
         <Modal title="Додавання працівника" toggleModal={toggleModal}>
-          <EditEmployeeForm toggleModal={toggleModal} />
+          <EmployeeForm toggleModal={toggleModal} />
         </Modal>
       )}
     </section>

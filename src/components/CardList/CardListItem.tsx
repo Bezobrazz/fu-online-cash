@@ -3,11 +3,11 @@ import { BiTrashAlt } from "react-icons/bi";
 import { FaRegEdit } from "react-icons/fa";
 
 import {
+  CashboxForm,
+  EmployeeForm,
   Modal,
-  EditEmployeeForm,
-  EditSalePointForm,
-  EditCashboxForm,
   ProductForm,
+  SalePointForm,
 } from "..";
 
 import { useModal } from "../../hooks";
@@ -66,11 +66,11 @@ export const CardListItem = ({ item }: CardListItemProps) => {
 
   const renderModalContent = () => {
     if (isUserInfo(item))
-      return <EditEmployeeForm toggleModal={toggleModal} isEdit />;
+      return <EmployeeForm toggleModal={toggleModal} item={item} isEdit />;
     if (isSalePoint(item))
-      return <EditSalePointForm toggleModal={toggleModal} isEdit />;
+      return <SalePointForm toggleModal={toggleModal} item={item} isEdit />;
     if (isCashbox(item))
-      return <EditCashboxForm toggleModal={toggleModal} isEdit />;
+      return <CashboxForm toggleModal={toggleModal} item={item} isEdit />;
     if (isProduct(item)) return <ProductForm />;
     return null;
   };
