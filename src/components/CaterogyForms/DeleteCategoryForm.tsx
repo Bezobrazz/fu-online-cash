@@ -1,12 +1,14 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button } from "../../components";
 
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { deleteCategory } from "../../redux/categories/categoriesOperations";
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
+import { isItemUnique } from "../../helpers";
+import { selectProducts } from "../../redux/products/productsSlice";
 
 interface DeleteCategoryFormProps {
   activeCategory: Category;
@@ -18,6 +20,15 @@ export const DeleteCategoryForm: FC<DeleteCategoryFormProps> = ({
   edit,
 }) => {
   const dispatch = useAppDispatch();
+  const products = useAppSelector(selectProducts);
+  const [isCategoryDeletable, setIsCategoryDeletable] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    setIsCategoryDeletable(
+      isItemUnique(products, activeCategory.title, "category")
+    );
+  }, [activeCategory]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,8 +47,15 @@ export const DeleteCategoryForm: FC<DeleteCategoryFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <div className="h-[48px] text-[18px] text-red-600 flex items-center justify-center ">
-        <p>Підтвердіть видалення категорії «{activeCategory.title}»</p>
+      <div className="h-[48px] text-[18px] text-red-600 flex items-center justify-center">
+        {isCategoryDeletable ? (
+          <p>Підтвердіть видалення категорії «{activeCategory.title}»</p>
+        ) : (
+          <p className="text-center">
+            Неможливо видалити категорію, оскільки існуть продукти з такою
+            категорією.
+          </p>
+        )}
       </div>
       <div className="flex gap-4">
         <Button
@@ -47,7 +65,13 @@ export const DeleteCategoryForm: FC<DeleteCategoryFormProps> = ({
         >
           Скасувати
         </Button>
-        <Button type="submit" className="primary-btn flex-1">
+        <Button
+          type="submit"
+          className={`primary-btn flex-1 ${
+            !isCategoryDeletable && "cursor-not-allowed"
+          }`}
+          disabled={!isCategoryDeletable}
+        >
           Видалити
         </Button>
       </div>
