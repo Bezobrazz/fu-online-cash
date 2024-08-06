@@ -1,25 +1,36 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { CategoryList } from "./CategoryList";
 import { AddCaterogyForm, EditCaterogyForm } from "../../components";
 
+import { CategoryState } from "../../types";
 import type { Category } from "../../types";
+import { getCategoryStateDescription } from "../../helpers";
 
 interface CategoriesModalProps {
   categories: Category[];
 }
 
 export const CategoriesModal: FC<CategoriesModalProps> = ({ categories }) => {
-  const [isEditCategory, setIsEditCategory] = useState<boolean>(false);
-  const [categoryForEdit, setCategoryForEdit] = useState<Category | null>(null);
+  const [categoryState, setCategoryState] = useState<CategoryState>(
+    CategoryState.Add
+  );
+  const [activeCategory, setActiveCategory] = useState<Category | null>(null);
+  const [currentTitle, setCurrentTitle] = useState<string>(
+    getCategoryStateDescription(CategoryState.Add)
+  );
 
-  const editCategory = (state: boolean, category: Category | null) => {
-    setIsEditCategory(state);
-    setCategoryForEdit(category);
+  useEffect(() => {
+    setCurrentTitle(getCategoryStateDescription(categoryState));
+  }, [categoryState]);
+
+  const editCategory = (state: CategoryState, category: Category | null) => {
+    setCategoryState(state);
+    setActiveCategory(category);
   };
 
   return (
-    <div className="flex flex-col w-[400px]">
+    <div className="flex flex-col">
       <div className="h-[300px] rounded-md border border-solid border-gray-500 overflow-y-auto">
         {categories.length === 0 ? (
           <div className="flex items-center justify-center h-full">
@@ -29,17 +40,16 @@ export const CategoriesModal: FC<CategoriesModalProps> = ({ categories }) => {
           <CategoryList categories={categories} edit={editCategory} />
         )}
       </div>
-      <div className="divider">
-        {isEditCategory ? "Редагувати категорію" : "Додати категорію"}
-      </div>
-      {isEditCategory ? (
+      <div className="divider">{currentTitle}</div>
+      {categoryState === CategoryState.Add && (
+        <AddCaterogyForm categories={categories} />
+      )}
+      {categoryState === CategoryState.Edit && (
         <EditCaterogyForm
           categories={categories}
           edit={editCategory}
-          activeCategory={categoryForEdit}
+          activeCategory={activeCategory}
         />
-      ) : (
-        <AddCaterogyForm categories={categories} />
       )}
     </div>
   );
