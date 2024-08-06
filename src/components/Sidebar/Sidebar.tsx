@@ -10,6 +10,9 @@ import { FaFileInvoiceDollar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StatisticsView } from "../StatisticsView/StatisticsView";
 import { CashAddSubtract } from "./CashAddSubtract/CashAddSubtract";
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../redux/auth/authSlice";
+import { Role } from "../../types";
 
 interface SidebarProps {
   closeSidebar: () => void;
@@ -22,31 +25,45 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isTabletOrMobile,
   updateHeaderTitle,
 }) => {
+  const userInfo = useSelector(selectUserInfo);
+  console.log(userInfo.role);
+
+  const isOwner = userInfo.role === Role.Owner;
+
+  // const isEmployee = userInfo.role === Role.Employee;
+
+  // const isAdmin = userInfo.role === Role.Admin;
+
   const navItems = [
     {
       to: "/create-sale",
       icon: <FaFileInvoiceDollar />,
       text: "Створити продаж",
-    },
-    {
-      to: "/sales-history",
-      icon: <BsFillStopwatchFill />,
-      text: "Історія продажів",
-    },
-    {
-      to: "/products-services",
-      icon: <BsFillBoxSeamFill />,
-      text: "Товари та послуги",
+      condition: true,
     },
     {
       to: "/products-services",
       icon: <AiFillUnlock />,
       text: "Відкрити зміну",
+      condition: true,
+    },
+    {
+      to: "/sales-history",
+      icon: <BsFillStopwatchFill />,
+      text: "Історія продажів",
+      condition: isOwner ? true : false,
+    },
+    {
+      to: "/products-services",
+      icon: <BsFillBoxSeamFill />,
+      text: "Товари та послуги",
+      condition: isOwner ? true : false,
     },
     {
       to: "/products-services",
       icon: <BsGearWideConnected />,
       text: "Налаштування",
+      condition: isOwner ? true : false,
     },
   ];
 
@@ -76,20 +93,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <AiOutlineDoubleRight />
           </div>
         </li>
-        {navItems.map((item, index) => (
-          <li key={index}>
-            <Link
-              to={item.to}
-              className="flex items-center p-2 text-base text-neutral font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
-              onClick={() => handleNavLinkClick(item.text)}
-            >
-              <div className="flex gap-2 items-center">
-                {item.icon}
-                <p>{item.text}</p>
-              </div>
-            </Link>
-          </li>
-        ))}
+        {navItems
+          .filter((item) => item.condition)
+          .map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.to}
+                className="flex items-center p-2 text-base text-neutral font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
+                onClick={() => handleNavLinkClick(item.text)}
+              >
+                <div className="flex gap-2 items-center">
+                  {item.icon}
+                  <p>{item.text}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
       </ul>
       <CashAddSubtract />
       <StatisticsView />

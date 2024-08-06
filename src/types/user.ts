@@ -1,12 +1,13 @@
-enum Role {
-  User = "User",
-  Amdin = "Admin",
+export enum Role {
+  Admin = "ADMIN",
+  Owner = "OWNER",
+  Employee = "EMPLOYEE",
 }
 
 export interface UserInfo {
   id: string;
   name: string;
-  phone: number;
+  phone: string;
   role: Role;
   enterpriseId: string;
 }
