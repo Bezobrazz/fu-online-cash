@@ -7,7 +7,7 @@ import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
 
 import { useAppDispatch } from "../../hooks";
-import { addCaterogyFormSchema } from "../../schemas";
+import { categoryFormSchema } from "../../schemas";
 import { isTitleUnique } from "../../helpers";
 import { addCategory } from "../../redux/categories/categoriesOperations";
 import type { Category, NewCategory } from "../../types";
@@ -28,7 +28,7 @@ export const AddCaterogyForm: FC<AddCaterogyFormProps> = ({ categories }) => {
     formState: { errors },
   } = useForm<FormData>({
     mode: "onSubmit",
-    resolver: yupResolver(addCaterogyFormSchema),
+    resolver: yupResolver(categoryFormSchema),
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);

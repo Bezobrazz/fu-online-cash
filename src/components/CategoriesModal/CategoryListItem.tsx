@@ -5,11 +5,12 @@ import { FaRegEdit } from "react-icons/fa";
 
 import { useAppDispatch } from "../../hooks";
 import { deleteCategory } from "../../redux/categories/categoriesOperations";
+import { CategoryState } from "../../types";
 import type { Category } from "../../types";
 
 interface CategoryListItemProps {
   category: Category;
-  edit: (state: boolean, category: Category | null) => void;
+  edit: (state: CategoryState, category: Category | null) => void;
 }
 
 export const CategoryListItem: FC<CategoryListItemProps> = ({
@@ -25,7 +26,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
         toast.success(
           `Категорія «${category.title}» була успішно видалена зі списку.`
         );
-        edit(false, null);
+        edit(CategoryState.Add, null);
       })
       .catch((error) => {
         toast.error(`Не вдалося видалити категорію: ${error.message}`);
@@ -33,7 +34,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
   };
 
   const editCategoryTitle = (category: Category) => {
-    edit(true, category);
+    edit(CategoryState.Edit, category);
   };
 
   return (

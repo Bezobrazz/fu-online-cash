@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const addCaterogyFormSchema = yup.object().shape({
+export const categoryFormSchema = yup.object().shape({
   title: yup
     .string()
     .required("Назва категорії обов'якова для заповнення")

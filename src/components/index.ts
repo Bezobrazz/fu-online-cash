@@ -20,5 +20,5 @@ export * from "./CartList/CartListItem.tsx";
 export * from "./TransactionForm/TransactionForm.tsx";
 export * from "./ProductFrom/ProductForm.tsx";
 export * from "./CategoriesModal/CategoriesModal.tsx";
-export * from "./AddCaterogyForm/AddCaterogyForm.tsx";
-export * from "./EditCaterogyForm/EditCaterogyForm.tsx";
+export * from "./CaterogyForms/AddCaterogyForm.tsx";
+export * from "./CaterogyForms/EditCaterogyForm.tsx";
