@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, CardList, EditCashboxForm, Modal } from "../components";
+import { Button, CardList, CashboxForm, Modal } from "../components";
 
 import { useModal } from "../hooks";
 import { getCashboxes } from "../firebase";
@@ -35,7 +35,7 @@ const ProductsServices = () => {
       </div>
       {isOpenCashBoxModal && (
         <Modal title="Додавання каси" toggleModal={toggleCashBoxModal}>
-          <EditCashboxForm toggleModal={toggleCashBoxModal} />
+          <CashboxForm toggleModal={toggleCashBoxModal} />
         </Modal>
       )}
     </>

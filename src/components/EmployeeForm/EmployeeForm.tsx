@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -7,33 +7,44 @@ import {
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Button, Input } from "../../components";
+import { Button, Input } from "..";
 
-import { editEmployeeFormSchema } from "../../schemas";
+import { employeeFormSchema } from "../../schemas";
+import type { UserInfo } from "../../types";
 
 interface FormData {
   name: string;
   phone: string;
 }
 
-interface EditEmployeeFormProps {
+interface EmployeeFormProps {
+  item?: UserInfo;
   isEdit?: boolean;
   toggleModal: () => void;
 }
 
-export const EditEmployeeForm: FC<EditEmployeeFormProps> = ({
+export const EmployeeForm: FC<EmployeeFormProps> = ({
+  item,
   isEdit,
   toggleModal,
 }) => {
   const {
     register,
     reset,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     mode: "onSubmit",
-    resolver: yupResolver(editEmployeeFormSchema),
+    resolver: yupResolver(employeeFormSchema),
   });
+
+  useEffect(() => {
+    if (isEdit) {
+      item && setValue("name", item.name);
+      item && setValue("phone", item.phone.slice(4));
+    }
+  }, [isEdit, item, setValue]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const employee = {
@@ -50,7 +61,7 @@ export const EditEmployeeForm: FC<EditEmployeeFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-6 py-6 px-7 w-[360px]"
+      className="flex flex-col gap-6 w-full"
     >
       <Input
         label="ПІБ:"
