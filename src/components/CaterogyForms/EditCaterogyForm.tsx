@@ -18,7 +18,7 @@ interface FormData {
 
 interface EditCaterogyFormProps {
   categories: Category[];
-  activeCategory: Category | null;
+  activeCategory: Category;
   edit: (state: CategoryState, category: Category | null) => void;
 }
 
@@ -40,9 +40,7 @@ export const EditCaterogyForm: FC<EditCaterogyFormProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (activeCategory) {
-      setValue("title", activeCategory.title);
-    }
+    setValue("title", activeCategory.title);
   }, [activeCategory, setValue]);
 
   const onSubmit = (data: FormData) => {
@@ -52,18 +50,16 @@ export const EditCaterogyForm: FC<EditCaterogyFormProps> = ({
       return toast.error("Категорія з такою назвою вже існує");
     }
 
-    if (activeCategory) {
-      dispatch(editCategory({ id: activeCategory.id, title }))
-        .unwrap()
-        .then(() => {
-          toast.success(`Категорія успішно оновлена`);
-          reset();
-          edit(CategoryState.Add, null);
-        })
-        .catch((error) => {
-          toast.error(`Не вдалося оновити категорію: ${error.message}`);
-        });
-    }
+    dispatch(editCategory({ id: activeCategory.id, title }))
+      .unwrap()
+      .then(() => {
+        toast.success(`Категорія успішно оновлена`);
+        reset();
+        edit(CategoryState.Add, null);
+      })
+      .catch((error) => {
+        toast.error(`Не вдалося оновити категорію: ${error.message}`);
+      });
   };
 
   return (

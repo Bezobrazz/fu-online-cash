@@ -1,10 +1,7 @@
 import { FC } from "react";
-import { toast } from "react-toastify";
 import { BiTrashAlt } from "react-icons/bi";
 import { FaRegEdit } from "react-icons/fa";
 
-import { useAppDispatch } from "../../hooks";
-import { deleteCategory } from "../../redux/categories/categoriesOperations";
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
 
@@ -17,24 +14,12 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
   category,
   edit,
 }) => {
-  const dispatch = useAppDispatch();
-
-  const handleDeleteCategory = (category: Category) => {
-    dispatch(deleteCategory(category.id))
-      .unwrap()
-      .then(() => {
-        toast.success(
-          `Категорія «${category.title}» була успішно видалена зі списку.`
-        );
-        edit(CategoryState.Add, null);
-      })
-      .catch((error) => {
-        toast.error(`Не вдалося видалити категорію: ${error.message}`);
-      });
+  const handleEditCategory = (category: Category) => {
+    edit(CategoryState.Edit, category);
   };
 
-  const editCategoryTitle = (category: Category) => {
-    edit(CategoryState.Edit, category);
+  const handleDeleteCategory = (category: Category) => {
+    edit(CategoryState.Delete, category);
   };
 
   return (
@@ -44,7 +29,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
     >
       <p>{category.title}</p>
       <div className="space-x-1.5">
-        <button type="button" onClick={() => editCategoryTitle(category)}>
+        <button type="button" onClick={() => handleEditCategory(category)}>
           <FaRegEdit className="invisible group-hover:visible size-5" />
         </button>
         <button type="button" onClick={() => handleDeleteCategory(category)}>
