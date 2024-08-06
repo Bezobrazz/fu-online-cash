@@ -23,6 +23,7 @@ import {
 interface CardListItemProps {
   item: CardListItemType;
 }
+
 export const CardListItem = ({ item }: CardListItemProps) => {
   const navigate = useNavigate();
 
@@ -59,7 +60,17 @@ export const CardListItem = ({ item }: CardListItemProps) => {
       );
     }
     if (isCashbox(item)) return <p>{item.title}</p>;
-    if (isProduct(item)) return <p>{item.name}</p>;
+    if (isProduct(item))
+      return (
+        <div className="flex flex-col gap-2">
+          <h3 className="font-semibold text-[18px]">{item.name}</h3>
+          <div>
+            <p>Ціна: {item.price} &#8372;</p>
+            {/* <span>/</span> */}
+            <p>Залишок: {item.quantity} шт.</p>
+          </div>
+        </div>
+      );
     if (isSalePoint(item)) return <p>{item.title}</p>;
     return null;
   };
@@ -77,7 +88,7 @@ export const CardListItem = ({ item }: CardListItemProps) => {
 
   const itemStyle = `p-5 flex justify-between items-center 
            ${
-             isUserInfo(item)
+             isUserInfo(item) || isProduct(item)
                ? "bg-transparent border-b border-black text-black"
                : "bg-teal-500 rounded-md text-white"
            } ${isSalePoint(item) && "cursor-pointer"}`;
