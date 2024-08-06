@@ -1,7 +1,11 @@
 import { FC, useEffect, useState } from "react";
 
 import { CategoryList } from "./CategoryList";
-import { AddCaterogyForm, EditCaterogyForm } from "../../components";
+import {
+  AddCaterogyForm,
+  DeleteCategoryForm,
+  EditCaterogyForm,
+} from "../../components";
 
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
@@ -24,7 +28,7 @@ export const CategoriesModal: FC<CategoriesModalProps> = ({ categories }) => {
     setCurrentTitle(getCategoryStateDescription(categoryState));
   }, [categoryState]);
 
-  const editCategory = (state: CategoryState, category: Category | null) => {
+  const changeCategory = (state: CategoryState, category: Category | null) => {
     setCategoryState(state);
     setActiveCategory(category);
   };
@@ -37,17 +41,23 @@ export const CategoriesModal: FC<CategoriesModalProps> = ({ categories }) => {
             <p>Немає категорій</p>
           </div>
         ) : (
-          <CategoryList categories={categories} edit={editCategory} />
+          <CategoryList categories={categories} edit={changeCategory} />
         )}
       </div>
-      <div className="divider">{currentTitle}</div>
+      <div className="divider text-[18px]">{currentTitle}</div>
       {categoryState === CategoryState.Add && (
         <AddCaterogyForm categories={categories} />
       )}
-      {categoryState === CategoryState.Edit && (
+      {categoryState === CategoryState.Edit && activeCategory && (
         <EditCaterogyForm
           categories={categories}
-          edit={editCategory}
+          edit={changeCategory}
+          activeCategory={activeCategory}
+        />
+      )}
+      {categoryState === CategoryState.Delete && activeCategory && (
+        <DeleteCategoryForm
+          edit={changeCategory}
           activeCategory={activeCategory}
         />
       )}
