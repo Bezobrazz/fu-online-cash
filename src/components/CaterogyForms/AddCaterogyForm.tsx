@@ -8,7 +8,7 @@ import { Button } from "../Button/Button";
 
 import { useAppDispatch } from "../../hooks";
 import { categoryFormSchema } from "../../schemas";
-import { isTitleUnique } from "../../helpers";
+import { isItemUnique } from "../../helpers";
 import { addCategory } from "../../redux/categories/categoriesOperations";
 import type { Category, NewCategory } from "../../types";
 
@@ -41,7 +41,7 @@ export const AddCaterogyForm: FC<AddCaterogyFormProps> = ({ categories }) => {
 
     const categoryToAdd: NewCategory = { title: data.title, enterpriseId };
 
-    if (!isTitleUnique(categories, categoryToAdd.title)) {
+    if (!isItemUnique(categories, categoryToAdd.title)) {
       return toast.error("Категорія з такою назвою вже існує");
     }
 
