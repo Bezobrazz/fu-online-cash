@@ -1,24 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Button, CardList, Modal, ProductForm } from "../components";
 
-import { getProducts } from "../firebase";
-import { useModal } from "../hooks";
+import { useAppDispatch, useAppSelector, useModal } from "../hooks";
+import { getProducts } from "../redux/products/productsOperations";
+import { selectProducts } from "../redux/products/productsSlice";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-
+  const products = useAppSelector(selectProducts);
   const [isOpenModal, toggleModal] = useModal();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getProducts().then((res) => {
-      setProducts(res);
-    });
+    dispatch(getProducts());
   }, []);
 
   return (
     <section className="p-5 space-y-4">
-      {" "}
       <CardList title="Список продуктів" items={products} />
       <Button
         type="button"
