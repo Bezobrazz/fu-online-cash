@@ -13,6 +13,9 @@ import { CashAddSubtract } from "./CashAddSubtract/CashAddSubtract";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../redux/auth/authSlice";
 import { Role } from "../../types";
+import { useModal } from "../../hooks";
+import { Modal } from "../Modal/Modal";
+import { ShiftStartConfirm } from "../ShiftStartConfirm/ShiftStartConfirm";
 
 interface SidebarProps {
   closeSidebar: () => void;
@@ -25,6 +28,8 @@ export const Sidebar: FC<SidebarProps> = ({
   isTabletOrMobile,
   updateHeaderTitle,
 }) => {
+  const [isOpenModal, toggleModal] = useModal();
+
   const userInfo = useSelector(selectUserInfo);
   console.log(userInfo.role);
 
@@ -42,10 +47,11 @@ export const Sidebar: FC<SidebarProps> = ({
       condition: true,
     },
     {
-      to: "/products-services",
+      to: "#",
       icon: <AiFillUnlock />,
       text: "Відкрити зміну",
       condition: true,
+      action: () => toggleModal(),
     },
     {
       to: "/sales-history",
@@ -67,10 +73,13 @@ export const Sidebar: FC<SidebarProps> = ({
     },
   ];
 
-  const handleNavLinkClick = (text: string) => {
+  const handleNavLinkClick = (text: string, action?: () => void) => {
     updateHeaderTitle(text);
     if (isTabletOrMobile) {
       closeSidebar();
+    }
+    if (action) {
+      action();
     }
   };
 
@@ -100,7 +109,7 @@ export const Sidebar: FC<SidebarProps> = ({
               <Link
                 to={item.to}
                 className="flex items-center p-2 text-base text-neutral font-normal text-gray-900 rounded-lg dark:text-content hover:bg-teal-100 dark:hover:bg-teal-500 transition"
-                onClick={() => handleNavLinkClick(item.text)}
+                onClick={() => handleNavLinkClick(item.text, item.action)}
               >
                 <div className="flex gap-2 items-center">
                   {item.icon}
@@ -112,6 +121,11 @@ export const Sidebar: FC<SidebarProps> = ({
       </ul>
       <CashAddSubtract />
       <StatisticsView />
+      {isOpenModal && (
+        <Modal toggleModal={toggleModal}>
+          <ShiftStartConfirm toggleModal={toggleModal} />
+        </Modal>
+      )}
     </div>
   );
 };
