@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
-import { Button, CardList, CashboxForm, Modal } from "../components";
-
-import { useModal } from "../hooks";
-import { getCashboxes } from "../firebase";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { Button, CardList, CashboxForm, Modal } from "../components";
+
+import { getCashboxes, selectCashboxes } from "../redux";
+import { useAppDispatch, useAppSelector, useModal } from "../hooks";
+
 const ProductsServices = () => {
-  const [cashboxes, setCashboxes] = useState([]);
+  const dispatch = useAppDispatch();
+
+  const cashboxes = useAppSelector(selectCashboxes);
 
   const [isOpenCashBoxModal, toggleCashBoxModal] = useModal();
 
   useEffect(() => {
-    getCashboxes().then((res) => {
-      setCashboxes(res);
-    });
-  }, []);
+    dispatch(getCashboxes());
+  }, [dispatch]);
 
   return (
     <>

@@ -16,6 +16,7 @@ import { cartReducer, CartState } from "./cart/cartSlice";
 import { categoriesReducer } from "./categories/categoriesSlice";
 import { salePointsReducer } from "./salePoints/salePointsSlice";
 import { productsReducer } from "./products/productsSlice";
+import { cashboxesReducer } from "../redux";
 
 const persistConfig = {
   key: "cart",
@@ -30,6 +31,7 @@ export const store = configureStore({
     categories: categoriesReducer,
     salePoints: salePointsReducer,
     products: productsReducer,
+    cashboxes: cashboxesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
