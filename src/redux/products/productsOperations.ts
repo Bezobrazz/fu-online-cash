@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
   addDocumentToCollection,
+  editDocumentById,
   getCollectionData,
 } from "../../firebase/firebaseService";
 import { BaseProduct, Product } from "../../types";
@@ -31,6 +32,25 @@ export const addProduct = createAsyncThunk<
   try {
     const newProduct = await addDocumentToCollection("products", product);
     return newProduct;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
+export const editProduct = createAsyncThunk<
+  Product,
+  { id: string; data: BaseProduct },
+  { rejectValue: string }
+>("products/editProduct", async ({ id, data }, { rejectWithValue }) => {
+  try {
+    const updatedProduct = await editDocumentById<Product>("products", id, {
+      ...data,
+    });
+    return updatedProduct;
   } catch (error) {
     if (error instanceof Error) {
       return rejectWithValue(error.message);

@@ -31,7 +31,7 @@ const Products = () => {
       </Button>
       {isOpenModal && (
         <Modal title="Додавання продукту" toggleModal={toggleModal}>
-          <ProductForm />
+          <ProductForm toggleModal={toggleModal} />
         </Modal>
       )}
     </section>
