@@ -60,7 +60,6 @@ export const ProductForm = () => {
         <Input
           label="Назва:"
           name="name"
-          type="text"
           placeholder="Введіть назву продукту"
           register={register as unknown as UseFormRegister<FieldValues>}
           errors={errors}
@@ -68,7 +67,6 @@ export const ProductForm = () => {
         <Input
           label="Артікул:"
           name="article"
-          type="text"
           placeholder="Введіть артикул"
           register={register as unknown as UseFormRegister<FieldValues>}
           errors={errors}
@@ -89,17 +87,18 @@ export const ProductForm = () => {
           register={register as unknown as UseFormRegister<FieldValues>}
           errors={errors}
         />
-        {/* <div className="flex flex-row gap-3 items-end">
+        <div className="flex flex-row gap-3 items-end">
           <div className="flex flex-col gap-1.5 flex-1">
             <label className="text-[20px]">Категорія:</label>
             <select
-              className="select w-full field"
+              className="select select-bordered w-full field"
               disabled={categories.length === 0}
-              // onChange={handleSetCategory}
+              defaultValue=""
+              onChange={handleSetCategory}
             >
               {categories.length !== 0 ? (
                 <>
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Виберіть категорію
                   </option>
                   {categories.map((category) => (
@@ -118,30 +117,50 @@ export const ProductForm = () => {
           >
             <FiPlus className="fill-blak size-5" />
           </button>
-        </div> */}
-        {/* <div className="flex flex-col gap-1.5">
+        </div>
+        <div className="flex flex-col gap-1.5">
           <label className="text-[20px]">Торгова точка:</label>
-          <select
-            className="select w-full field"
-            disabled={salePoints.length === 0}
-            onChange={handleSetSalePoint}
-          >
-            {salePoints.length !== 0 ? (
-              <>
-                <option value="" disabled selected>
-                  Виберіть торгову точку
-                </option>
-                {salePoints.map((salePoint) => (
-                  <option key={salePoint.id} value={salePoint.id}>
-                    {salePoint.title}
+          {salePoints.length === 0 || salePoints.length > 3 ? (
+            <select
+              className="select w-full field"
+              disabled={salePoints.length === 0}
+              onChange={handleSetSalePoint}
+            >
+              {salePoints.length !== 0 ? (
+                <>
+                  <option value="" disabled selected>
+                    Виберіть торгову точку
                   </option>
+                  {salePoints.map((salePoint) => (
+                    <option key={salePoint.id} value={salePoint.id}>
+                      {salePoint.title}
+                    </option>
+                  ))}
+                </>
+              ) : (
+                <option>Створіть торгову точку</option>
+              )}
+            </select>
+          ) : (
+            <div className="relative">
+              <div className="flex flex-col gap-[10px] md:flex-row md:gap-6">
+                {salePoints.map((salePoint) => (
+                  <label className="flex gap-1">
+                    <input
+                      type="radio"
+                      value={salePoint.id}
+                      {...register("salePointId")}
+                    />
+                    {salePoint.title}
+                  </label>
                 ))}
-              </>
-            ) : (
-              <option>Створіть торгову точку</option>
-            )}
-          </select>
-        </div> */}
+              </div>
+              <p className="field-error top-[22px]">
+                {errors["salePointId"]?.message}
+              </p>
+            </div>
+          )}
+        </div>
         <Button type="submit" className="primary-btn">
           Додати товар
         </Button>
