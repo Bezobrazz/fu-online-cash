@@ -65,3 +65,21 @@ export const editCashbox = createAsyncThunk<
     }
   }
 );
+
+export const deleteCashbox = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>("cashboxes/deleteCashbox", async (id, { rejectWithValue }) => {
+  try {
+    const data = await deleteDocumentById("cashboxes", id);
+    console.log("deletedDoc", data);
+    return id;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
