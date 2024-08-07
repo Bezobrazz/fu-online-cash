@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { depositFormSchema } from "../../schemas";
 import { FC } from "react";
 
-enum TransactionType {
+export enum TransactionType {
   deposit = "deposit",
   withdrawal = "withdrawal",
 }
