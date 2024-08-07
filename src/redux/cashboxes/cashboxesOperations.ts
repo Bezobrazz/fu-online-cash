@@ -24,3 +24,20 @@ export const getCashboxes = createAsyncThunk<
     }
   }
 });
+
+export const addCashbox = createAsyncThunk<
+  Cashbox,
+  NewCashbox,
+  { rejectValue: string }
+>("cashboxes/addCashbox", async (cashbox, { rejectWithValue }) => {
+  try {
+    const newCashbox = await addDocumentToCollection("cashboxes", cashbox);
+    return newCashbox;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
