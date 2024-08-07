@@ -4,8 +4,10 @@ export interface Cashbox {
   card: number;
   cash: number;
   isOpen: boolean;
-  openTime: string;
-  closeTime: string;
+  openTime: string | null;
+  closeTime: string | null;
   employeeId: string;
   salePointId: string;
 }
+
+export interface NewCashbox extends Omit<Cashbox, "id"> {}
