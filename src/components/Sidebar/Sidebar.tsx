@@ -16,6 +16,10 @@ import { Role } from "../../types";
 import { useModal } from "../../hooks";
 import { Modal } from "../Modal/Modal";
 import { ShiftStartConfirm } from "../ShiftStartConfirm/ShiftStartConfirm";
+import {
+  TransactionForm,
+  TransactionType,
+} from "../TransactionForm/TransactionForm";
 
 interface SidebarProps {
   closeSidebar: () => void;
@@ -29,6 +33,8 @@ export const Sidebar: FC<SidebarProps> = ({
   updateHeaderTitle,
 }) => {
   const [isOpenModal, toggleModal] = useModal();
+  const [isOpenModalDeposit, toggleModalDeposit] = useModal();
+  const [isOpenModalWithdraw, toggleModalWithdraw] = useModal();
 
   const userInfo = useSelector(selectUserInfo);
   console.log(userInfo.role);
@@ -119,11 +125,30 @@ export const Sidebar: FC<SidebarProps> = ({
             </li>
           ))}
       </ul>
-      <CashAddSubtract />
+      <CashAddSubtract
+        toggleModalDeposit={toggleModalDeposit}
+        toggleModalWithdraw={toggleModalWithdraw}
+      />
       <StatisticsView />
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>
           <ShiftStartConfirm toggleModal={toggleModal} />
+        </Modal>
+      )}
+      {isOpenModalDeposit && (
+        <Modal toggleModal={toggleModalDeposit}>
+          <TransactionForm
+            toggleModal={toggleModalDeposit}
+            type={TransactionType.deposit}
+          />
+        </Modal>
+      )}
+      {isOpenModalWithdraw && (
+        <Modal toggleModal={toggleModalWithdraw}>
+          <TransactionForm
+            toggleModal={toggleModalWithdraw}
+            type={TransactionType.withdrawal}
+          />
         </Modal>
       )}
     </div>
