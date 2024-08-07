@@ -21,14 +21,18 @@ const Products = () => {
 
   return (
     <section className="p-5 space-y-4">
+      <div className="flex justify-between items-center w-full">
+        <a href="">Повернутись назад</a>
+        <Button
+          type="button"
+          className="primary-btn block"
+          onClick={toggleModal}
+        >
+          Додати товар
+        </Button>
+      </div>
+
       <CardList title="Список товарів" items={products} />
-      <Button
-        type="button"
-        className="primary-btn block mx-auto"
-        onClick={toggleModal}
-      >
-        Додати товар
-      </Button>
       {isOpenModal && (
         <Modal title="Додавання продукту" toggleModal={toggleModal}>
           <ProductForm toggleModal={toggleModal} />
