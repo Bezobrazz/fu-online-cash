@@ -10,7 +10,7 @@ import {
   SalePointForm,
 } from "..";
 
-import { useModal } from "../../hooks";
+import { useAppSelector, useModal } from "../../hooks";
 import { type CardListItemType, Role } from "../../types";
 import {
   isCashbox,
@@ -18,7 +18,9 @@ import {
   isSalePoint,
   isUserInfo,
   getTitle,
+  getSalePointInfoById,
 } from "../../helpers";
+import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
 
 interface CardListItemProps {
   item: CardListItemType;
@@ -28,6 +30,8 @@ export const CardListItem = ({ item }: CardListItemProps) => {
   const navigate = useNavigate();
 
   const [isOpenModal, toggleModal] = useModal();
+
+  const salePoints = useAppSelector(selectSalePoints);
 
   if (isUserInfo(item)) {
     item.phone = "+380960700684";
@@ -60,17 +64,30 @@ export const CardListItem = ({ item }: CardListItemProps) => {
       );
     }
     if (isCashbox(item)) return <p>{item.title}</p>;
-    if (isProduct(item))
+    if (isProduct(item)) {
+      const salePointInfo = getSalePointInfoById(salePoints, item.salePointId);
+
       return (
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-[18px]">{item.name}</h3>
           <div>
             <p>Ціна: {item.price} &#8372;</p>
-            {/* <span>/</span> */}
             <p>Залишок: {item.quantity} шт.</p>
+            <div className="flex flex-row gap-2">
+              <span className="p-0.5 bg-slate-300 rounded-md">
+                {item.category}
+              </span>
+              {salePointInfo && (
+                <span className="p-0.5 bg-slate-300 rounded-md">
+                  {salePointInfo.title}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       );
+    }
+
     if (isSalePoint(item)) return <p>{item.title}</p>;
     return null;
   };
@@ -92,6 +109,7 @@ export const CardListItem = ({ item }: CardListItemProps) => {
                ? "bg-transparent border-b border-black text-black"
                : "bg-teal-500 rounded-md text-white"
            } ${isSalePoint(item) && "cursor-pointer"}`;
+
   return (
     <>
       <li className={itemStyle} onClick={handleNavigate}>

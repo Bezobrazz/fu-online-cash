@@ -5,6 +5,7 @@ import { Button, CardList, Modal, ProductForm } from "../components";
 import { useAppDispatch, useAppSelector, useModal } from "../hooks";
 import { getProducts } from "../redux/products/productsOperations";
 import { selectProducts } from "../redux/products/productsSlice";
+import { getCategories } from "../redux/categories/categoriesOperations";
 
 const Products = () => {
   const products = useAppSelector(selectProducts);
@@ -12,6 +13,8 @@ const Products = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getSalePoints());
     dispatch(getProducts());
   }, []);
 

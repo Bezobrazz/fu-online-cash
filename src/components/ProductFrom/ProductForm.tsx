@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -8,22 +7,13 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
-
-import { Button, CategoriesModal, Input, Modal } from "../../components";
-
+import { Button, CategoriesModal, Input, Modal } from "..";
 import { productFormSchema } from "../../schemas/productFormSchema";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
-import { getCategories } from "../../redux/categories/categoriesOperations";
 import { selectCategories } from "../../redux/categories/categoriesSlice";
 import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
-import { getSalePoints } from "../../redux/salePoints/salePointsOperations";
 import type { BaseProduct } from "../../types";
-
-import {
-  addProduct,
-  getProducts,
-} from "../../redux/products/productsOperations";
-import { selectProducts } from "../../redux/products/productsSlice";
+import { addProduct } from "../../redux/products/productsOperations";
 
 export const ProductForm = () => {
   const {
@@ -42,14 +32,6 @@ export const ProductForm = () => {
 
   const categories = useAppSelector(selectCategories);
   const salePoints = useAppSelector(selectSalePoints);
-  const products = useAppSelector(selectProducts);
-  console.log(products, "PROD");
-
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getSalePoints());
-    dispatch(getProducts());
-  }, []);
 
   const handleSetCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValue("category", e.target.value);
@@ -107,17 +89,17 @@ export const ProductForm = () => {
           register={register as unknown as UseFormRegister<FieldValues>}
           errors={errors}
         />
-        <div className="flex flex-row gap-3 items-end">
+        {/* <div className="flex flex-row gap-3 items-end">
           <div className="flex flex-col gap-1.5 flex-1">
             <label className="text-[20px]">Категорія:</label>
             <select
               className="select w-full field"
               disabled={categories.length === 0}
-              onChange={handleSetCategory}
+              // onChange={handleSetCategory}
             >
               {categories.length !== 0 ? (
                 <>
-                  <option disabled selected>
+                  <option value="" disabled selected>
                     Виберіть категорію
                   </option>
                   {categories.map((category) => (
@@ -136,8 +118,8 @@ export const ProductForm = () => {
           >
             <FiPlus className="fill-blak size-5" />
           </button>
-        </div>
-        <div className="flex flex-col gap-1.5">
+        </div> */}
+        {/* <div className="flex flex-col gap-1.5">
           <label className="text-[20px]">Торгова точка:</label>
           <select
             className="select w-full field"
@@ -159,7 +141,7 @@ export const ProductForm = () => {
               <option>Створіть торгову точку</option>
             )}
           </select>
-        </div>
+        </div> */}
         <Button type="submit" className="primary-btn">
           Додати товар
         </Button>
