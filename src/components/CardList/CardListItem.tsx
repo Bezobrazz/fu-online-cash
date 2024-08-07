@@ -74,11 +74,11 @@ export const CardListItem = ({ item }: CardListItemProps) => {
             <p>Ціна: {item.price} &#8372;</p>
             <p>Залишок: {item.quantity} шт.</p>
             <div className="flex flex-row gap-2">
-              <span className="p-0.5 bg-slate-300 rounded-md">
+              <span className="py-0.5 px-2 bg-slate-300 rounded-md">
                 {item.category}
               </span>
               {salePointInfo && (
-                <span className="p-0.5 bg-slate-300 rounded-md">
+                <span className="py-0.5 px-2 bg-slate-300 rounded-md">
                   {salePointInfo.title}
                 </span>
               )}
