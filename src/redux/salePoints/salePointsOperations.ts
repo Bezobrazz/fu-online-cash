@@ -41,3 +41,26 @@ export const addSalePoint = createAsyncThunk<
     }
   }
 });
+
+export const editSalePoint = createAsyncThunk<
+  SalePoint,
+  { id: string; title: string },
+  { rejectValue: string }
+>("salePoints/editSalePoint", async ({ id, title }, { rejectWithValue }) => {
+  try {
+    const updatedSalePoint = await editDocumentById<SalePoint>(
+      "salePoints",
+      id,
+      {
+        title,
+      }
+    );
+    return updatedSalePoint;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
