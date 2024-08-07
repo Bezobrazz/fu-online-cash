@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector, useModal } from "../hooks";
 import { getProducts } from "../redux/products/productsOperations";
 import { selectProducts } from "../redux/products/productsSlice";
 import { getCategories } from "../redux/categories/categoriesOperations";
+import { getSalePoints } from "../redux/salePoints/salePointsOperations";
 
 const Products = () => {
   const products = useAppSelector(selectProducts);

@@ -49,11 +49,13 @@ export const DeleteCategoryForm: FC<DeleteCategoryFormProps> = ({
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="h-[48px] text-[18px] text-red-600 flex items-center justify-center">
         {isCategoryDeletable ? (
-          <p>Підтвердіть видалення категорії «{activeCategory.title}»</p>
+          <p className="text-center">
+            Підтвердіть видалення категорії «{activeCategory.title}»
+          </p>
         ) : (
           <p className="text-center">
-            Неможливо видалити категорію, оскільки існуть продукти з такою
-            категорією.
+            Неможливо видалити категорію, оскільки існують продукти які
+            відносяться до цієї категорії
           </p>
         )}
       </div>
