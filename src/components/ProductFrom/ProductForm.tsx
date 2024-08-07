@@ -20,7 +20,6 @@ import {
   editProduct,
 } from "../../redux/products/productsOperations";
 import type { BaseProduct, Product } from "../../types";
-import { AppDispatch } from "../../redux/store";
 
 interface ProductFormProps {
   item?: Product;
@@ -59,15 +58,7 @@ export const ProductForm: FC<ProductFormProps> = ({
       setValue("category", item.category);
       setValue("salePointId", item.salePointId);
     }
-  }, [isEdit, item, setValue]);
-
-  const handleSetCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue("category", e.target.value);
-  };
-
-  const handleSetSalePoint = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue("salePointId", e.target.value);
-  };
+  }, []);
 
   const onSubmit: SubmitHandler<BaseProduct> = (data) => {
     const action =
@@ -128,13 +119,13 @@ export const ProductForm: FC<ProductFormProps> = ({
           errors={errors}
         />
         <div className="flex flex-row gap-3 items-end">
-          <div className="flex flex-col gap-1.5 flex-1">
+          <div className="flex flex-col gap-1.5 flex-1 relative">
             <label className="text-[20px]">Категорія:</label>
             <select
               className="select select-bordered w-full field"
               disabled={categories.length === 0}
+              {...register("category")}
               defaultValue=""
-              onChange={handleSetCategory}
             >
               {categories.length !== 0 ? (
                 <>
@@ -149,6 +140,9 @@ export const ProductForm: FC<ProductFormProps> = ({
                 <option>Додайте категорію, натиснувши плюс</option>
               )}
             </select>
+            <p className="field-error top-[84px]">
+              {errors["category"]?.message}
+            </p>
           </div>
           <button
             type="button"
@@ -161,31 +155,37 @@ export const ProductForm: FC<ProductFormProps> = ({
         <div className="flex flex-col gap-1.5">
           <label className="text-[20px]">Торгова точка:</label>
           {salePoints.length === 0 || salePoints.length > 3 ? (
-            <select
-              className="select w-full field"
-              disabled={salePoints.length === 0}
-              onChange={handleSetSalePoint}
-            >
-              {salePoints.length !== 0 ? (
-                <>
-                  <option value="" disabled selected>
-                    Виберіть торгову точку
-                  </option>
-                  {salePoints.map((salePoint) => (
-                    <option key={salePoint.id} value={salePoint.id}>
-                      {salePoint.title}
+            <div className="relative">
+              <select
+                className="select w-full field"
+                disabled={salePoints.length === 0}
+                {...register("salePointId")}
+                defaultValue=""
+              >
+                {salePoints.length !== 0 ? (
+                  <>
+                    <option value="" disabled selected>
+                      Виберіть торгову точку
                     </option>
-                  ))}
-                </>
-              ) : (
-                <option>Створіть торгову точку</option>
-              )}
-            </select>
+                    {salePoints.map((salePoint) => (
+                      <option key={salePoint.id} value={salePoint.id}>
+                        {salePoint.title}
+                      </option>
+                    ))}
+                  </>
+                ) : (
+                  <option>Створіть торгову точку</option>
+                )}
+              </select>
+              <p className="field-error top-[48px]">
+                {errors["salePointId"]?.message}
+              </p>
+            </div>
           ) : (
             <div className="relative">
               <div className="flex flex-col gap-[10px] md:flex-row md:gap-6">
                 {salePoints.map((salePoint) => (
-                  <label className="flex gap-1">
+                  <label className="flex gap-1" key={salePoint.id}>
                     <input
                       type="radio"
                       value={salePoint.id}
@@ -195,7 +195,7 @@ export const ProductForm: FC<ProductFormProps> = ({
                   </label>
                 ))}
               </div>
-              <p className="field-error top-[22px]">
+              <p className="field-error top-[20px]">
                 {errors["salePointId"]?.message}
               </p>
             </div>
