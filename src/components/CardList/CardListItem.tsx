@@ -99,7 +99,8 @@ export const CardListItem = ({ item }: CardListItemProps) => {
       return <SalePointForm toggleModal={toggleModal} item={item} isEdit />;
     if (isCashbox(item))
       return <CashboxForm toggleModal={toggleModal} item={item} isEdit />;
-    if (isProduct(item)) return <ProductForm />;
+    if (isProduct(item))
+      return <ProductForm toggleModal={toggleModal} item={item} isEdit />;
     return null;
   };
 

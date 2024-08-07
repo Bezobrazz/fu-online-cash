@@ -1,3 +1,4 @@
+import { FC, useEffect } from "react";
 import {
   FieldValues,
   SubmitHandler,
@@ -7,15 +8,31 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
-import { Button, CategoriesModal, Input, Modal } from "..";
+
+import { Button, CategoriesModal, Input, Modal } from "../../components";
+
 import { productFormSchema } from "../../schemas/productFormSchema";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 import { selectCategories } from "../../redux/categories/categoriesSlice";
 import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
-import type { BaseProduct } from "../../types";
-import { addProduct } from "../../redux/products/productsOperations";
+import {
+  addProduct,
+  editProduct,
+} from "../../redux/products/productsOperations";
+import type { BaseProduct, Product } from "../../types";
+import { AppDispatch } from "../../redux/store";
 
-export const ProductForm = () => {
+interface ProductFormProps {
+  item?: Product;
+  isEdit?: boolean;
+  toggleModal: () => void;
+}
+
+export const ProductForm: FC<ProductFormProps> = ({
+  item,
+  isEdit,
+  toggleModal,
+}) => {
   const {
     register,
     handleSubmit,
@@ -33,6 +50,17 @@ export const ProductForm = () => {
   const categories = useAppSelector(selectCategories);
   const salePoints = useAppSelector(selectSalePoints);
 
+  useEffect(() => {
+    if (isEdit && item) {
+      setValue("name", item.name);
+      setValue("article", item.article);
+      setValue("price", item.price);
+      setValue("quantity", item.quantity);
+      setValue("category", item.category);
+      setValue("salePointId", item.salePointId);
+    }
+  }, [isEdit, item, setValue]);
+
   const handleSetCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValue("category", e.target.value);
   };
@@ -41,14 +69,26 @@ export const ProductForm = () => {
     setValue("salePointId", e.target.value);
   };
 
-  const onSubmit: SubmitHandler<BaseProduct> = (date) => {
-    dispatch(addProduct(date))
+  const onSubmit: SubmitHandler<BaseProduct> = (data) => {
+    const action =
+      isEdit && item?.id
+        ? editProduct({ id: item.id, data })
+        : addProduct(data);
+
+    dispatch(action as any)
       .unwrap()
       .then(() => {
-        toast.success(`Продукт «${date.name}» був успішно доданий.`);
+        toast.success(
+          `Продукт «${data.name}» був успішно ${
+            isEdit ? "змінений" : "доданий"
+          }.`
+        );
         reset();
+        toggleModal();
       })
-      .catch(() => toast.error(`Не вдалося додати товар.`));
+      .catch(() =>
+        toast.error(`Не вдалося ${isEdit ? "змінити" : "додати"} товар.`)
+      );
   };
 
   return (
@@ -162,7 +202,7 @@ export const ProductForm = () => {
           )}
         </div>
         <Button type="submit" className="primary-btn">
-          Додати товар
+          {!isEdit ? "Додати товар" : "Зберегти зміни"}
         </Button>
       </form>
       {isModal && (
