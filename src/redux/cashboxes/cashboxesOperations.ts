@@ -41,3 +41,27 @@ export const addCashbox = createAsyncThunk<
     }
   }
 });
+
+export const editCashbox = createAsyncThunk<
+  Cashbox,
+  { id: string; title: string; cash: number; employeeId: string },
+  { rejectValue: string }
+>(
+  "cashboxes/editCashbox",
+  async ({ id, title, cash, employeeId }, { rejectWithValue }) => {
+    try {
+      const updatedCashbox = await editDocumentById<Cashbox>("cashboxes", id, {
+        title,
+        cash,
+        employeeId,
+      });
+      return updatedCashbox;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      } else {
+        return rejectWithValue("An unknown error occurred");
+      }
+    }
+  }
+);
