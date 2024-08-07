@@ -6,11 +6,14 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 import { Button, Input } from "..";
 
 import { getUsers } from "../../firebase";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { cashboxFormSchema } from "../../schemas";
+import { addCashbox, editCashbox, selectIsLoadingCashboxes } from "../../redux";
 import { Role, type Cashbox, type UserInfo } from "../../types";
 
 interface FormData {
@@ -41,6 +44,10 @@ export const CashboxForm: FC<CashboxFormProps> = ({
     resolver: yupResolver(cashboxFormSchema),
   });
 
+  const dispatch = useAppDispatch();
+
+  const isLoading = useAppSelector(selectIsLoadingCashboxes);
+
   const [employees, setEmployees] = useState<UserInfo[]>([]);
 
   useEffect(() => {
@@ -53,26 +60,51 @@ export const CashboxForm: FC<CashboxFormProps> = ({
       if (isEdit) {
         item && setValue("title", item.title);
         item && setValue("cash", item.cash);
-        const employee = filteredUsers.find(
+        const employee: user = filteredUsers.find(
           (elem) => elem.id === item.employeeId
         );
-        item && setValue("employeeId", employee);
+        item && setValue("employeeId", employee.id);
       }
     });
   }, [isEdit, item, setValue]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const cashbox = {
-      ...data,
-      card: 0,
-      isOpen: false,
-      openTime: null,
-      closeTime: null,
-      salePointId: "12idasidajok31",
-    };
-    console.log(cashbox);
-    reset();
-    toggleModal();
+    if (isEdit) {
+      const id = item?.id;
+      id &&
+        dispatch(editCashbox({ id, ...data }))
+          .unwrap()
+          .then(() => {
+            toast.success(`Каса успішно оновлена`);
+            reset();
+            toggleModal();
+          })
+          .catch((error) => {
+            toast.error(`Не вдалося оновити касу: ${error.message}`);
+          });
+    } else {
+      const newCashbox = {
+        ...data,
+        card: 0,
+        isOpen: false,
+        openTime: null,
+        closeTime: null,
+        salePointId: "12idasidajok31",
+      };
+      dispatch(addCashbox(newCashbox))
+        .unwrap()
+        .then(() => {
+          toast.success(
+            `Каса «${newCashbox.title}» була успішно додана до списку.`
+          );
+          reset();
+          toggleModal();
+        })
+        .catch((error) => {
+          const errorMessage = (error as Error).message || "Unknown error";
+          toast.error(`Не вдалося створити касу: ${errorMessage}.`);
+        });
+    }
   };
 
   return (
@@ -124,7 +156,7 @@ export const CashboxForm: FC<CashboxFormProps> = ({
           </p>
         )}
       </div>
-      <Button type="submit" className="primary-btn">
+      <Button type="submit" className="primary-btn" disabled={isLoading}>
         {isEdit ? "Зберегти" : "Додати касу"}
       </Button>
     </form>
