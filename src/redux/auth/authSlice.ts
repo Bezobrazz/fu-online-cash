@@ -1,20 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { UserInfo } from "./../../types/user";
+
+import { Role, type UserInfo } from "./../../types/user";
+
 
 interface authSlice {
-  userInfo: UserInfo[];
-  accessToken: string | null;
-  refreshToken: string | null;
+  userInfo: UserInfo;
   isRefreshing: boolean;
   error: string | null;
   isLoading: boolean;
 }
 
+const userSample: UserInfo = {
+  id: "12345",
+  name: "John Doe",
+  phone: "+1234567890",
+  role: Role.Admin,
+  enterpriseId: "A0jYCcdJEC1LuairkZnO",
+};
+
 const initialState: authSlice = {
-  userInfo: [],
-  accessToken: null,
-  refreshToken: null,
+  userInfo: userSample,
   isRefreshing: false,
   error: null,
   isLoading: false,
@@ -25,9 +31,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectInfo: (state) => state.userInfo,
-    selectAccessToken: (state) => state.accessToken,
-    selectRefreshToken: (state) => state.refreshToken,
+    selectUserInfo: (state) => state.userInfo,
     selectIsRefreshing: (state) => state.isRefreshing,
     selectError: (state) => state.error,
     selectIsLoading: (state) => state.isLoading,
@@ -36,9 +40,7 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 export const {
-  selectInfo,
-  selectAccessToken,
-  selectRefreshToken,
+  selectUserInfo,
   selectIsRefreshing,
   selectError,
   selectIsLoading,
