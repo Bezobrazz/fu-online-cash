@@ -64,3 +64,21 @@ export const editSalePoint = createAsyncThunk<
     }
   }
 });
+
+export const deleteSalePoint = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>("salePoints/deleteSalePoint", async (id, { rejectWithValue }) => {
+  try {
+    const data = await deleteDocumentById("salePoints", id);
+    console.log("deletedDoc", data);
+    return id;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
