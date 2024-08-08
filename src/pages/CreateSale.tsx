@@ -12,9 +12,12 @@ import {
   selectCartList,
 } from "../redux/cart/cartSlice";
 import type { CartItem, CartProduct } from "../types";
+import { selectProducts } from "../redux";
+import { getProducts } from "../redux/products/productsOperations";
 
 const CreateSale = () => {
   const cartList = useSelector(selectCartList);
+  const dbProducts = useSelector(selectProducts);
 
   const { checkId } = useParams();
 
@@ -27,6 +30,10 @@ const CreateSale = () => {
   const [currentCheckId, setCurrentCheckId] = useState<string | null>(
     checkId ? checkId : null
   );
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   useEffect(() => {
     if (cartList.length && !cartList[cartList.length - 1].productList.length) {
@@ -73,27 +80,18 @@ const CreateSale = () => {
     }
   };
 
-  const products: CartProduct[] = [
-    {
-      productName: "Кора Крупна",
-      productQuantity: 345,
-      productPrice: 150,
-    },
-    {
-      productName: "Кора Середня",
-      productQuantity: 214,
-      productPrice: 150,
-    },
-    {
-      productName: "Кора Дрібна",
-      productQuantity: 124,
-      productPrice: 130,
-    },
-  ];
+  const products: CartProduct[] = dbProducts.map((dbProduct) => ({
+    productName: dbProduct.name,
+    productQuantity: dbProduct.quantity,
+    productPrice: dbProduct.price,
+  }));
 
   const getProductInitials = (name: string): string => {
     const words = name.split(" ");
-    const initials = words.map((word) => word.charAt(0)).join("");
+    const initials = words
+      .map((word) => word.charAt(0))
+      .join("")
+      .toUpperCase();
     return initials;
   };
 
@@ -119,7 +117,7 @@ const CreateSale = () => {
     <div className="flex h-full lg:flex-col gap-2">
       <CategoriesBar />
       <div className="flex flex-col gap-4 relative">
-        <div className="flex min-h-[226px] max-h-[80%] gap-4 flex-wrap overflow-y-auto">
+        <div className="flex min-h-[226px] gap-4 flex-wrap overflow-y-auto">
           {products.map((item, index) => (
             <div key={index} onClick={() => handleProductToCart(item)}>
               <ProductCard

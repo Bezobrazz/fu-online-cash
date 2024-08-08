@@ -5,6 +5,10 @@ export interface CartProduct {
 }
 export interface CartItem extends CartProduct {
   quantity: number;
+  name: string;
+  article: string;
+  price: number;
+  salePointId: string;
 }
 
 export interface CartList {
