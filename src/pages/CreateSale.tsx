@@ -14,6 +14,7 @@ import {
 import type { CartItem, CartProduct } from "../types";
 import { selectProducts } from "../redux";
 import { getProducts } from "../redux/products/productsOperations";
+import { formatNumber } from "../helpers";
 
 const CreateSale = () => {
   const cartList = useSelector(selectCartList);
@@ -112,6 +113,7 @@ const CreateSale = () => {
     (total, item) => total + item.productPrice * item.quantity,
     0
   );
+  const formatedTotalCartValue = formatNumber(totalCartValue);
 
   return (
     <div className="flex h-full lg:flex-col gap-2">
@@ -122,8 +124,8 @@ const CreateSale = () => {
             <div key={index} onClick={() => handleProductToCart(item)}>
               <ProductCard
                 productName={item.productName}
-                productQuantity={item.productQuantity}
-                productPrice={item.productPrice}
+                productQuantity={formatNumber(item.productQuantity)}
+                productPrice={formatNumber(item.productPrice)}
                 productInitials={getProductInitials(item.productName)}
               />
             </div>
@@ -135,7 +137,8 @@ const CreateSale = () => {
             className="w-full h-20 bg-teal-500 p-2 rounded flex items-center justify-between absolute bottom-0 lg:bottom-[-90px] left-0"
           >
             <p className="text-white text-lg">
-              Товарів у кошику: {totalItemsInCart} / {totalCartValue} грн
+              Товарів у кошику: {totalItemsInCart} / {formatedTotalCartValue}{" "}
+              грн
             </p>
             <AiOutlineDoubleRight className="text-white" />
           </Link>
