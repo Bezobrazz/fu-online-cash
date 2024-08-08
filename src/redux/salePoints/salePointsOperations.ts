@@ -65,14 +65,32 @@ export const editSalePoint = createAsyncThunk<
   }
 });
 
+export const deactivateSalePoint = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>("salePoints/deactivateSalePoint", async (id, { rejectWithValue }) => {
+  try {
+    await editDocumentById<SalePoint>("salePoints", id, {
+      isActive: false,
+    });
+    return id;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
 export const deleteSalePoint = createAsyncThunk<
   string,
   string,
   { rejectValue: string }
 >("salePoints/deleteSalePoint", async (id, { rejectWithValue }) => {
   try {
-    const data = await deleteDocumentById("salePoints", id);
-    console.log("deletedDoc", data);
+    await deleteDocumentById("salePoints", id);
     return id;
   } catch (error) {
     if (error instanceof Error) {
