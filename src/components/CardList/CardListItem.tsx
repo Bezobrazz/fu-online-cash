@@ -4,6 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 
 import {
   CashboxForm,
+  ConfirmDelete,
   EmployeeForm,
   Modal,
   ProductForm,
@@ -30,6 +31,7 @@ export const CardListItem = ({ item }: CardListItemProps) => {
   const navigate = useNavigate();
 
   const [isOpenModal, toggleModal] = useModal();
+  const [isOpenConfirmDelete, toggleConfirmDelete] = useModal();
 
   const salePoints = useAppSelector(selectSalePoints);
 
@@ -50,6 +52,13 @@ export const CardListItem = ({ item }: CardListItemProps) => {
     toggleModal();
   };
 
+  const handleDeleteClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    toggleConfirmDelete();
+  };
+
   const itemContent = () => {
     if (isUserInfo(item)) {
       return (
@@ -63,7 +72,13 @@ export const CardListItem = ({ item }: CardListItemProps) => {
         </>
       );
     }
-    if (isCashbox(item)) return <p>{item.title}</p>;
+    if (isCashbox(item))
+      return (
+        <div>
+          <h3 className="font-semibold text-[18px]">{item.title}</h3>
+          <p>Готівка: {item.cash}</p>
+        </div>
+      );
     if (isProduct(item)) {
       const salePointInfo = getSalePointInfoById(salePoints, item.salePointId);
 
@@ -106,10 +121,10 @@ export const CardListItem = ({ item }: CardListItemProps) => {
 
   const itemStyle = `p-5 flex justify-between items-center 
            ${
-             isUserInfo(item) || isProduct(item)
+             !isSalePoint(item)
                ? "bg-transparent border-b border-black text-black"
-               : "bg-teal-500 rounded-md text-white"
-           } ${isSalePoint(item) && "cursor-pointer"}`;
+               : "bg-teal-500 rounded-md text-white cursor-pointer"
+           }`;
 
   return (
     <>
@@ -119,7 +134,7 @@ export const CardListItem = ({ item }: CardListItemProps) => {
           <button type="button" onClick={handleEditClick}>
             <FaRegEdit className="size-5" />
           </button>
-          <button type="button">
+          <button type="button" onClick={handleDeleteClick}>
             <BiTrashAlt className=" size-5" />
           </button>
         </div>
@@ -133,6 +148,9 @@ export const CardListItem = ({ item }: CardListItemProps) => {
         >
           {renderModalContent()}
         </Modal>
+      )}
+      {isOpenConfirmDelete && (
+        <ConfirmDelete item={item} toggleModal={toggleConfirmDelete} />
       )}
     </>
   );

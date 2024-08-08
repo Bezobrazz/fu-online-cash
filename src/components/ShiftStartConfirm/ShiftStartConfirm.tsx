@@ -10,7 +10,7 @@ export const ShiftStartConfirm: FC<ShiftStartConfirmProps> = ({
   toggleModal,
 }) => {
   return (
-    <div className="p-8">
+    <>
       <div className="mb-[20px]">
         <p className="mb-[10px]">
           Ви дійсно бажаєте відкрити зміну касира{" "}
@@ -20,7 +20,7 @@ export const ShiftStartConfirm: FC<ShiftStartConfirmProps> = ({
         <p>Каса має залишок:</p>
         <p className="font-bold">710.00₴</p>
       </div>
-      <div className="mx-auto md:w-1/2 flex justify-between">
+      <div className="flex justify-between">
         <Button type="button" className="primary-btn">
           Так
         </Button>
@@ -28,6 +28,6 @@ export const ShiftStartConfirm: FC<ShiftStartConfirmProps> = ({
           Ні
         </Button>
       </div>
-    </div>
+    </>
   );
 };

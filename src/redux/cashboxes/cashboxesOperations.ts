@@ -72,8 +72,7 @@ export const deleteCashbox = createAsyncThunk<
   { rejectValue: string }
 >("cashboxes/deleteCashbox", async (id, { rejectWithValue }) => {
   try {
-    const data = await deleteDocumentById("cashboxes", id);
-    console.log("deletedDoc", data);
+    await deleteDocumentById("cashboxes", id);
     return id;
   } catch (error) {
     if (error instanceof Error) {
