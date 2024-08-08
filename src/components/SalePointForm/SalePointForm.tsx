@@ -11,6 +11,13 @@ import { Input, Button } from "..";
 
 import { salePointFormSchema } from "../../schemas";
 import type { SalePoint } from "../../types";
+import {
+  addSalePoint,
+  editSalePoint,
+  selectIsLoadingSalePoints,
+} from "../../redux";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { toast } from "react-toastify";
 
 interface FormData {
   title: string;
@@ -38,6 +45,10 @@ export const SalePointForm: FC<SalePointFormProps> = ({
     resolver: yupResolver(salePointFormSchema),
   });
 
+  const dispatch = useAppDispatch();
+
+  const isLoading = useAppSelector(selectIsLoadingSalePoints);
+
   useEffect(() => {
     if (isEdit) {
       item && setValue("title", item.title);
@@ -45,10 +56,38 @@ export const SalePointForm: FC<SalePointFormProps> = ({
   }, [isEdit, item, setValue]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const salePoint = { ...data, enterpriseId: "12idasidajok31" };
-    console.log(salePoint);
-    reset();
-    toggleModal();
+    if (isEdit) {
+      const id = item?.id;
+      id &&
+        dispatch(editSalePoint({ id, ...data }))
+          .unwrap()
+          .then(() => {
+            toast.success(`Торгова точка успішно оновлена`);
+            reset();
+            toggleModal();
+          })
+          .catch((error) => {
+            toast.error(`Не вдалося оновити торгову точку: ${error.message}`);
+          });
+    } else {
+      const newSalePoint = {
+        ...data,
+        enterpriseId: "12idasidajok31",
+      };
+      dispatch(addSalePoint(newSalePoint))
+        .unwrap()
+        .then(() => {
+          toast.success(
+            `Торгова точка «${newSalePoint.title}» була успішно додана до списку.`
+          );
+          reset();
+          toggleModal();
+        })
+        .catch((error) => {
+          const errorMessage = (error as Error).message || "Unknown error";
+          toast.error(`Не вдалося створити торгову точку: ${errorMessage}.`);
+        });
+    }
   };
 
   return (
@@ -64,7 +103,7 @@ export const SalePointForm: FC<SalePointFormProps> = ({
         register={register as unknown as UseFormRegister<FieldValues>}
         errors={errors}
       />
-      <Button type="submit" className="primary-btn">
+      <Button type="submit" className="primary-btn" disabled={isLoading}>
         {isEdit ? "Зберегти" : "Додати торгову точку"}
       </Button>
     </form>

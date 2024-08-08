@@ -11,12 +11,15 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { authReducer } from "./auth/authSlice";
-import { cartReducer, CartState } from "./cart/cartSlice";
-import { categoriesReducer } from "./categories/categoriesSlice";
-import { salePointsReducer } from "./salePoints/salePointsSlice";
-import { productsReducer } from "./products/productsSlice";
-import { cashboxesReducer } from "../redux";
+import {
+  authReducer,
+  cartReducer,
+  CartState,
+  categoriesReducer,
+  salePointsReducer,
+  productsReducer,
+  cashboxesReducer,
+} from "../redux";
 
 const persistConfig = {
   key: "cart",
