@@ -1,9 +1,9 @@
-import {
-  type Product,
-  type SalePoint,
-  type CardListItemType,
-  type Cashbox,
-  type UserInfo,
+import type {
+  Product,
+  SalePoint,
+  CardListItemType,
+  Cashbox,
+  UserInfo,
 } from "../types";
 
 export const isUserInfo = (item: CardListItemType): item is UserInfo => {

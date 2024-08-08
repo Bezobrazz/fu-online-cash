@@ -6,11 +6,7 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import { CategoriesBar, ProductCard } from "../components";
 
 import { useAppDispatch } from "../hooks";
-import {
-  addCartItem,
-  deleteCheck,
-  selectCartList,
-} from "../redux/cart/cartSlice";
+import { addCartItem, deleteCheck, selectCartList } from "../redux";
 import type { CartItem, CartProduct } from "../types";
 
 const CreateSale = () => {

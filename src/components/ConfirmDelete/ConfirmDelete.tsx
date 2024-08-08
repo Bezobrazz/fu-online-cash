@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button, Modal } from "..";
@@ -19,11 +20,14 @@ type ThunkAction = ReturnType<
 export const ConfirmDelete = ({ item, toggleModal }: ConfirmDeleteProps) => {
   const dispatch = useAppDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleDeleteAction = (
     deleteAction: ThunkAction,
     successMessage: string,
     itemName: string
   ) => {
+    setIsLoading(true);
     dispatch(deleteAction)
       .unwrap()
       .then(() => {
@@ -33,7 +37,8 @@ export const ConfirmDelete = ({ item, toggleModal }: ConfirmDeleteProps) => {
       .catch((error) => {
         const errorMessage = (error as Error).message || "Unknown error";
         toast.error(`Не вдалося видалити ${itemName}: ${errorMessage}.`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleDelete = () => {
@@ -77,10 +82,15 @@ export const ConfirmDelete = ({ item, toggleModal }: ConfirmDeleteProps) => {
         »?
       </p>
       <div className="flex justify-between">
-        <Button type="submit" className="primary-btn " onClick={handleDelete}>
+        <Button
+          type="button"
+          className="primary-btn "
+          onClick={handleDelete}
+          disabled={isLoading}
+        >
           Так
         </Button>
-        <Button type="submit" className="ordinary-btn " onClick={toggleModal}>
+        <Button type="button" className="ordinary-btn " onClick={toggleModal}>
           Ні
         </Button>
       </div>

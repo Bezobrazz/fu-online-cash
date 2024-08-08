@@ -7,7 +7,7 @@ import { BiTrashAlt } from "react-icons/bi";
 
 import { Button, CartList, CheckList } from "../components";
 
-import { deleteCheck, selectCartList } from "../redux/cart/cartSlice";
+import { deleteCheck, selectCartList } from "../redux";
 import { calculateTotalPrice } from "../helpers";
 import { useAppDispatch } from "../hooks";
 import type { CartItem } from "../types";
