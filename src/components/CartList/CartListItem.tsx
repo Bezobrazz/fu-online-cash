@@ -10,7 +10,7 @@ import {
   deleteCartItem,
   incrementCartItemQuantity,
   selectCartList,
-} from "../../redux/cart/cartSlice";
+} from "../../redux";
 import { useAppDispatch } from "../../hooks";
 import type { CartItem } from "../../types";
 

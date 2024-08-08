@@ -21,7 +21,7 @@ import {
   getTitle,
   getSalePointInfoById,
 } from "../../helpers";
-import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
+import { selectSalePoints } from "../../redux";
 
 interface CardListItemProps {
   item: CardListItemType;

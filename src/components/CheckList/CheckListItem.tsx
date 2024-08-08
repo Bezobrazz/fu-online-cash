@@ -5,7 +5,7 @@ import { BsDatabaseCheck } from "react-icons/bs";
 
 import { AddButton } from "../../components";
 
-import { createCheck, selectCartList } from "../../redux/cart/cartSlice";
+import { createCheck, selectCartList } from "../../redux";
 import { calculateTotalPrice } from "../../helpers";
 import { useAppDispatch } from "../../hooks";
 import type { CartList } from "../../types";
