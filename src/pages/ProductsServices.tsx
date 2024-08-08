@@ -25,14 +25,17 @@ const ProductsServices = () => {
         <Link to="/products">Products</Link>
       </div>
       <div className="p-8 space-y-5">
+        <div className="flex justify-between items-center w-full">
+          <a href="">Повернутись назад</a>
+          <Button
+            type="button"
+            className="primary-btn"
+            onClick={toggleCashBoxModal}
+          >
+            Додати касу
+          </Button>
+        </div>
         <CardList title="Список кас" items={cashboxes} />
-        <Button
-          type="button"
-          className="primary-btn"
-          onClick={toggleCashBoxModal}
-        >
-          Додати касу
-        </Button>
       </div>
       {isOpenCashBoxModal && (
         <Modal title="Додавання каси" toggleModal={toggleCashBoxModal}>

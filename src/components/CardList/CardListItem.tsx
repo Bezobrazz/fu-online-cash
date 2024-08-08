@@ -72,7 +72,13 @@ export const CardListItem = ({ item }: CardListItemProps) => {
         </>
       );
     }
-    if (isCashbox(item)) return <p>{item.title}</p>;
+    if (isCashbox(item))
+      return (
+        <div>
+          <h3 className="font-semibold text-[18px]">{item.title}</h3>
+          <p>Готівка: {item.cash}</p>
+        </div>
+      );
     if (isProduct(item)) {
       const salePointInfo = getSalePointInfoById(salePoints, item.salePointId);
 
@@ -115,10 +121,10 @@ export const CardListItem = ({ item }: CardListItemProps) => {
 
   const itemStyle = `p-5 flex justify-between items-center 
            ${
-             isUserInfo(item) || isProduct(item)
+             !isSalePoint(item)
                ? "bg-transparent border-b border-black text-black"
-               : "bg-teal-500 rounded-md text-white"
-           } ${isSalePoint(item) && "cursor-pointer"}`;
+               : "bg-teal-500 rounded-md text-white cursor-pointer"
+           }`;
 
   return (
     <>
