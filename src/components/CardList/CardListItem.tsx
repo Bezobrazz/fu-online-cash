@@ -4,6 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 
 import {
   CashboxForm,
+  ConfirmDelete,
   EmployeeForm,
   Modal,
   ProductForm,
@@ -30,6 +31,7 @@ export const CardListItem = ({ item }: CardListItemProps) => {
   const navigate = useNavigate();
 
   const [isOpenModal, toggleModal] = useModal();
+  const [isOpenConfirmDelete, toggleConfirmDelete] = useModal();
 
   const salePoints = useAppSelector(selectSalePoints);
 
@@ -48,6 +50,13 @@ export const CardListItem = ({ item }: CardListItemProps) => {
   ) => {
     e.stopPropagation();
     toggleModal();
+  };
+
+  const handleDeleteClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    toggleConfirmDelete();
   };
 
   const itemContent = () => {
@@ -119,7 +128,7 @@ export const CardListItem = ({ item }: CardListItemProps) => {
           <button type="button" onClick={handleEditClick}>
             <FaRegEdit className="size-5" />
           </button>
-          <button type="button">
+          <button type="button" onClick={handleDeleteClick}>
             <BiTrashAlt className=" size-5" />
           </button>
         </div>
@@ -133,6 +142,9 @@ export const CardListItem = ({ item }: CardListItemProps) => {
         >
           {renderModalContent()}
         </Modal>
+      )}
+      {isOpenConfirmDelete && (
+        <ConfirmDelete item={item} toggleModal={toggleConfirmDelete} />
       )}
     </>
   );
