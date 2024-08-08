@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 import { Role, type UserInfo } from "./../../types/user";
-
 
 interface authSlice {
   userInfo: UserInfo;
@@ -15,7 +13,7 @@ const userSample: UserInfo = {
   id: "12345",
   name: "John Doe",
   phone: "+1234567890",
-  role: Role.Admin,
+  role: Role.Owner,
   enterpriseId: "A0jYCcdJEC1LuairkZnO",
 };
 

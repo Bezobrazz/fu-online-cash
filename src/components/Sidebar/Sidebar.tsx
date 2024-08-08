@@ -1,11 +1,9 @@
+import { FaStore } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { FC } from "react";
 import { AiFillUnlock, AiOutlineDoubleRight } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
-import {
-  BsGearWideConnected,
-  BsFillBoxSeamFill,
-  BsFillStopwatchFill,
-} from "react-icons/bs";
+import { BsFillBoxSeamFill, BsFillStopwatchFill } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StatisticsView } from "../StatisticsView/StatisticsView";
@@ -66,15 +64,21 @@ export const Sidebar: FC<SidebarProps> = ({
       condition: isOwner ? true : false,
     },
     {
-      to: "/products-services",
+      to: "/products",
       icon: <BsFillBoxSeamFill />,
-      text: "Товари та послуги",
+      text: "Товари",
       condition: isOwner ? true : false,
     },
     {
-      to: "/products-services",
-      icon: <BsGearWideConnected />,
-      text: "Налаштування",
+      to: "/sale-points",
+      icon: <FaStore />,
+      text: "Торгові точки",
+      condition: isOwner ? true : false,
+    },
+    {
+      to: "/users",
+      icon: <FaUsers />,
+      text: "Користувачі",
       condition: isOwner ? true : false,
     },
   ];
