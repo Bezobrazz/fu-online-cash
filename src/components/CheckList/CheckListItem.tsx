@@ -37,8 +37,8 @@ export const CheckListItem: FC<CheckListItemProps> = ({
     <li className="flex gap-2 items-center">
       <Link
         to={`/cart/${checkId}`}
-        className={`flex gap-5 md:gap-3 items-center py-2 px-4 text-slate-100 lg:text-[18px] font-semibold bg-teal-500 rounded-md active:bg-teal-600 focus:bg-teal-600 lg:hover:bg-teal-600 transition duration-300 ${
-          checkId === currentCheckId && "outline outline-4 outline-slate-400"
+        className={`flex gap-5 md:gap-3 items-center py-2 px-4 text-slate-100 lg:text-[18px] font-semibold bg-slate-500 rounded-md active:bg-teal-600 focus:bg-teal-600 lg:hover:bg-teal-600 transition duration-300 ${
+          checkId === currentCheckId && " active-check"
         }`}
       >
         <BsDatabaseCheck className="size-5" /> {totalPrice}₴

@@ -21,7 +21,7 @@ export const Cart = () => {
   const navigate = useNavigate();
 
   const [productsInCart, setProductsInCart] = useState<CartItem[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState("");
   const [checkToDelete, setCheckToDelete] = useState<string | null>(null);
 
   useEffect(() => {
