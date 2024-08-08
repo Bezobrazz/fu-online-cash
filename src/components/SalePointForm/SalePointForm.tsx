@@ -72,6 +72,7 @@ export const SalePointForm: FC<SalePointFormProps> = ({
     } else {
       const newSalePoint = {
         ...data,
+        isActive: true,
         enterpriseId: "12idasidajok31",
       };
       dispatch(addSalePoint(newSalePoint))

@@ -23,3 +23,4 @@ export * from "./CategoriesModal/CategoriesModal.tsx";
 export * from "./CaterogyForms/AddCaterogyForm.tsx";
 export * from "./CaterogyForms/EditCaterogyForm.tsx";
 export * from "./CaterogyForms/DeleteCategoryForm.tsx";
+export * from "./ConfirmDelete/ConfirmDelete.tsx";
