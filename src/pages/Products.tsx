@@ -21,8 +21,10 @@ const Products = () => {
 
   return (
     <section className="p-5 space-y-4">
-      <div className="flex justify-between items-center w-full">
-        <a href="">Повернутись назад</a>
+      <div className="flex justify-between items-center w-full gap-10">
+        <h1 className="text-[18px] font-normal h-[48px] w-5/6 border border-solid border-gray-500 rounded-md py-2 px-2.5">
+          Тут будуть фільтри
+        </h1>
         <Button
           type="button"
           className="primary-btn block"
@@ -32,9 +34,12 @@ const Products = () => {
         </Button>
       </div>
 
-      <CardList title="Список товарів" items={products} />
+      <CardList
+        title={`Кількість товарів: ${products.length}`}
+        items={products}
+      />
       {isOpenModal && (
-        <Modal title="Додавання продукту" toggleModal={toggleModal}>
+        <Modal title="Додавання товару" toggleModal={toggleModal}>
           <ProductForm toggleModal={toggleModal} />
         </Modal>
       )}
