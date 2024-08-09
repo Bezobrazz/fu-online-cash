@@ -65,7 +65,7 @@ export const deleteCategory = createAsyncThunk<
   string,
   string,
   { rejectValue: string }
->("categopries/deleteCategory", async (id, { rejectWithValue }) => {
+>("categories/deleteCategory", async (id, { rejectWithValue }) => {
   try {
     await deleteDocumentById("categories", id);
     return id;
