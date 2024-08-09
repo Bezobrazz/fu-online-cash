@@ -10,7 +10,7 @@ import { addCartItem, deleteCheck, selectCartList } from "../redux";
 import type { CartItem, CartProduct } from "../types";
 import { selectProducts } from "../redux";
 import { getProducts } from "../redux/products/productsOperations";
-import { formatNumber } from "../helpers";
+import { formatNumber, getProductInitials } from "../helpers";
 
 const CreateSale = () => {
   const cartList = useSelector(selectCartList);
@@ -82,15 +82,6 @@ const CreateSale = () => {
     productQuantity: dbProduct.quantity,
     productPrice: dbProduct.price,
   }));
-
-  const getProductInitials = (name: string): string => {
-    const words = name.split(" ");
-    const initials = words
-      .map((word) => word.charAt(0))
-      .join("")
-      .toUpperCase();
-    return initials;
-  };
 
   const combinedProducts = productsInCart.reduce((acc: CartItem[], item) => {
     const existingItemIndex = acc.findIndex(

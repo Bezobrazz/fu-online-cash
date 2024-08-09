@@ -6,3 +6,4 @@ export * from "./getCategoryStateDescription";
 export * from "./getSalePointInfoById";
 export * from "./formatNumber";
 export * from "./getCategoryStateDescription";
+export * from "./getProductInitials";
