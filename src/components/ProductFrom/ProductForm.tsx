@@ -9,7 +9,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 
-import { Button, CategoriesModal, Input, Modal } from "../../components";
+import {
+  AddButton,
+  Button,
+  CategoriesModal,
+  Input,
+  Modal,
+} from "../../components";
 
 import { productFormSchema } from "../../schemas/productFormSchema";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
@@ -144,13 +150,7 @@ export const ProductForm: FC<ProductFormProps> = ({
               {errors["category"]?.message}
             </p>
           </div>
-          <button
-            type="button"
-            className="size-[48px] flex items-center justify-center border border-gray-500 rounded-md bg-gray-300 hover:bg-gray-500"
-            onClick={toggle}
-          >
-            <FiPlus className="fill-blak size-5" />
-          </button>
+          <AddButton size="48" onClick={toggle} />
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="text-[20px]">Торгова точка:</label>
