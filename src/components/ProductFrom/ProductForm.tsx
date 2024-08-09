@@ -7,7 +7,6 @@ import {
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { FiPlus } from "react-icons/fi";
 
 import {
   AddButton,
@@ -19,12 +18,12 @@ import {
 
 import { productFormSchema } from "../../schemas/productFormSchema";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
-import { selectCategories } from "../../redux/categories/categoriesSlice";
-import { selectSalePoints } from "../../redux/salePoints/salePointsSlice";
 import {
   addProduct,
   editProduct,
-} from "../../redux/products/productsOperations";
+  selectCategories,
+  selectSalePoints,
+} from "../../redux";
 import type { BaseProduct, Product } from "../../types";
 
 interface ProductFormProps {

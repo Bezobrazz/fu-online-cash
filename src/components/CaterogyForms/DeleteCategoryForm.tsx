@@ -5,10 +5,10 @@ import { Button } from "../../components";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { deleteCategory } from "../../redux/categories/categoriesOperations";
+import { isItemUnique } from "../../helpers";
+import { selectProducts } from "../../redux";
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
-import { isItemUnique } from "../../helpers";
-import { selectProducts } from "../../redux/products/productsSlice";
 
 interface DeleteCategoryFormProps {
   activeCategory: Category;

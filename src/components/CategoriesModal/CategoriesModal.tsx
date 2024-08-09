@@ -7,9 +7,9 @@ import {
   EditCaterogyForm,
 } from "../../components";
 
+import { getCategoryStateDescription } from "../../helpers";
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
-import { getCategoryStateDescription } from "../../helpers";
 
 interface CategoriesModalProps {
   categories: Category[];
