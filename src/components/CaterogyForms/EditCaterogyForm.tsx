@@ -8,7 +8,7 @@ import { Button, Input } from "../../components";
 import { useAppDispatch } from "../../hooks";
 import { categoryFormSchema } from "../../schemas";
 import { isItemUnique } from "../../helpers/isItemUnique";
-import { editCategory } from "../../redux/categories/categoriesOperations";
+import { editCategory } from "../../redux";
 import { CategoryState } from "../../types";
 import type { Category } from "../../types";
 

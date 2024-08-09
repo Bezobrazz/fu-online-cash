@@ -9,7 +9,7 @@ import { Button } from "../Button/Button";
 import { useAppDispatch } from "../../hooks";
 import { categoryFormSchema } from "../../schemas";
 import { isItemUnique } from "../../helpers";
-import { addCategory } from "../../redux/categories/categoriesOperations";
+import { addCategory } from "../../redux";
 import type { Category, NewCategory } from "../../types";
 
 interface FormData {
