@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Button, Modal } from "../../components";
 
 import { useAppDispatch } from "../../hooks";
-import { deactivateSalePoint, deleteCashbox } from "../../redux";
+import { deactivateSalePoint, deleteCashbox, deleteProduct } from "../../redux";
 import { isCashbox, isProduct, isSalePoint, isUserInfo } from "../../helpers";
 import type { CardListItemType } from "../../types";
 
@@ -54,7 +54,11 @@ export const ConfirmDelete = ({ item, toggleModal }: ConfirmDeleteProps) => {
       );
     }
     if (isProduct(item)) {
-      console.log("delete product");
+      handleDeleteAction(
+        deleteProduct(item.id),
+        `Товар «${item.name}» було успішно видалено зі списку.`,
+        "товар"
+      );
     }
     if (isSalePoint(item)) {
       handleDeleteAction(

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
   addDocumentToCollection,
+  deleteDocumentById,
   editDocumentById,
   getCollectionData,
 } from "../../firebase/firebaseService";
@@ -51,6 +52,23 @@ export const editProduct = createAsyncThunk<
       ...data,
     });
     return updatedProduct;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
+export const deleteProduct = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>("products/deleteProduct", async (id, { rejectWithValue }) => {
+  try {
+    await deleteDocumentById("products", id);
+    return id;
   } catch (error) {
     if (error instanceof Error) {
       return rejectWithValue(error.message);

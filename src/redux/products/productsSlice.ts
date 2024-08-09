@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { addProduct, editProduct, getProducts } from "./productsOperations";
+import {
+  addProduct,
+  deleteProduct,
+  editProduct,
+  getProducts,
+} from "./productsOperations";
 import type { Product } from "../../types";
 
 interface ProductsSlice {
@@ -28,6 +33,12 @@ const productsSlice = createSlice({
           (product) => product.id === payload.id
         );
         state.products[index] = payload;
+      })
+      .addCase(deleteProduct.fulfilled, (state, { payload }) => {
+        const index = state.products.findIndex((elem) => elem.id === payload);
+        if (index !== -1) {
+          state.products.splice(index, 1);
+        }
       });
   },
   selectors: {
