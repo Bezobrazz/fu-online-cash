@@ -22,8 +22,11 @@ import {
   addProduct,
   editProduct,
   selectCategories,
+  selectProducts,
   selectSalePoints,
 } from "../../redux";
+import { checkObjectEquality } from "../../helpers/checkObjectEquality";
+import { isItemUnique } from "../../helpers";
 import type { BaseProduct, Product } from "../../types";
 
 interface ProductFormProps {
@@ -53,6 +56,7 @@ export const ProductForm: FC<ProductFormProps> = ({
 
   const categories = useAppSelector(selectCategories);
   const salePoints = useAppSelector(selectSalePoints);
+  const products = useAppSelector(selectProducts);
 
   useEffect(() => {
     if (isEdit && item) {
@@ -66,6 +70,25 @@ export const ProductForm: FC<ProductFormProps> = ({
   }, []);
 
   const onSubmit: SubmitHandler<BaseProduct> = (data) => {
+    if (isEdit && item) {
+      const { id, ...itemInfo } = item;
+      const res = checkObjectEquality(itemInfo, data);
+
+      if (res) {
+        toggleModal();
+        return;
+      }
+    }
+
+    if (
+      !isItemUnique(products, data.article, "article") &&
+      data.article !== item?.article
+    ) {
+      return toast.error(
+        "Неможливо виконати операцію. Такий продукт вже існує."
+      );
+    }
+
     const action =
       isEdit && item?.id
         ? editProduct({ id: item.id, data })
