@@ -20,6 +20,7 @@ import {
   productsReducer,
   cashboxesReducer,
 } from "../redux";
+import { employeesReducer } from "./employees/employeesSlice";
 
 const persistConfig = {
   key: "cart",
@@ -35,6 +36,7 @@ export const store = configureStore({
     salePoints: salePointsReducer,
     products: productsReducer,
     cashboxes: cashboxesReducer,
+    employees: employeesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
