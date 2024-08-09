@@ -76,9 +76,7 @@ export const ProductForm: FC<ProductFormProps> = ({
       .unwrap()
       .then(() => {
         toast.success(
-          `Продукт «${data.name}» був успішно ${
-            isEdit ? "змінений" : "доданий"
-          }.`
+          `Товар «${data.name}» був успішно ${isEdit ? "змінений" : "доданий"}.`
         );
         reset();
         toggleModal();
