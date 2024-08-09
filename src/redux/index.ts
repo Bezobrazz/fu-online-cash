@@ -8,3 +8,5 @@ export * from "./products/productsOperations";
 export * from "./products/productsSlice";
 export * from "./salePoints/salePointsOperations";
 export * from "./salePoints/salePointsSlice";
+export * from "./employees/employeeOperations";
+export * from "./employees/employeesSlice";

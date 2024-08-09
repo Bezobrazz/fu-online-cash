@@ -4,10 +4,13 @@ export enum Role {
   Employee = "EMPLOYEE",
 }
 
-export interface UserInfo {
-  id: string;
+export interface NewUser {
   name: string;
   phone: string;
   role: Role;
   enterpriseId: string;
+}
+
+export interface UserInfo extends NewUser {
+  id: string;
 }
