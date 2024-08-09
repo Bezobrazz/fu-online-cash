@@ -10,7 +10,7 @@ export const AddButton: FC<AddButtonProps> = ({ size = "40", ...props }) => {
   return (
     <button
       type="button"
-      className={`group flex justify-center items-center bg-slate-300 rounded-md hover:bg-slate-500 focus:bg-slate-500 active:bg-slate-500 transition duration-300`}
+      className={`group flex justify-center items-center bg-slate-300 rounded-md hover:bg-slate-500 focus:bg-slate-500 active:bg-slate-500 transition duration-300 shadow-sm`}
       style={{ width: buttonSize, height: buttonSize }}
       {...props}
     >
