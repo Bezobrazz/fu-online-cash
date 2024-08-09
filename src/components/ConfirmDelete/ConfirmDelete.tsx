@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-import { Button, Modal } from "..";
+import { Button, Modal } from "../../components";
 
 import { useAppDispatch } from "../../hooks";
-import type { CardListItemType } from "../../types";
 import { deactivateSalePoint, deleteCashbox } from "../../redux";
 import { isCashbox, isProduct, isSalePoint, isUserInfo } from "../../helpers";
+import type { CardListItemType } from "../../types";
 
 interface ConfirmDeleteProps {
   item: CardListItemType;
@@ -77,11 +77,14 @@ export const ConfirmDelete = ({ item, toggleModal }: ConfirmDeleteProps) => {
 
   return (
     <Modal title="Видалення" toggleModal={toggleModal}>
-      <p className="mb-[10px]">
+      <p className="text-[18px] mb-[10px] h-[100px] flex items-center justify-center">
         Ви дійсно бажаєте видалити «{title}
         »?
       </p>
       <div className="flex justify-between">
+        <Button type="button" className="ordinary-btn " onClick={toggleModal}>
+          Ні
+        </Button>
         <Button
           type="button"
           className="primary-btn "
@@ -89,9 +92,6 @@ export const ConfirmDelete = ({ item, toggleModal }: ConfirmDeleteProps) => {
           disabled={isLoading}
         >
           Так
-        </Button>
-        <Button type="button" className="ordinary-btn " onClick={toggleModal}>
-          Ні
         </Button>
       </div>
     </Modal>
