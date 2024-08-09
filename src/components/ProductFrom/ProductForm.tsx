@@ -154,14 +154,14 @@ export const ProductForm: FC<ProductFormProps> = ({
           {salePoints.length === 0 || salePoints.length > 3 ? (
             <div className="relative">
               <select
-                className="select w-full field"
+                className="select select-bordered w-full field"
                 disabled={salePoints.length === 0}
                 {...register("salePointId")}
                 defaultValue=""
               >
                 {salePoints.length !== 0 ? (
                   <>
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Виберіть торгову точку
                     </option>
                     {salePoints.map((salePoint) => (
